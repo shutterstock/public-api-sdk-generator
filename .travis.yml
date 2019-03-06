@@ -1,1 +1,13 @@
 language: generic
+
+services
+  - docker
+
+before_install:
+  - docker build -t sdk-generator .
+  - CID=`docker run -d -ti --rm sdk-generator:latest`
+  - docker cp $CID:/opt/node-sdk/sdk ./sdk
+  - docker kill $CID
+
+script:
+  - ls -al ./sdk/ # TODO: git push sdk here to javascript repo

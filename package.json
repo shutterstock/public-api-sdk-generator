@@ -1,0 +1,11 @@
+{
+  "name": "public-api-sdk-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:shutterstock/public-api-sdk-generator.git",
+  "author": "msmol <msmolash@shutterstock.com>",
+  "license": "MIT",
+  "dependencies": {
+    "api-spec-converter": "^2.7.31"
+  }
+}
