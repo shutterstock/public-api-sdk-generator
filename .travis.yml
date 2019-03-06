@@ -10,4 +10,11 @@ before_install:
   - docker kill $CID
 
 script:
-  - ls -al ./sdk/ # TODO: git push sdk here to javascript repo
+  - git config user.email tech.api.team@shutterstock.com
+  - git config user.name shutterbot
+  - git clone https://$GH_USER:$GH_PASS@github.com/shutterstock/public-api-javascript-sdk.git
+  - cp -r ./sdk/* ./public-api-javascript-sdk
+  - cd ./public-api-javascript-sdk
+  - git add .
+  - git commit -m "Updating JavaScript SDK"
+  - git push
