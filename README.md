@@ -1,7 +1,7 @@
 # Generate Public API SDKs
 
-- Generate JavaScript (NodeJS) SDK with swagger-codegen upon commit to this repo
-- Push SDK to [shutterstock/public-api-javascript-sdk](https://github.com/shutterstock/public-api-javascript-sdk) 
+- Generates JavaScript (NodeJS) SDK with swagger-codegen upon commit to this repo
+- Pushes SDK to [shutterstock/public-api-javascript-sdk](https://github.com/shutterstock/public-api-javascript-sdk) 
 
 ## TODO:
 
