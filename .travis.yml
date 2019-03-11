@@ -13,8 +13,7 @@ script:
   - git config user.email tech.api.team@shutterstock.com
   - git config user.name shutterbot
   - git clone https://$GH_USER:$GH_PASS@github.com/shutterstock/public-api-javascript-sdk.git
-  - mkdir -p ./public-api-javascript-sdk/src
-  - cp -r ./sdk/src ./public-api-javascript-sdk/src
+  - cp -r ./sdk/src ./public-api-javascript-sdk
   - cp ./sdk/package.json ./public-api-javascript-sdk
   - cd ./public-api-javascript-sdk
   - git add .
