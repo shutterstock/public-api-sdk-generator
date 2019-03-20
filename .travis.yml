@@ -16,6 +16,10 @@ script:
   - cp -r ./sdk/src ./public-api-javascript-sdk
   - cp ./sdk/package.json ./public-api-javascript-sdk
   - cd ./public-api-javascript-sdk
+  - echo "node_modules" > .gitignore
+  - nvm install 10
+  - nvm use 10
+  - yarn add --dev chai
   - git add .
   - git commit -m "Updating JavaScript SDK"
   - git push
