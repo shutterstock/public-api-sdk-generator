@@ -1,4 +1,5 @@
 {
   "usePromises": true,
-  "useES6": false
+  "useES6": false,
+  "hideGenerationTimestamp": true
 }
