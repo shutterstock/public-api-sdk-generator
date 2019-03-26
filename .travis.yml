@@ -7,15 +7,20 @@ services:
 before_install:
   - docker build -t sdk-generator .
   - CID=`docker run -d -ti --rm sdk-generator:latest`
-  - docker cp $CID:/opt/node-sdk/sdk ./sdk
+  - docker cp $CID:/opt/node-sdk/dist ./dist
   - docker kill $CID
 
 script:
   - git config user.email tech.api.team@shutterstock.com
   - git config user.name shutterbot
   - git clone https://$GH_USER:$GH_PASS@github.com/shutterstock/public-api-javascript-sdk.git
-  - cp -r ./sdk/src ./public-api-javascript-sdk
+  - cp -r ./dist/src ./public-api-javascript-sdk
   - cd ./public-api-javascript-sdk
+  - nvm install 10
+  - nvm use 10
+  - yarn install
+  - yarn run lint
+  - yarn run test
   - git add .
   - git commit --allow-empty -m "Updating JavaScript SDK"
   - git push
