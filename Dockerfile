@@ -16,7 +16,7 @@ RUN node build/swagger/openapiToSwagger.js
 
 FROM swaggerapi/swagger-codegen-cli as sdk-build
 
-RUN mkdir -p /opt/node-sdk/sdk
+RUN mkdir -p /opt/node-sdk/dist
 
 WORKDIR /opt/node-sdk
 
@@ -24,7 +24,7 @@ COPY --from=swagger-build /opt/swagger-build/swagger2.json .
 COPY build/sdk/config.json .
 COPY build/sdk/fixes/add_auth_shortcut.sh .
 
-RUN java -jar /opt/swagger-codegen-cli/swagger-codegen-cli.jar generate -i ./swagger2.json -o ./sdk -c ./config.json -l javascript
+RUN java -jar /opt/swagger-codegen-cli/swagger-codegen-cli.jar generate -i ./swagger2.json -o ./dist -c ./config.json -l javascript
 
 RUN ./add_auth_shortcut.sh
 
