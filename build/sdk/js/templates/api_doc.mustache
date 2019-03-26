@@ -50,11 +50,15 @@ const {{{paramName}}} = {{{example}}}; // {{{dataType}}} | {{{description}}}
 {{/required}}{{/allParams}}{{/vendorExtensions.x-codegen-hasRequiredParams}}{{#hasOptionalParams}}
 const queryParams = { {{#allParams}}{{^required}}
   '{{{paramName}}}': {{{example}}}{{#vendorExtensions.x-codegen-hasMoreOptional}},{{/vendorExtensions.x-codegen-hasMoreOptional}} // {{{dataType}}} | {{{description}}}{{/required}}{{/allParams}}
-};{{/hasOptionalParams}}{{/hasParams}}
+};{{/hasOptionalParams}}
+{{/hasParams}}
+
 {{#usePromises}}
-api.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}queryParams{{/hasOptionalParams}}).then(function({{#returnType}}data{{/returnType}}) {
-  {{#returnType}}console.log('API called successfully. Returned data: ' + data);{{/returnType}}{{^returnType}}console.log('API called successfully.');{{/returnType}}
-}, function(error) {
+api.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}queryParams{{/hasOptionalParams}})
+.then(function({{#returnType}}data{{/returnType}}) {
+  {{#returnType}}console.log(data);{{/returnType}}{{^returnType}}console.log('API called successfully.');{{/returnType}}
+})
+.catch(function(error) {
   console.error(error);
 });
 
