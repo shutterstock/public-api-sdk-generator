@@ -116,15 +116,15 @@ To get the client ID and secret key for your application, go to https://develope
 The following example uses the variables `applicationClientId` and `applicationClientSecret` for the application's client ID and secret.
 
 ```javascript
-var sstk = require('shutterstock-api');
+const sstk = require('shutterstock-api');
 
-var apiClient = sstk.ApiClient.instance;
+const apiClient = sstk.ApiClient.instance;
 
-var basicAuth = apiClient.authentications['basic'];
+const basicAuth = apiClient.authentications['basic'];
 basicAuth.username = applicationClientId;
 basicAuth.password = applicationClientSecret;
 
-var api = new sstk.ImagesApi();
+const api = new sstk.ImagesApi();
 ```
 
 ### OAuth authentication
