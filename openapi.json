@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "shutterstock",
+    "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
     "version": "1.0.0"
   },
@@ -315,7 +315,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -433,20 +433,24 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl -X GET https://api.shutterstock.com/v2/images/search \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"query=Vienna\" \\\n--data-urlencode \"orientation=horizontal\" \\\n--data-urlencode \"sort=popular\"\n"
+            "source": "curl -X GET https://api.shutterstock.com/v2/images/search \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\r\n-G \\\r\n--data-urlencode \"query=Vienna\" \\\r\n--data-urlencode \"orientation=horizontal\" \\\r\n--data-urlencode \"sort=popular\"\r\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/images/search\", {\n  headers: {\n    \"User-Agent\": \"request\",\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\n  },\n  qs: {\n    \"query\": \"New York\",\n    \"sort\": \"popular\",\n    \"orientation\": \"horizontal\"\n  },\n  useQueryString: true\n})\n.then(res => {\n  console.log(res);\n});\n"
+            "source": "const request = require(\"request-promise\");\r\n\r\nrequest.get(\"https://api.shutterstock.com/v2/images/search\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"query\": \"New York\",\r\n    \"sort\": \"popular\",\r\n    \"orientation\": \"horizontal\"\r\n  },\r\n  useQueryString: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
+          },
+          {
+            "lang": "javascript--sdk",
+            "source": "const sstk = require('shutterstock-api');\r\nconst apiClient = sstk.ApiClient.instance;\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst queryParams = {\r\n  query: 'New York',\r\n  sort: 'popular',\r\n  orientation: 'horizontal'\r\n};\r\n\r\napi.searchImages(queryParams).then(function({data}) {\r\n  console.log('API called successfully.');\r\n  const arrayOfResults = data.map(image => {\r\n    return {\r\n      id: image.id,\r\n      description: image.description,\r\n      preview: image.assets.preview.url\r\n    }\r\n  });\r\n  console.log(arrayOfResults);\r\n}, function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
-            "source": "$queryFields = [\n  \"query\" => \"New York\",\n  \"sort\" => \"popular\",\n  \"orientation\" => \"horizontal\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$queryFields = [\r\n  \"query\" => \"New York\",\r\n  \"sort\" => \"popular\",\r\n  \"orientation\" => \"horizontal\"\r\n];\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/search?\" . http_build_query($queryFields),\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);\r\n"
           }
         ],
         "operationId": "searchImages",
         "summary": "Search for images",
-        "description": "This endpoint searches for images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
+        "description": "This endpoint searches for images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT. Free API accounts show results only from a limited library of media, not the full Shutterstock media library. Also, the number of search fields they can use in a request is limited."
       }
     },
     "/v2/images/{id}": {
@@ -463,7 +467,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -692,7 +696,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -881,15 +885,19 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "DATA='{\n  \"images\": [\n    {\n      \"image_id\": \"59656357\"\n      \"format\": \"jpg\"\n    },\n    {\n      \"image_id\": \"1079756147\"\n      \"format\": \"jpg\",\n    }\n    ]\n  }'\n\ncurl -X POST 'https://api.shutterstock.com/v2/images/licenses?subscription_id='$SUBSCRIPTION_ID \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"$DATA\"\n"
+            "source": "DATA='{\r\n  \"images\": [\r\n    {\r\n      \"image_id\": \"59656357\"\r\n      \"format\": \"jpg\"\r\n    },\r\n    {\r\n      \"image_id\": \"1079756147\"\r\n      \"format\": \"jpg\",\r\n    }\r\n    ]\r\n  }'\r\n\r\ncurl -X POST 'https://api.shutterstock.com/v2/images/licenses?subscription_id='$SUBSCRIPTION_ID \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\r\n-H 'Content-Type: application/json' \\\r\n-d \"$DATA\"\r\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nconst body = {\n  \"images\": [\n    {\n      \"image_id\": \"539753938\",\n      \"format\": \"jpg\"\n    },\n    {\n      \"image_id\": \"558282247\",\n      \"format\": \"jpg\"\n    }\n    ]\n  };\n\nrequest.post(\"https://api.shutterstock.com/v2/images/licenses\", {\n  headers: {\n    \"User-Agent\": \"request\",\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\n  },\n  qs: {\n    \"subscription_id\": process.env.SUBSCRIPTION_ID\n  },\n  useQueryString: true,\n  json: true,\n  body: body,\n})\n.then(res => {\n  console.log(res);\n});\n"
+            "source": "const request = require(\"request-promise\");\r\n\r\nconst body = {\r\n  \"images\": [\r\n    {\r\n      \"image_id\": \"539753938\",\r\n      \"format\": \"jpg\"\r\n    },\r\n    {\r\n      \"image_id\": \"558282247\",\r\n      \"format\": \"jpg\"\r\n    }\r\n    ]\r\n  };\r\n\r\nrequest.post(\"https://api.shutterstock.com/v2/images/licenses\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"subscription_id\": process.env.SUBSCRIPTION_ID\r\n  },\r\n  useQueryString: true,\r\n  json: true,\r\n  body: body,\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
+          },
+          {
+            "lang": "javascript--sdk",
+            "source": "const sstk = require('shutterstock-api');\r\nconst apiClient = sstk.ApiClient.instance;\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst imageId = '' // ID of image to license\r\n\r\nconst imageToLicense = new sstk.LicenseImage(imageId);\r\n\r\nconst body = new sstk.LicenseImageRequest([imageToLicense]);\r\n\r\nconst queryParams = {\r\n  subscriptionId: process.env.SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  format: 'jpg',\r\n  size: 'huge'\r\n};\r\n\r\napi.licenseImages(body, queryParams).then(function({data}) {\r\n  console.log('API called successfully.');\r\n  const downloadUrls = data.map(licensedImage => {\r\n    return licensedImage.download.url;\r\n  })\r\n  console.log(downloadUrls);\r\n}, function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
-            "source": "$body = [\n  \"images\" => [\n    [\n      \"image_id\" => \"539753938\",\n      \"format\" => \"jpg\"\n    ],\n    [\n      \"image_id\" => \"558282247\",\n      \"format\" => \"jpg\"\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses?subscription_id=$SUBSCRIPTION_ID\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$body = [\r\n  \"images\" => [\r\n    [\r\n      \"image_id\" => \"539753938\",\r\n      \"format\" => \"jpg\"\r\n    ],\r\n    [\r\n      \"image_id\" => \"558282247\",\r\n      \"format\" => \"jpg\"\r\n    ]\r\n  ]\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses?subscription_id=$SUBSCRIPTION_ID\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);\r\n"
           }
         ],
         "tags": [
@@ -1178,7 +1186,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "example": "minimal",
@@ -1267,7 +1275,7 @@
         ],
         "operationId": "getImageList",
         "summary": "List images",
-        "description": "This endpoint lists information about one or more images, including the available sizes. Only accounts with subscriptions can use it."
+        "description": "This endpoint lists information about one or more images, including the available sizes."
       },
       "post": {
         "responses": {
@@ -1315,20 +1323,24 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl -X POST 'https://api.shutterstock.com/v2/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg -w 0`\\\"}\"\n"
+            "source": "curl -X POST 'https://api.shutterstock.com/v2/images' \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\r\n-H 'Content-Type: application/json' \\\r\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg -w 0`\\\"}\"\r\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\nconst fs = require('fs');\n\nfs.readFile(\"myImage.jpg\", \"base64\", function (err, data) {\n\n    const body = {\n      \"base64_image\": data\n    }\n\n    request.post(\"https://api.shutterstock.com/v2/images\", {\n      headers: {\n        \"User-Agent\": \"request\"\n      },\n      auth: {\n        \"user\": \"1fbce-97bec-50a53-680e2-31252-ef6d9\",\n        \"pass\": \"937d6-45cd4-76cb4-acddc-681d3-1b5f6\"\n      },\n      json: true,\n      body: body\n    })\n    .then(res => {\n      console.log(res);\n    })\n\n});\n"
+            "source": "const request = require(\"request-promise\");\r\nconst fs = require('fs');\r\n\r\nfs.readFile(\"myImage.jpg\", \"base64\", function (err, data) {\r\n\r\n    const body = {\r\n      \"base64_image\": data\r\n    }\r\n\r\n    request.post(\"https://api.shutterstock.com/v2/images\", {\r\n      headers: {\r\n        \"User-Agent\": \"request\"\r\n      },\r\n      auth: {\r\n        \"user\": \"1fbce-97bec-50a53-680e2-31252-ef6d9\",\r\n        \"pass\": \"937d6-45cd4-76cb4-acddc-681d3-1b5f6\"\r\n      },\r\n      json: true,\r\n      body: body\r\n    })\r\n    .then(res => {\r\n      console.log(res);\r\n    })\r\n\r\n});\r\n"
+          },
+          {
+            "lang": "javascript--sdk",
+            "source": "const sstk = require('shutterstock-api');\r\nconst apiClient = sstk.ApiClient.instance;\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst imageFile = fs.readFileSync('./myImage.jpg');\r\nconst base64File = Buffer.from(imageFile).toString('base64');\r\n\r\nconst body = new sstk.ImageCreateRequest(base64File);\r\n\r\nconst queryParams = {\r\n  page: 1,\r\n  perPage: 20,\r\n  view: 'minimal'\r\n};\r\n\r\napi.uploadEphemeralImage(body).then(function(data) {\r\n  console.log(data.id);\r\n  api.getSimilarImages(data.id, queryParams).then(function(similarImageData) {\r\n    const arrayOfResults = similarImageData.data.map(image => {\r\n      return {\r\n        id: image.id,\r\n        description: image.description,\r\n        preview: image.assets.preview.url\r\n      }\r\n    });\r\n    console.log(arrayOfResults)\r\n  })\r\n}, function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
-            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$body = [\n  \"base64_image\" => $encodedImageData\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$imageData = file_get_contents(\"myImage.jpg\");\r\n$encodedImageData = base64_encode($imageData);\r\n\r\n$body = [\r\n  \"base64_image\" => $encodedImageData\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);\r\n"
           }
         ],
         "operationId": "uploadEphemeralImage",
         "summary": "Upload images",
-        "description": "This endpoint uploads an image for reverse image search. The image must be in JPEG or PNG format. See <a href=\"#searching-for-media-reverse-image-search\">Reverse image search</a>.",
+        "description": "This endpoint uploads an image for reverse image search. The image must be in JPEG or PNG format.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2656,7 +2668,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -2751,15 +2763,19 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl -X GET \"https://api.shutterstock.com/v2/videos/search\" \\\n--header \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"query=hot air balloon\" \\\n--data-urlencode \"duration_from=30\" \\\n--data-urlencode \"sort=popular\"\n"
+            "source": "curl -X GET \"https://api.shutterstock.com/v2/videos/search\" \\\r\n--header \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\r\n-G \\\r\n--data-urlencode \"query=hot air balloon\" \\\r\n--data-urlencode \"duration_from=30\" \\\r\n--data-urlencode \"sort=popular\"\r\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/videos/search\", {\n  headers: {\n    \"User-Agent\": \"request\",\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\n  },\n  qs: {\n    \"query\": \"hot air balloon\",\n    \"duration_from\": 30,\n    \"sort\": \"popular\"\n  },\n  useQueryString: true\n})\n.then(res => {\n  console.log(res);\n});\n"
+            "source": "const request = require(\"request-promise\");\r\n\r\nrequest.get(\"https://api.shutterstock.com/v2/videos/search\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"query\": \"hot air balloon\",\r\n    \"duration_from\": 30,\r\n    \"sort\": \"popular\"\r\n  },\r\n  useQueryString: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
+          },
+          {
+            "lang": "javascript--sdk",
+            "source": "const sstk = require('shutterstock-api');\r\nconst apiClient = sstk.ApiClient.instance;\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst queryParams = {\r\n  query: 'hot air balloon',\r\n  duration_from: 30,\r\n  sort: 'popular'\r\n};\r\n\r\napi.searchVideos(queryParams).then(function({data}) {\r\n  console.log('API called successfully.');\r\n  const arrayOfResults = data.map(video => {\r\n    return {\r\n      id: video.id,\r\n      description: video.description,\r\n      preview: video.assets.preview_jpg\r\n    }\r\n  });\r\n  console.log(arrayOfResults);\r\n}, function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
-            "source": "$queryFields = [\n  \"query\" => \"hot air balloon\",\n  \"duration_from\" => 30,\n  \"sort\" => \"popular\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$queryFields = [\r\n  \"query\" => \"hot air balloon\",\r\n  \"duration_from\" => 30,\r\n  \"sort\" => \"popular\"\r\n];\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/search?\" . http_build_query($queryFields),\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);\r\n"
           }
         ],
         "operationId": "searchVideos",
@@ -2787,7 +2803,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -2891,7 +2907,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -3136,15 +3152,19 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "DATA='{\n  \"videos\": [\n    {\n      \"video_id\": \"2140697\",\n      \"size\": \"hd\"\n    },\n    {\n      \"video_id\": \"5613314\",\n      \"size\": \"4k\"\n    }\n  ]\n}'\n\ncurl -X POST 'https://api.shutterstock.com/v2/videos/licenses?subscription_id='$SUBSCRIPTION_ID \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
+            "source": "DATA='{\r\n  \"videos\": [\r\n    {\r\n      \"video_id\": \"2140697\",\r\n      \"size\": \"hd\"\r\n    },\r\n    {\r\n      \"video_id\": \"5613314\",\r\n      \"size\": \"4k\"\r\n    }\r\n  ]\r\n}'\r\n\r\ncurl -X POST 'https://api.shutterstock.com/v2/videos/licenses?subscription_id='$SUBSCRIPTION_ID \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nconst body = {\n  \"videos\": [\n    {\n      \"video_id\": \"2140697\",\n      \"size\": \"hd\"\n    },\n    {\n      \"video_id\": \"5613314\",\n      \"size\": \"4k\"\n    }\n  ]\n}\n\nrequest.post(\"https://api.shutterstock.com/v2/videos/licenses\", {\n  headers: {\n    \"User-Agent\": \"request\",\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\n  },\n  qs: {\n    \"subscription_id\": process.env.SUBSCRIPTION_ID\n  },\n  useQueryString: true,\n  body: body,\n  json: true\n})\n.then(res => {\n  console.log(res);\n});\n"
+            "source": "const request = require(\"request-promise\");\r\n\r\nconst body = {\r\n  \"videos\": [\r\n    {\r\n      \"video_id\": \"2140697\",\r\n      \"size\": \"hd\"\r\n    },\r\n    {\r\n      \"video_id\": \"5613314\",\r\n      \"size\": \"4k\"\r\n    }\r\n  ]\r\n}\r\n\r\nrequest.post(\"https://api.shutterstock.com/v2/videos/licenses\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"subscription_id\": process.env.SUBSCRIPTION_ID\r\n  },\r\n  useQueryString: true,\r\n  body: body,\r\n  json: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
+          },
+          {
+            "lang": "javascript--sdk",
+            "source": "const sstk = require('shutterstock-api');\r\nconst apiClient = sstk.ApiClient.instance;\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.VideosApi();\r\n\r\nconst videoId = '' // ID of video to license\r\n\r\nconst videoToLicense = new sstk.LicenseVideo(videoId);\r\n\r\nconst body = new sstk.LicenseVideoRequest([videoToLicense]);\r\n\r\nconst queryParams = {\r\n  subscriptionId: SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  size: 'web'\r\n};\r\n\r\napi.searchVideos(body, queryParams).then(function({data}) {\r\n  console.log('API called successfully.');\r\n  console.log(data);\r\n}, function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
-            "source": "$body = [\n  \"videos\" => [\n    [\n      \"video_id\" => \"2140697\",\n      \"format\" => \"hd\"\n    ],\n    [\n      \"video_id\" => \"5613314\",\n      \"format\" => \"4k\"\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/licenses?subscription_id=$SUBSCRIPTION_ID\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$body = [\r\n  \"videos\" => [\r\n    [\r\n      \"video_id\" => \"2140697\",\r\n      \"format\" => \"hd\"\r\n    ],\r\n    [\r\n      \"video_id\" => \"5613314\",\r\n      \"format\" => \"4k\"\r\n    ]\r\n  ]\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/licenses?subscription_id=$SUBSCRIPTION_ID\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);\r\n"
           }
         ],
         "operationId": "licenseVideos",
@@ -4226,7 +4246,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -4524,7 +4544,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "example": "full",
@@ -4661,15 +4681,19 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl -X GET \"https://api.shutterstock.com/v2/audio/search\" \\\n--header \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"query=bluegrass\" \\\n--data-urlencode \"duration_from=60\" \\\n--data-urlencode \"moods=uplifting\"\n"
+            "source": "curl -X GET \"https://api.shutterstock.com/v2/audio/search\" \\\r\n--header \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\r\n-G \\\r\n--data-urlencode \"query=bluegrass\" \\\r\n--data-urlencode \"duration_from=60\" \\\r\n--data-urlencode \"moods=uplifting\"\r\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/audio/search\", {\n  json: true,\n  headers: {\n    \"User-Agent\": \"request\",\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\n  },\n  qs: {\n    \"query\": \"bluegrass\",\n    \"duration_from\": 60,\n    \"moods\": \"uplifting\"\n  },\n  useQueryString: true\n})\n.then(res => {\n  console.log(res);\n});\n"
+            "source": "const request = require(\"request-promise\");\r\n\r\nrequest.get(\"https://api.shutterstock.com/v2/audio/search\", {\r\n  json: true,\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"query\": \"bluegrass\",\r\n    \"duration_from\": 60,\r\n    \"moods\": \"uplifting\"\r\n  },\r\n  useQueryString: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
+          },
+          {
+            "lang": "javascript--sdk",
+            "source": "const sstk = require('shutterstock-api');\r\nconst apiClient = sstk.ApiClient.instance;\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.AudioApi();\r\n\r\nconst queryParams = {\r\n  query: 'bluegrass',\r\n  duration_from: 60,\r\n  moods: ['uplifting']\r\n};\r\n\r\napi.searchAudio(queryParams).then(function({data}) {\r\n  console.log('API called successfully.');\r\n  const arrayOfResults = data.map(track => {\r\n    return {\r\n      id: track.id,\r\n      description: track.description,\r\n      preview: track.assets.preview_mp3\r\n    }\r\n  });\r\n  console.log(arrayOfResults);\r\n}, function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
-            "source": "$queryFields = [\n  \"query\" => \"bluegrass\",\n  \"duration_from\" => 60,\n  \"moods\" => \"uplifting\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$queryFields = [\r\n  \"query\" => \"bluegrass\",\r\n  \"duration_from\" => 60,\r\n  \"moods\" => \"uplifting\"\r\n];\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/search?\" . http_build_query($queryFields),\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);\r\n"
           }
         ],
         "operationId": "searchAudio",
@@ -4698,7 +4722,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "example": "full",
@@ -4857,7 +4881,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "example": "full",
@@ -5971,15 +5995,19 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/search \\\n-H \"Accept: application/json\" \\\n-G \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n--data-urlencode \"query=football\" \\\n--data-urlencode \"country=USA\" \\\n--data-urlencode \"sort=newest\" \\\n--data-urlencode \"date_start=2018-10-23\"\n"
+            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/search \\\r\n-H \"Accept: application/json\" \\\r\n-G \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\r\n--data-urlencode \"query=football\" \\\r\n--data-urlencode \"country=USA\" \\\r\n--data-urlencode \"sort=newest\" \\\r\n--data-urlencode \"date_start=2018-10-23\"\r\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require('request-promise');\n\nrequest.get('https://api.shutterstock.com/v2/editorial/search', {\n  headers: {\n    'User-Agent': 'request',\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\n  },\n  qs: {\n    query: 'football',\n    country: 'USA',\n    sort: 'newest',\n    date_start: '2018-10-23'\n  }\n})\n.then(res => {\n  console.log(res);\n});\n"
+            "source": "const request = require('request-promise');\r\n\r\nrequest.get('https://api.shutterstock.com/v2/editorial/search', {\r\n  headers: {\r\n    'User-Agent': 'request',\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    query: 'football',\r\n    country: 'USA',\r\n    sort: 'newest',\r\n    date_start: '2018-10-23'\r\n  }\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
+          },
+          {
+            "lang": "javascript--sdk",
+            "source": "const sstk = require('shutterstock-api');\r\nconst apiClient = sstk.ApiClient.instance;\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.EditorialApi();\r\n\r\nconst queryParams = {\r\n  query: 'football',\r\n  country: 'USA',\r\n  sort: 'newest',\r\n  date_start: '2018-10-23'\r\n};\r\n\r\nconst country = 'USA';\r\n\r\napi.searchEditorial(country, queryParams).then(function({data}) {\r\n  console.log('API called successfully.');\r\n  const arrayOfResults = data.map(editorial => {\r\n    return {\r\n      id: editorial.id,\r\n      description: editorial.description,\r\n      preview: editorial.assets.small_jpg\r\n    }\r\n  });\r\n  console.log(arrayOfResults);\r\n}, function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
-            "source": "$queryFields = [\n  \"query\" => \"football\",\n  \"country\" => \"USA\",\n  \"date_start\" => \"2018-10-23\",\n  \"sort\" => \"newest\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$queryFields = [\r\n  \"query\" => \"football\",\r\n  \"country\" => \"USA\",\r\n  \"date_start\" => \"2018-10-23\",\r\n  \"sort\" => \"newest\"\r\n];\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/search?\" . http_build_query($queryFields),\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);\r\n"
           }
         ],
         "operationId": "searchEditorial",
@@ -7364,7 +7392,7 @@
             }
           },
           {
-            "description": "Comma-separated list of scopes to be authorized",
+            "description": "Space-separated list of scopes to be authorized",
             "in": "query",
             "name": "scope",
             "example": "user.view",
@@ -7421,7 +7449,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\n  headers: {\n    \"User-Agent\": \"request\"\n  },\n  qs: {\n    \"scope\": \"licenses.create licenses.view purchases.view\",\n    \"state\": \"demo_\" + Date.now(),\n    \"response_type\": \"code\",\n    \"redirect_uri\": \"http://localhost:3000/callback\",\n    \"client_id\": \"860bde70bb335163e2e4\"\n  },\n  useQueryString: true\n})\n.then(res => {\n  console.log(res);\n});\n"
+            "source": "const request = require(\"request-promise\");\r\n\r\nrequest.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\"\r\n  },\r\n  qs: {\r\n    \"scope\": \"licenses.create licenses.view purchases.view\",\r\n    \"state\": \"demo_\" + Date.now(),\r\n    \"response_type\": \"code\",\r\n    \"redirect_uri\": \"http://localhost:3000/callback\",\r\n    \"client_id\": \"860bde70bb335163e2e4\"\r\n  },\r\n  useQueryString: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
           },
           {
             "lang": "php",
@@ -7474,7 +7502,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nconst body = {\n  \"client_id\": \"860bde70bb335163e2e4\",\n  \"client_secret\": \"225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\",\n  \"grant_type\": \"authorization_code\",\n  \"code\": \"VaRLQ3rICmWjGr4ciI-GwR\"\n}\n\nrequest.post(\"https://api.shutterstock.com/v2/oauth/access_token\", {\n  headers: {\n    \"User-Agent\": \"request\"\n  },\n  body: body,\n  json: true\n})\n.then(res => {\n  console.log(res);\n});\n"
+            "source": "const request = require(\"request-promise\");\r\n\r\nconst body = {\r\n  \"client_id\": \"860bde70bb335163e2e4\",\r\n  \"client_secret\": \"225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\",\r\n  \"grant_type\": \"authorization_code\",\r\n  \"code\": \"VaRLQ3rICmWjGr4ciI-GwR\"\r\n}\r\n\r\nrequest.post(\"https://api.shutterstock.com/v2/oauth/access_token\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\"\r\n  },\r\n  body: body,\r\n  json: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
           },
           {
             "lang": "php",
