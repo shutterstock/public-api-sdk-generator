@@ -79,8 +79,6 @@ The following example uses the variables `applicationClientId` and `applicationC
 ```javascript
 const sstk = require('shutterstock-api');
 
-const apiClient = sstk.ApiClient.instance;
-
 const basicAuth = apiClient.authentications['basic'];
 basicAuth.username = applicationClientId;
 basicAuth.password = applicationClientSecret;
@@ -97,7 +95,6 @@ When you have the token, use it to configure the API client as in the following 
 
 ```javascript
 const sstk = require('shutterstock-api');
-const apiClient = sstk.ApiClient.instance;
 
 sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 
@@ -127,7 +124,6 @@ In this example, the callback function extracts the image ID, description, and p
 
 ```javascript
 const sstk = require('shutterstock-api');
-const apiClient = sstk.ApiClient.instance;
 
 sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 
@@ -163,7 +159,6 @@ The reference information for each method shows the class for the body parameter
 
 ```javascript
 const sstk = require('shutterstock-api');
-const apiClient = sstk.ApiClient.instance;
 
 sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 

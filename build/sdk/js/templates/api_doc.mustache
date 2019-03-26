@@ -29,8 +29,8 @@ Method | HTTP request | Description
 ```javascript
 const sstk = require('shutterstock-api');
 {{#hasAuthMethods}}
-const apiClient = sstk.ApiClient.instance;
 {{#authMethods}}{{#isBasic}}
+const apiClient = sstk.ApiClient.instance;
 // To use HTTP basic authorization:
 const {{{name}}} = apiClient.authentications['{{{name}}}'];
 {{{name}}}.username = client_id;
