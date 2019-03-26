@@ -133,19 +133,13 @@ const queryParams = {
   query: 'New York',
   sort: 'popular',
   orientation: 'horizontal'
-}
+};
 
-api.searchImages(queryParams).then(function({data}) {
-  console.log('API called successfully.');
-  const arrayOfResults = data.map(image => { 
-    return { 
-      id: image.id, 
-      description: image.description,
-      preview: image.assets.preview.url
-    }
-  })
-  console.log(arrayOfResults)
-}, function(error) {
+api.searchImages(queryParams)
+.then(function({data}) {
+  console.log(data);
+})
+.catch(function(error) {
   console.error(error);
 });
 ```
@@ -170,21 +164,20 @@ const imageToLicense = new sstk.LicenseImage(imageId);
 
 const body = new sstk.LicenseImageRequest([imageToLicense]);
 
-const queryParams = { 
+const queryParams = {
   subscriptionId: process.env.SHUTTERSTOCK_SUBSCRIPTION_ID,
   format: 'jpg',
   size: 'huge'
 };
 
-api.licenseImages(body, queryParams).then(function({data}) {
-  console.log('API called successfully.');
-  const downloadUrls = data.map(licensedImage => {
-    return licensedImage.download.url;
-  })
-  console.log(downloadUrls);
-}, function(error) {
+api.licenseImages(body, queryParams)
+.then(function({data}) {
+  console.log(data);
+})
+.catch(function(error) {
   console.error(error);
 });
+
 ```
 
 ## Documentation for methods
