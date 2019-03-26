@@ -27,26 +27,24 @@ Method | HTTP request | Description
 {{/vendorExtensions.x-code-samples}}
 {{^vendorExtensions.x-code-samples}}
 ```javascript
-const {{{moduleName}}} = require('shutterstock-api');
+const sstk = require('shutterstock-api');
 {{#hasAuthMethods}}
-const apiClient = {{{moduleName}}}.ApiClient.instance;
+const apiClient = sstk.ApiClient.instance;
 {{#authMethods}}{{#isBasic}}
 // To use HTTP basic authorization:
 const {{{name}}} = apiClient.authentications['{{{name}}}'];
 {{{name}}}.username = client_id;
 {{{name}}}.password = client_secret;{{/isBasic}}{{#isApiKey}}
 // To use OAuth access token authorization:
-const {{{name}}} = apiClient.authentications['{{{name}}}'];
-{{{name}}}.apiKey = process.env.SHUTTERSTOCK_API_TOKEN;
+sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //{{{name}}}.apiKeyPrefix = 'Token';{{/isApiKey}}{{#isOAuth}}
 // To use OAuth access token authorization:
-const {{{name}}} = apiClient.authentications['{{{name}}}'];
-{{{name}}}.accessToken = process.env.SHUTTERSTOCK_API_TOKEN;{{/isOAuth}}
+sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);{{/isOAuth}}
 {{/authMethods}}
 {{/hasAuthMethods}}
 
-const api = new {{{moduleName}}}.{{{classname}}}();{{#hasParams}}
+const api = new sstk.{{{classname}}}();{{#hasParams}}
 {{#vendorExtensions.x-codegen-hasRequiredParams}}{{#allParams}}{{#required}}
 const {{{paramName}}} = {{{example}}}; // {{{dataType}}} | {{{description}}}
 {{/required}}{{/allParams}}{{/vendorExtensions.x-codegen-hasRequiredParams}}{{#hasOptionalParams}}

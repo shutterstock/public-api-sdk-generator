@@ -116,15 +116,15 @@ To get the client ID and secret key for your application, go to https://develope
 The following example uses the variables `applicationClientId` and `applicationClientSecret` for the application's client ID and secret.
 
 ```javascript
-var Shutterstock = require('shutterstock-api');
+var sstk = require('shutterstock-api');
 
-var apiClient = Shutterstock.ApiClient.instance;
+var apiClient = sstk.ApiClient.instance;
 
 var basicAuth = apiClient.authentications['basic'];
 basicAuth.username = applicationClientId;
 basicAuth.password = applicationClientSecret;
 
-var api = new Shutterstock.ImagesApi();
+var api = new sstk.ImagesApi();
 ```
 
 ### OAuth authentication
@@ -135,14 +135,12 @@ For instructions on how to get a token, see [OAuth authentication](https://devel
 When you have the token, use it to configure the API client as in the following example, using the token as the value of the `myAccessToken` variable:
 
 ```javascript
-var Shutterstock = require('shutterstock-api');
+const sstk = require('shutterstock-api');
+const apiClient = sstk.ApiClient.instance;
 
-var apiClient = Shutterstock.ApiClient.instance;
+sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 
-var customer_accessCode = apiClient.authentications['customer_accessCode'];
-customer_accessCode.accessToken = myAccessToken;
-
-var api = new Shutterstock.ImagesApi();
+const api = new sstk.ImagesApi();
 ```
 
 ### OAuth scopes
@@ -167,14 +165,12 @@ The reference information for each method shows the class for the response.
 In this example, the callback function extracts the image ID, description, and preview link of each search result into an object.
 
 ```javascript
-const Shutterstock = require('shutterstock-api');
+const sstk = require('shutterstock-api');
+const apiClient = sstk.ApiClient.instance;
 
-const apiClient = Shutterstock.ApiClient.instance;
+sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 
-const customer_accessCode = apiClient.authentications['customer_accessCode'];
-customer_accessCode.accessToken = process.env.SHUTTERSTOCK_API_TOKEN;
-
-const api = new Shutterstock.ImagesApi();
+const api = new sstk.ImagesApi();
 
 const queryParams = {
   query: 'New York',
@@ -200,25 +196,23 @@ api.searchImages(queryParams).then(function({data}) {
 The next example requests a license for an image.
 
 For POST requests like this one, you must create an object of the appropriate class to pass as the request body.
-In this case, the `shutterstock.ImagesApi.licenseImages` method accepts a body parameter of the class `Shutterstock.LicenseImageRequest`.
-This parameter is an array of objects of the class `Shutterstock.LicenseImage`, each of which has the ID of an image to license.
+In this case, the `shutterstock-api.ImagesApi.licenseImages` method accepts a body parameter of the class `shutterstock-api.LicenseImageRequest`.
+This parameter is an array of objects of the class `shutterstock-api.LicenseImage`, each of which has the ID of an image to license.
 The reference information for each method shows the class for the body parameter.
 
 ```javascript
-const Shutterstock = require('shutterstock-api');
+const sstk = require('shutterstock-api');
+const apiClient = sstk.ApiClient.instance;
 
-const apiClient = Shutterstock.ApiClient.instance;
+sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 
-const customer_accessCode = apiClient.authentications['customer_accessCode'];
-customer_accessCode.accessToken = process.env.SHUTTERSTOCK_API_TOKEN;
-
-const api = new Shutterstock.ImagesApi();
+const api = new sstk.ImagesApi();
 
 const imageId = '' // ID of image to license
 
-const imageToLicense = new Shutterstock.LicenseImage(imageId);
+const imageToLicense = new sstk.LicenseImage(imageId);
 
-const body = new Shutterstock.LicenseImageRequest([imageToLicense]);
+const body = new sstk.LicenseImageRequest([imageToLicense]);
 
 const queryParams = { 
   subscriptionId: process.env.SHUTTERSTOCK_SUBSCRIPTION_ID,
