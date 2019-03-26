@@ -18,6 +18,27 @@ You can use this SDK to search for media, get information about media and about 
 - For the status of the API, see [API status](https://status.developers.shutterstock.com/).
 - For the source code, see https://github.com/shutterstock/public-api-javascript-sdk.
 
+## Contributing
+
+- This SDK is generated at [shutterstock/public-api-sdk-generator](https://github.com/shutterstock/public-api-sdk-generator), please make changes to SDK there.
+- Changes to tests can be made directly here.
+
+## Tests
+
+To Run the tests you will need to authenticate with Shutterstock,
+and set the `SSTK_API_KEY` environment variable. See [here](https://api-reference.shutterstock.com/#oauth).
+
+```
+$ SSTK_API_KEY="Your API Key"
+$ yarn run test
+```
+
+## Linting
+
+```
+$ yarn run lint
+```
+
 ## Applications
 
 The REST API uses an access token or secret key that is tied to your account and to an application.
@@ -189,8 +210,3 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 {{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{moduleName}}.{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationId}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
 {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
-
-## Documentation for models
-
-{{#models}}{{#model}} - [{{moduleName}}.{{classname}}]({{modelDocPath}}{{classname}}.md)
-{{/model}}{{/models}}
