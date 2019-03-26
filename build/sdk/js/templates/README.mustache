@@ -57,45 +57,6 @@ npm install shutterstock-api --save
 yarn add shutterstock-api
 ```
 
-### Local development
-
-To use a local copy of the SDK, follow these steps:
-
-1. Download or clone a copy of the SDK from GitHub: https://github.com/shutterstock/public-api-javascript-sdk.
-2. From the root folder of the SDK, run `npm install` or `yarn` to install the dependencies.
-3. Run `npm link` or `yarn link` to link the package for local use.
-4. In the root folder of the project that you want to use the SDK in, run `npm link shutterstock-api` or `yarn link shutterstock-api` to set the project to use the local copy of the SDK.
-
-### For use in the browser
-
-The library also works in the browser environment via npm and [browserify](http://browserify.org/). After following
-the above steps and installing browserify with `npm install -g browserify`,
-perform the following (assuming `main.js` is the JavaScript file in which you use the SDK):
-
-```shell
-browserify main.js > bundle.js
-```
-
-Then include `bundle.js` in the HTML pages.
-
-### Webpack Configuration
-
-Using Webpack you may encounter the following error: "Module not found: Error:
-Cannot resolve module." If you see this error, disable the AMD loader. Add
-the following section to your webpack configuration:
-
-```javascript
-module: {
-  rules: [
-    {
-      parser: {
-        amd: false
-      }
-    }
-  ]
-}
-```
-
 ## Authentication
 
 Authentication in the SDK works the same way as in the API:
