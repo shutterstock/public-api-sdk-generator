@@ -19,8 +19,8 @@ script:
   - nvm install 10
   - nvm use 10
   - yarn install
-  - yarn run lint
-  - yarn run test
+  - yarn run lint || travis_terminate 1;
+  - yarn run test || travis_terminate 1;
   - git add .
   - git commit --allow-empty -m "Updating JavaScript SDK"
   - git push
