@@ -1,89 +1,105 @@
 # {{moduleName}}.{{classname}}{{#description}}
 {{description}}{{/description}}
 
-All URIs are relative to *{{basePath}}*
+All URIs are relative to `{{basePath}}`
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-{{#operations}}{{#operation}}[**{{operationId}}**]({{classname}}.md#{{operationId}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
+{{#operations}}{{#operation}}[`{{operationId}}`]({{classname}}.md#{{operationId}}) | `{{httpMethod}} {{path}}` | {{#summary}}{{summary}}{{/summary}}
 {{/operation}}{{/operations}}
 
 {{#operations}}
 {{#operation}}
 <a name="{{operationId}}"></a>
-# **{{operationId}}**
-> {{#returnType}}{{returnType}} {{/returnType}}{{operationId}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}opts{{/hasOptionalParams}})
+# {{classname}}.{{operationId}}
+> `{{#returnType}}{{returnType}} {{/returnType}}{{classname}}.{{operationId}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}queryParams{{/hasOptionalParams}})`
 
-{{summary}}{{#notes}}
+**{{summary}}**{{#notes}}
 
 {{notes}}{{/notes}}
 
 ### Example
+
+{{#vendorExtensions.x-code-samples}}
 ```javascript
-var {{{moduleName}}} = require('{{{projectName}}}');
+{{source}}
+```
+{{/vendorExtensions.x-code-samples}}
+{{^vendorExtensions.x-code-samples}}
+```javascript
+const sstk = require('shutterstock-api');
 {{#hasAuthMethods}}
-var defaultClient = {{{moduleName}}}.ApiClient.instance;
+const apiClient = sstk.ApiClient.instance;
 {{#authMethods}}{{#isBasic}}
-// Configure HTTP basic authorization: {{{name}}}
-var {{{name}}} = defaultClient.authentications['{{{name}}}'];
-{{{name}}}.username = 'YOUR USERNAME';
-{{{name}}}.password = 'YOUR PASSWORD';{{/isBasic}}{{#isApiKey}}
-// Configure API key authorization: {{{name}}}
-var {{{name}}} = defaultClient.authentications['{{{name}}}'];
-{{{name}}}.apiKey = 'YOUR API KEY';
+// To use HTTP basic authorization:
+const {{{name}}} = apiClient.authentications['{{{name}}}'];
+{{{name}}}.username = client_id;
+{{{name}}}.password = client_secret;{{/isBasic}}{{#isApiKey}}
+// To use OAuth access token authorization:
+sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //{{{name}}}.apiKeyPrefix = 'Token';{{/isApiKey}}{{#isOAuth}}
-// Configure OAuth2 access token for authorization: {{{name}}}
-var {{{name}}} = defaultClient.authentications['{{{name}}}'];
-{{{name}}}.accessToken = 'YOUR ACCESS TOKEN';{{/isOAuth}}
+// To use OAuth access token authorization:
+sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);{{/isOAuth}}
 {{/authMethods}}
 {{/hasAuthMethods}}
 
-var apiInstance = new {{{moduleName}}}.{{{classname}}}();{{#hasParams}}
+const api = new sstk.{{{classname}}}();{{#hasParams}}
 {{#vendorExtensions.x-codegen-hasRequiredParams}}{{#allParams}}{{#required}}
-var {{{paramName}}} = {{{example}}}; // {{{dataType}}} | {{{description}}}
+const {{{paramName}}} = {{{example}}}; // {{{dataType}}} | {{{description}}}
 {{/required}}{{/allParams}}{{/vendorExtensions.x-codegen-hasRequiredParams}}{{#hasOptionalParams}}
-var opts = { {{#allParams}}{{^required}}
+const queryParams = { {{#allParams}}{{^required}}
   '{{{paramName}}}': {{{example}}}{{#vendorExtensions.x-codegen-hasMoreOptional}},{{/vendorExtensions.x-codegen-hasMoreOptional}} // {{{dataType}}} | {{{description}}}{{/required}}{{/allParams}}
 };{{/hasOptionalParams}}{{/hasParams}}
 {{#usePromises}}
-apiInstance.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}opts{{/hasOptionalParams}}).then(function({{#returnType}}data{{/returnType}}) {
+api.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}queryParams{{/hasOptionalParams}}).then(function({{#returnType}}data{{/returnType}}) {
   {{#returnType}}console.log('API called successfully. Returned data: ' + data);{{/returnType}}{{^returnType}}console.log('API called successfully.');{{/returnType}}
 }, function(error) {
   console.error(error);
 });
 
 {{/usePromises}}{{^usePromises}}
-var callback = function(error, data, response) {
+const callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
     {{#returnType}}console.log('API called successfully. Returned data: ' + data);{{/returnType}}{{^returnType}}console.log('API called successfully.');{{/returnType}}
   }
 };
-apiInstance.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}opts{{/hasOptionalParams}}{{#hasParams}}, {{/hasParams}}callback);
+api.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}queryParams{{/hasOptionalParams}}{{#hasParams}}, {{/hasParams}}callback);
 {{/usePromises}}
-```
+```{{/vendorExtensions.x-code-samples}}
 
 ### Parameters
-{{^allParams}}This endpoint does not need any parameter.{{/allParams}}{{#allParams}}{{#-last}}
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------{{/-last}}{{/allParams}}
-{{#allParams}} **{{paramName}}** | {{#isPrimitiveType}}**{{dataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isFile}}**{{dataType}}**{{/isFile}}{{^isFile}}[**{{dataType}}**]({{baseType}}.md){{/isFile}}{{/isPrimitiveType}}| {{description}} | {{^required}}[optional] {{/required}}{{#defaultValue}}[default to {{defaultValue}}]{{/defaultValue}}
+
+{{^allParams}}This endpoint does not accept any parameters.{{/allParams}}{{#allParams}}{{#-last}}
+Name | Type | Description
+------------- | ------------- | -------------{{/-last}}{{/allParams}}
+{{#allParams}} {{paramName}} {{#required}}(required) {{/required}}| {{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isFile}}{{dataType}}{{/isFile}}{{^isFile}}[{{dataType}}]({{baseType}}.md){{/isFile}}{{/isPrimitiveType}}| {{description}}{{#defaultValue}}, defaults to {{defaultValue}}{{/defaultValue}} {{#allowableValues}}<br/><br/>Valid values: {{#enumVars}}{{{value}}}{{^-last}}, {{/-last}}{{/enumVars}}{{/allowableValues}}
 {{/allParams}}
 
-### Return type
+### Accepted authentication
 
-{{#returnType}}{{#returnTypeIsPrimitive}}**{{returnType}}**{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[**{{returnType}}**]({{returnBaseType}}.md){{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}null (empty response body){{/returnType}}
-
-### Authorization
-
-{{^authMethods}}No authorization required{{/authMethods}}{{#authMethods}}[{{name}}](../README.md#{{name}}){{^-last}}, {{/-last}}{{/authMethods}}
+{{^authMethods}}No authentication required.{{/authMethods}}{{#authMethods}}{{#isBasic}}- [Basic](../README.md#Basic_authentication){{/isBasic}}{{#isOAuth}}
+- [OAuth](../README.md#OAuth_authentication) {{^scopes}}(No scope required.){{/scopes}}{{#scopes}}Required scopes:
+  - {{{scope}}}
+{{/scopes}}{{/isOAuth}}{{/authMethods}}
 
 ### HTTP request headers
 
- - **Content-Type**: {{#consumes}}{{{mediaType}}}{{#hasMore}}, {{/hasMore}}{{/consumes}}{{^consumes}}Not defined{{/consumes}}
- - **Accept**: {{#produces}}{{{mediaType}}}{{#hasMore}}, {{/hasMore}}{{/produces}}{{^produces}}Not defined{{/produces}}
+{{^consumes}}{{^produces}}No request headers required.{{/produces}}{{/consumes}}
+{{#consumes}}- Content-Type: {{{mediaType}}}{{#hasMore}}, {{/hasMore}}{{/consumes}}
+{{#produces}}- Accept: {{{mediaType}}}{{#hasMore}}, {{/hasMore}}{{/produces}}
+
+### Return type
+
+{{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[{{returnType}}]({{returnBaseType}}.md){{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}No response body{{/returnType}}
+
+{{#examples}}
+### Example response
+
+{{example}}
+{{/examples}}
 
 {{/operation}}
 {{/operations}}
