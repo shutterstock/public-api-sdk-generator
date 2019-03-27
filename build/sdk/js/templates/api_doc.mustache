@@ -32,9 +32,7 @@ const sstk = require('shutterstock-api');
 {{#authMethods}}{{#isBasic}}
 const apiClient = sstk.ApiClient.instance;
 // To use HTTP basic authorization:
-const {{{name}}} = apiClient.authentications['{{{name}}}'];
-{{{name}}}.username = client_id;
-{{{name}}}.password = client_secret;{{/isBasic}}{{#isApiKey}}
+sstk.setBasicAuth(client_id, client_secret);{{/isBasic}}{{#isApiKey}}
 // To use OAuth access token authorization:
 sstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
