@@ -1,5 +1,6 @@
 {
   "usePromises": true,
   "useES6": false,
-  "hideGenerationTimestamp": true
+  "hideGenerationTimestamp": true,
+  "modelPropertyNaming": "snake_case"
 }
