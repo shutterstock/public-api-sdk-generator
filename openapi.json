@@ -3140,7 +3140,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.VideosApi();\r\n\r\nconst videoId = '' // ID of video to license\r\n\r\nconst videoToLicense = new sstk.LicenseVideo(videoId);\r\n\r\nconst body = new sstk.LicenseVideoRequest([videoToLicense]);\r\n\r\nconst queryParams = {\r\n  subscriptionId: SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  size: 'web'\r\n};\r\n\r\napi.searchVideos(body, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.VideosApi();\r\n\r\nconst videoId = '' // ID of video to license\r\n\r\nconst videoToLicense = new sstk.LicenseVideo(videoId);\r\n\r\nconst body = new sstk.LicenseVideoRequest([videoToLicense]);\r\n\r\nconst queryParams = {\r\n  subscriptionId: SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  size: 'web'\r\n};\r\n\r\napi.searchVideos(body, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
@@ -4665,7 +4665,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.AudioApi();\r\n\r\nconst queryParams = {\r\n  query: 'bluegrass',\r\n  duration_from: 60,\r\n  moods: ['uplifting']\r\n};\r\n\r\napi.searchAudio(queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.AudioApi();\r\n\r\nconst queryParams = {\r\n  query: 'bluegrass',\r\n  duration_from: 60,\r\n  moods: ['uplifting']\r\n};\r\n\r\napi.searchAudio(queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
@@ -5975,7 +5975,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.EditorialApi();\r\n\r\nconst queryParams = {\r\n  query: 'football',\r\n  country: 'USA',\r\n  sort: 'newest',\r\n  date_start: '2018-10-23'\r\n};\r\n\r\nconst country = 'USA';\r\n\r\napi.searchEditorial(country, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.EditorialApi();\r\n\r\nconst queryParams = {\r\n  query: 'football',\r\n  country: 'USA',\r\n  sort: 'newest',\r\n  date_start: '2018-10-23'\r\n};\r\n\r\nconst country = 'USA';\r\n\r\napi.searchEditorial(country, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
