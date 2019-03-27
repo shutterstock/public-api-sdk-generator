@@ -437,10 +437,6 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\r\n\r\nrequest.get(\"https://api.shutterstock.com/v2/images/search\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"query\": \"New York\",\r\n    \"sort\": \"popular\",\r\n    \"orientation\": \"horizontal\"\r\n  },\r\n  useQueryString: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
-          },
-          {
-            "lang": "javascript--sdk",
             "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst queryParams = {\r\n  query: 'New York',\r\n  sort: 'popular',\r\n  orientation: 'horizontal'\r\n};\r\n\r\napi.searchImages(queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
@@ -889,10 +885,6 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\r\n\r\nconst body = {\r\n  \"images\": [\r\n    {\r\n      \"image_id\": \"539753938\",\r\n      \"format\": \"jpg\"\r\n    },\r\n    {\r\n      \"image_id\": \"558282247\",\r\n      \"format\": \"jpg\"\r\n    }\r\n    ]\r\n  };\r\n\r\nrequest.post(\"https://api.shutterstock.com/v2/images/licenses\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"subscription_id\": process.env.SUBSCRIPTION_ID\r\n  },\r\n  useQueryString: true,\r\n  json: true,\r\n  body: body,\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
-          },
-          {
-            "lang": "javascript--sdk",
             "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst imageId = '' // ID of image to license\r\n\r\nconst imageToLicense = new sstk.LicenseImage(imageId);\r\n\r\nconst body = new sstk.LicenseImageRequest([imageToLicense]);\r\n\r\nconst queryParams = {\r\n  subscriptionId: process.env.SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  format: 'jpg',\r\n  size: 'huge'\r\n};\r\n\r\napi.licenseImages(body, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
@@ -1327,10 +1319,6 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\r\nconst fs = require('fs');\r\n\r\nfs.readFile(\"myImage.jpg\", \"base64\", function (err, data) {\r\n\r\n    const body = {\r\n      \"base64_image\": data\r\n    }\r\n\r\n    request.post(\"https://api.shutterstock.com/v2/images\", {\r\n      headers: {\r\n        \"User-Agent\": \"request\"\r\n      },\r\n      auth: {\r\n        \"user\": \"1fbce-97bec-50a53-680e2-31252-ef6d9\",\r\n        \"pass\": \"937d6-45cd4-76cb4-acddc-681d3-1b5f6\"\r\n      },\r\n      json: true,\r\n      body: body\r\n    })\r\n    .then(res => {\r\n      console.log(res);\r\n    })\r\n\r\n});\r\n"
-          },
-          {
-            "lang": "javascript--sdk",
             "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst imageFile = fs.readFileSync('./myImage.jpg');\r\nconst base64File = Buffer.from(imageFile).toString('base64');\r\n\r\nconst body = new sstk.ImageCreateRequest(base64File);\r\n\r\nconst queryParams = {\r\n  page: 1,\r\n  perPage: 20,\r\n  view: 'minimal'\r\n};\r\n\r\napi.uploadEphemeralImage(body)\r\n.then(function(data) {\r\n  console.log(data.id);\r\n  api.getSimilarImages(data.id, queryParams)\r\n  .then(function(similarImageData) {\r\n    console.log(similarImageData)\r\n  })\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
@@ -2767,10 +2755,6 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\r\n\r\nrequest.get(\"https://api.shutterstock.com/v2/videos/search\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"query\": \"hot air balloon\",\r\n    \"duration_from\": 30,\r\n    \"sort\": \"popular\"\r\n  },\r\n  useQueryString: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
-          },
-          {
-            "lang": "javascript--sdk",
             "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst queryParams = {\r\n  query: 'hot air balloon',\r\n  duration_from: 30,\r\n  sort: 'popular'\r\n};\r\n\r\napi.searchVideos(queryParams).then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
@@ -3156,10 +3140,6 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\r\n\r\nconst body = {\r\n  \"videos\": [\r\n    {\r\n      \"video_id\": \"2140697\",\r\n      \"size\": \"hd\"\r\n    },\r\n    {\r\n      \"video_id\": \"5613314\",\r\n      \"size\": \"4k\"\r\n    }\r\n  ]\r\n}\r\n\r\nrequest.post(\"https://api.shutterstock.com/v2/videos/licenses\", {\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"subscription_id\": process.env.SUBSCRIPTION_ID\r\n  },\r\n  useQueryString: true,\r\n  body: body,\r\n  json: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
-          },
-          {
-            "lang": "javascript--sdk",
             "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.VideosApi();\r\n\r\nconst videoId = '' // ID of video to license\r\n\r\nconst videoToLicense = new sstk.LicenseVideo(videoId);\r\n\r\nconst body = new sstk.LicenseVideoRequest([videoToLicense]);\r\n\r\nconst queryParams = {\r\n  subscriptionId: SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  size: 'web'\r\n};\r\n\r\napi.searchVideos(body, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
@@ -4685,10 +4665,6 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\r\n\r\nrequest.get(\"https://api.shutterstock.com/v2/audio/search\", {\r\n  json: true,\r\n  headers: {\r\n    \"User-Agent\": \"request\",\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    \"query\": \"bluegrass\",\r\n    \"duration_from\": 60,\r\n    \"moods\": \"uplifting\"\r\n  },\r\n  useQueryString: true\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
-          },
-          {
-            "lang": "javascript--sdk",
             "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.AudioApi();\r\n\r\nconst queryParams = {\r\n  query: 'bluegrass',\r\n  duration_from: 60,\r\n  moods: ['uplifting']\r\n};\r\n\r\napi.searchAudio(queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
@@ -5999,10 +5975,6 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require('request-promise');\r\n\r\nrequest.get('https://api.shutterstock.com/v2/editorial/search', {\r\n  headers: {\r\n    'User-Agent': 'request',\r\n    \"Authorization\": \"Bearer \" + process.env.SHUTTERSTOCK_API_TOKEN\r\n  },\r\n  qs: {\r\n    query: 'football',\r\n    country: 'USA',\r\n    sort: 'newest',\r\n    date_start: '2018-10-23'\r\n  }\r\n})\r\n.then(res => {\r\n  console.log(res);\r\n});\r\n"
-          },
-          {
-            "lang": "javascript--sdk",
             "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new Shutterstock.EditorialApi();\r\n\r\nconst queryParams = {\r\n  query: 'football',\r\n  country: 'USA',\r\n  sort: 'newest',\r\n  date_start: '2018-10-23'\r\n};\r\n\r\nconst country = 'USA';\r\n\r\napi.searchEditorial(country, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
