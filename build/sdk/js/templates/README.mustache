@@ -78,11 +78,8 @@ The following example uses the variables `applicationClientId` and `applicationC
 
 ```javascript
 const sstk = require('shutterstock-api');
-const apiClient = sstk.ApiClient.instance;
 
-const basicAuth = apiClient.authentications['basic'];
-basicAuth.username = applicationClientId;
-basicAuth.password = applicationClientSecret;
+sstk.setBasicAuth(applicationClientId, applicationClientSecret);
 
 const api = new sstk.ImagesApi();
 ```
