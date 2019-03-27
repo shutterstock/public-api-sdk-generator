@@ -7,7 +7,7 @@ const openapi = require('../../openapi');
 
 const convertPromise = promisify(convert);
 
-const languagesToInclude = ["javascript--sdk"];
+const languagesToInclude = ["javascript--nodejs"];
 const endpointsToFilterOutRegex = /\/v2\/oauth\/.*/;
 const schemasToFilter = ["OauthAccessTokenResponse", "AuthorizeResponse"];
 
