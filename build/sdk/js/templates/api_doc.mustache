@@ -30,7 +30,6 @@ Method | HTTP request | Description
 const sstk = require('shutterstock-api');
 {{#hasAuthMethods}}
 {{#authMethods}}{{#isBasic}}
-const apiClient = sstk.ApiClient.instance;
 // To use HTTP basic authorization:
 sstk.setBasicAuth(client_id, client_secret);{{/isBasic}}{{#isApiKey}}
 // To use OAuth access token authorization:
