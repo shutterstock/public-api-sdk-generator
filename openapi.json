@@ -315,7 +315,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -463,7 +463,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -692,7 +692,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -1178,7 +1178,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "example": "minimal",
@@ -2656,7 +2656,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -2787,7 +2787,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -2891,7 +2891,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -4226,7 +4226,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "schema": {
@@ -4524,7 +4524,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "example": "full",
@@ -4698,7 +4698,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "example": "full",
@@ -4857,7 +4857,7 @@
             }
           },
           {
-            "description": "Amount of detail to render in the response (only for accounts with subscriptions)",
+            "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
             "example": "full",
