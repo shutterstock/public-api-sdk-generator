@@ -16,6 +16,7 @@ script:
   - git clone https://$GH_USER:$GH_PASS@github.com/shutterstock/public-api-javascript-sdk.git
   - cp -r ./dist/src ./public-api-javascript-sdk
   - cp ./dist/README.md ./public-api-javascript-sdk
+  - cp -r ./dist/docs ./public-api-javascript-sdk
   - cd ./public-api-javascript-sdk
   - nvm install 10
   - nvm use 10
