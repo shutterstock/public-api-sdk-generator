@@ -885,7 +885,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst imageId = '' // ID of image to license\r\n\r\nconst imageToLicense = new sstk.LicenseImage(imageId);\r\n\r\nconst body = new sstk.LicenseImageRequest([imageToLicense]);\r\n\r\nconst queryParams = {\r\n  subscription_id: process.env.SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  format: 'jpg',\r\n  size: 'huge'\r\n};\r\n\r\napi.licenseImages(body, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst body = {\r\n  images: [\r\n    {\r\n      image_id: \"419235589\",\r\n      format: \"jpg\"\r\n    },\r\n    {\r\n      image_id: \"1079756147\",\r\n      format: \"jpg\",\r\n    }\r\n  ]\r\n};\r\n\r\nconst queryParams = {\r\n  subscription_id: process.env.SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  format: 'jpg',\r\n  size: 'huge'\r\n};\r\n\r\napi.licenseImages(body, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
@@ -3140,7 +3140,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.VideosApi();\r\n\r\nconst videoId = '' // ID of video to license\r\n\r\nconst videoToLicense = new sstk.LicenseVideo(videoId);\r\n\r\nconst body = new sstk.LicenseVideoRequest([videoToLicense]);\r\n\r\nconst queryParams = {\r\n  subscription_id: SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  size: 'web'\r\n};\r\n\r\napi.searchVideos(body, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.VideosApi();\r\n\r\nconst body = {\r\n  videos: [\r\n    {\r\n      video_id: \"419235589\"\r\n    },\r\n    {\r\n      video_id: \"1079756147\"\r\n    }\r\n  ]\r\n};\r\n\r\nconst queryParams = {\r\n  subscription_id: SHUTTERSTOCK_SUBSCRIPTION_ID,\r\n  size: 'web'\r\n};\r\n\r\napi.searchVideos(body, queryParams)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
           },
           {
             "lang": "php",
