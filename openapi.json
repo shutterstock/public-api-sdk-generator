@@ -1097,6 +1097,20 @@
             }
           }
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\r\n  \"size\": \"huge\"\r\n}'\r\n\r\ncurl -X POST https://api.shutterstock.com/v2/images/licenses/i1188641347/downloads \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst licenseId = ''; // license ID, not image ID\r\n\r\nconst body = {\r\n  \"size\": \"huge\"\r\n};\r\n\r\napi.downloadImage(licenseId, body)\r\n.then(function(data) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\r\n  \"size\" => \"huge\"\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses/i1188641347/downloads\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1488,6 +1502,20 @@
             ]
           }
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\r\n  \"name\": \"My collection\"\r\n}'\r\n\r\ncurl -X POST https://api.shutterstock.com/v2/images/collections \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst imagesApi = new sstk.ImagesApi();\r\n\r\nconst body = {\r\n  \"name\": \"My collection\"\r\n};\r\n\r\nimagesApi.createLightbox(body)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\r\n  \"name\" => \"My collection\"\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
+          }
+        ],
         "tags": [
           "images"
         ],
@@ -1733,6 +1761,20 @@
             ]
           }
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\r\n  \"name\": \"My new collection name\"\r\n}'\r\n\r\ncurl -X POST https://api.shutterstock.com/v2/images/collections/126351027 \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst imagesApi = new sstk.ImagesApi();\r\n\r\nconst collectionId = \"\"; // Collection ID\r\n\r\nconst body = {\r\n  \"name\": \"My new collection name\"\r\n};\r\n\r\nimagesApi.renameLightbox(collectionId, body)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\r\n  \"name\" => \"My new collection name\"\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections/126351027\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
+          }
+        ],
         "tags": [
           "images"
         ],
@@ -1795,6 +1837,20 @@
             ]
           }
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X DELETE https://api.shutterstock.com/v2/images/collections/136351027 \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst imagesApi = new sstk.ImagesApi();\r\n\r\nconst collectionId = \"\"; // Collection ID\r\n\r\nimagesApi.deleteLightbox(collectionId)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});"
+          },
+          {
+            "lang": "php",
+            "source": "$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections/136351027\",\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
+          }
+        ],
         "tags": [
           "images"
         ],
@@ -1839,6 +1895,20 @@
             "customer_accessCode": [
               "collections.edit"
             ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\r\n  \"items\": [\r\n    {\r\n      \"id\": \"49572945\",\r\n      \"media_type\": \"image\"\r\n    }\r\n  ]\r\n}'\r\n\r\ncurl -X POST https://api.shutterstock.com/v2/images/collections/126351027/items \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst imagesApi = new sstk.ImagesApi();\r\n\r\nconst collectionId = \"\"; // Collection ID\r\n\r\nconst body = {\r\n  \"items\": [\r\n    {\r\n      \"id\": \"495863218\",\r\n      \"media_type\": \"image\"\r\n    }\r\n  ]\r\n};\r\n\r\nimagesApi.addLightboxItems(collectionId, body)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\r\n  \"items\" => [\r\n    [\r\n      \"id\" => \"49572945\",\r\n      \"media_type\" => \"image\"\r\n    ]\r\n  ]\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections/126351027/items\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
           }
         ],
         "tags": [
@@ -2026,6 +2096,20 @@
             "customer_accessCode": [
               "collections.edit"
             ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X DELETE https://api.shutterstock.com/v2/images/collections/186726599/items?item_id=495863218 \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst imagesApi = new sstk.ImagesApi();\r\n\r\nconst collectionId = \"\"; // Collection ID\r\n\r\n// Array of images to remove\r\nconst imagesToRemove = {\r\n  item_id: [\r\n    \"\"\r\n  ]\r\n};\r\n\r\nimagesApi.deleteLightboxItems(collectionId, imagesToRemove)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});"
+          },
+          {
+            "lang": "php",
+            "source": "$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections/126351027/items?item_id=495863218\",\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
           }
         ],
         "tags": [
@@ -3538,6 +3622,20 @@
             ]
           }
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{}'\r\n\r\ncurl -X POST https://api.shutterstock.com/v2/videos/licenses/i1188641347/downloads \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst videosApi = new sstk.VideosApi();\r\n\r\nconst licenseId = ''; // license ID, not video ID\r\n\r\nconst body = {};\r\n\r\nvideosApi.downloadVideos(licenseId, body)\r\n.then(function(data) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/licenses/i1188641347/downloads\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
+          }
+        ],
         "tags": [
           "videos"
         ],
@@ -3607,6 +3705,20 @@
             "customer_accessCode": [
               "collections.edit"
             ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\r\n  \"name\": \"New collection name\"\r\n}'\r\n\r\ncurl -X POST https://api.shutterstock.com/v2/videos/collections \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst videosApi = new sstk.VideosApi();\r\n\r\nconst body = {\r\n  \"name\": \"New collection name\"\r\n};\r\n\r\nvideosApi.createClipbox(body)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\r\n  \"name\" => \"New collection name\"\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
           }
         ],
         "tags": [
@@ -3826,6 +3938,20 @@
             ]
           }
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X DELETE https://api.shutterstock.com/v2/videos/collections/17555176 \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst videosApi = new sstk.VideosApi();\r\n\r\nconst collectionId = \"\"; // Collection ID\r\n\r\nvideosApi.deleteClipbox(collectionId)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});"
+          },
+          {
+            "lang": "php",
+            "source": "$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176\",\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
+          }
+        ],
         "tags": [
           "videos"
         ],
@@ -3886,6 +4012,26 @@
             "customer_accessCode": [
               "collections.edit"
             ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": {
+              "$ref": "#/paths/~1v2~1videos~1collections~1%7Bid%7D/post/x-code-samples/0/source"
+            }
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": {
+              "$ref": "#/paths/~1v2~1videos~1collections~1%7Bid%7D/post/x-code-samples/1/source"
+            }
+          },
+          {
+            "lang": "php",
+            "source": {
+              "$ref": "#/paths/~1v2~1videos~1collections~1%7Bid%7D/post/x-code-samples/2/source"
+            }
           }
         ],
         "tags": [
@@ -3999,6 +4145,20 @@
             "customer_accessCode": [
               "collections.edit"
             ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\r\n  \"items\": [\r\n    {\r\n      \"id\": \"10120264\"\r\n    },\r\n    {\r\n      \"id\": \"24419024\"\r\n    }\r\n  ]\r\n}'\r\n\r\ncurl -X POST https://api.shutterstock.com/v2/videos/collections/17555176/items \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst videosApi = new sstk.VideosApi();\r\n\r\nconst collectionId = \"\"; // Collection ID\r\n\r\n// Array of videos to add\r\nconst body = {\r\n  \"items\": [\r\n    {\r\n      \"id\": \"\",\r\n      \"media_type\": \"video\"\r\n    }\r\n  ]\r\n};\r\n\r\nvideosApi.addLightboxItems(collectionId, body)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\r\n  \"items\" => [\r\n    [\r\n      \"id\" => \"10120264\"\r\n    ],\r\n    [\r\n      \"id\" => \"24419024\"\r\n    ]\r\n  ]\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176/items\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
           }
         ],
         "tags": [
@@ -4181,6 +4341,20 @@
             "customer_accessCode": [
               "collections.edit"
             ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X DELETE https://api.shutterstock.com/v2/videos/collections/17555176/items \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst videosApi = new sstk.VideosApi();\r\n\r\nconst collectionId = \"\"; // Collection ID\r\n\r\n// Array of videos to remove\r\nconst videosToRemove = {\r\n  item_id: [\r\n    \"\"\r\n  ]\r\n};\r\n\r\nvideosApi.deleteClipboxItems(collectionId, videosToRemove)\r\n.then(function() {\r\n  console.log(\"Success!\");\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});"
+          },
+          {
+            "lang": "php",
+            "source": "$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176/items\",\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
           }
         ],
         "tags": [
