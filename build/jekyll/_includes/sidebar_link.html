@@ -1,0 +1,5 @@
+{% if pageURL == include.entry.url %}
+<li class="active currentPage noChildren"><a href="{{base}}/{{include.entry.url}}">{{include.entry.title}}</a></li>
+{% else %}
+<li><a class="noChildren" href="{{base}}/{{include.entry.url}}">{{include.entry.title}}</a></li>
+{% endif %}

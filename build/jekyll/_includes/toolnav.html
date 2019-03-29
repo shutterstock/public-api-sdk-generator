@@ -1,0 +1,18 @@
+{% assign toolList = site.data.tools %}
+
+<ul id="myToolList" class="nav">
+  <li class="toolListTitle"><a class="folder" href="#">All tools</a>
+    <ul>
+      {% for tool in toolList %}
+        {% if tool.title == 'divider' %}
+          <li>&nbsp;</li>
+        {% else %}
+          <li>
+            <a class="noChildren" href="{{base}}/{{tool.url}}">{{tool.title}}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </li>
+
+</ul>

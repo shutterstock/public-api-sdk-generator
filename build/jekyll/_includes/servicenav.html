@@ -1,0 +1,18 @@
+{% assign serviceList = site.data.services %}
+
+<ul id="myserviceList" class="nav">
+  <li class="serviceListTitle"><a class="folder" href="#">All services</a>
+    <ul>
+      {% for service in serviceList %}
+        {% if service.title == 'divider' %}
+          <li>&nbsp;</li>
+        {% else %}
+          <li>
+            <a class="noChildren" href="{{base}}/{{service.url}}">{{service.title}}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </li>
+
+</ul>
