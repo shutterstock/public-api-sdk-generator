@@ -6153,6 +6153,20 @@
             ]
           }
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\r\n  \"editorial\": [\r\n    {\r\n      \"editorial_id\": \"8594090h\",\r\n      \"license\": \"premier_editorial_comp\"\r\n    }\r\n  ],\r\n  \"country\": \"USA\"\r\n}'\r\n\r\ncurl -X POST https://api.shutterstock.com/v2/editorial/licenses \\\r\n-d \"$DATA\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"Accept: application/json\" \\\r\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.EditorialApi();\r\n\r\nconst body = {\r\n  editorial: [\r\n    {\r\n      editorial_id: \"8594090h\",\r\n      license: \"premier_editorial_comp\"\r\n    }\r\n  ],\r\n  country: \"USA\"\r\n};\r\n\r\napi.licenseEditorialImage(body)\r\n.then(function({data}) {\r\n  console.log(data);\r\n})\r\n.catch(function(error) {\r\n  console.error(error);\r\n});\r\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\r\n  \"editorial\" => [\r\n    [\r\n      \"editorial_id\" => \"8594090h\",\r\n      \"license\" => \"premier_editorial_comp\"\r\n    ]\r\n  ],\r\n  \"country\" => \"USA\"\r\n];\r\n$encodedBody = json_encode($body);\r\n\r\n$options = [\r\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/licenses\",\r\n  CURLOPT_CUSTOMREQUEST => \"POST\",\r\n  CURLOPT_POSTFIELDS => $encodedBody,\r\n  CURLOPT_USERAGENT => \"php/curl\",\r\n  CURLOPT_HTTPHEADER => [\r\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\r\n    \"Content-Type: application/json\"\r\n  ],\r\n  CURLOPT_RETURNTRANSFER => 1\r\n];\r\n\r\n$handle = curl_init();\r\ncurl_setopt_array($handle, $options);\r\n$response = curl_exec($handle);\r\ncurl_close($handle);\r\n\r\n$decodedResponse = json_decode($response);\r\nprint_r($decodedResponse);"
+          }
+        ],
         "tags": [
           "editorial"
         ],
