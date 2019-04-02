@@ -7890,7 +7890,7 @@
             "type": "integer"
           },
           "organization_id": {
-            "description": "Orgranization ID that is associated with the user",
+            "description": "Organization ID that is associated with the user",
             "type": "string"
           },
           "realm": {
