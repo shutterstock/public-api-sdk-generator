@@ -1333,7 +1333,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst imageFile = fs.readFileSync('./myImage.jpg');\r\nconst base64File = Buffer.from(imageFile).toString('base64');\r\n\r\nconst body = new sstk.ImageCreateRequest(base64File);\r\n\r\nconst queryParams = {\r\n  page: 1,\r\n  per_page: 20,\r\n  view: 'minimal'\r\n};\r\n\r\napi.uploadEphemeralImage(body)\r\n  .then((data) => {\r\n    console.log(data.id);\r\n    api.getSimilarImages(data.id, queryParams)\r\n    .then(function(similarImageData) {\r\n      console.log(similarImageData)\r\n    })\r\n  })\r\n  .catch((error) => {\r\n    console.error(error);\r\n  });\r\n"
+            "source": "const sstk = require('shutterstock-api');\r\n\r\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\r\n\r\nconst api = new sstk.ImagesApi();\r\n\r\nconst imageFile = fs.readFileSync('./myImage.jpg');\r\nconst base64File = Buffer.from(imageFile).toString('base64');\r\n\r\nconst body = new sstk.ImageCreateRequest(base64File);\r\n\r\nconst queryParams = {\r\n  page: 1,\r\n  per_page: 20,\r\n  view: 'minimal'\r\n};\r\n\r\napi.uploadEphemeralImage(body)\r\n  .then((data) => {\r\n    console.log(data.id);\r\n    return api.getSimilarImages(data.id, queryParams);\r\n  })\r\n  .then((similarImageData) => {\r\n    console.log(similarImageData)\r\n  })\r\n  .catch((error) => {\r\n    console.error(error);\r\n  });\r\n"
           },
           {
             "lang": "php",
