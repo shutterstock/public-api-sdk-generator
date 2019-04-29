@@ -437,7 +437,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.ImagesApi();\n\nconst queryParams = {\n  query: 'New York',\n  sort: 'popular',\n  orientation: 'horizontal'\n};\n\napi.searchImages(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst queryParams = {\n  \"query\": \"New York\",\n  \"sort\": \"popular\",\n  \"orientation\": \"horizontal\"\n};\n\nimagesApi.searchImages(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -885,7 +885,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.ImagesApi();\n\nconst body = {\n  images: [\n    {\n      image_id: \"419235589\",\n      format: \"jpg\"\n    },\n    {\n      image_id: \"1079756147\",\n      format: \"jpg\",\n    }\n  ]\n};\n\n// Put your subscription ID in the SHUTTERSTOCK_SUBSCRIPTION_ID environment variable\nconst queryParams = {\n  subscription_id: process.env.SHUTTERSTOCK_SUBSCRIPTION_ID,\n  format: 'jpg',\n  size: 'huge'\n};\n\napi.licenseImages(body, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"images\": [\n    {\n      \"image_id\": \"419235589\",\n      \"format\": \"jpg\"\n    },\n    {\n      \"image_id\": \"1079756147\",\n      \"format\": \"jpg\",\n    }\n  ]\n};\n\n// Put your subscription ID in the SHUTTERSTOCK_SUBSCRIPTION_ID environment variable\nconst queryParams = {\n  \"subscription_id\": process.env.SHUTTERSTOCK_SUBSCRIPTION_ID,\n  \"format\": \"jpg\",\n  \"size\": \"huge\"\n};\n\nimagesApi.licenseImages(body, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -1104,7 +1104,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.ImagesApi();\n\nconst licenseId = 'i1188641347'; // license ID, not image ID\n\nconst body = {\n  \"size\": \"huge\"\n};\n\napi.downloadImage(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst licenseId = \"i1188641347\"; // license ID, not image ID\n\nconst body = {\n  \"size\": \"huge\"\n};\n\nimagesApi.downloadImage(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -1333,7 +1333,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.ImagesApi();\n\nconst imageFile = fs.readFileSync('./myImage.jpg');\nconst base64File = Buffer.from(imageFile).toString('base64');\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\nconst queryParams = {\n  page: 1,\n  per_page: 20,\n  view: 'minimal'\n};\n\napi.uploadEphemeralImage(body)\n  .then((data) => {\n    console.log(data.id);\n    return api.getSimilarImages(data.id, queryParams);\n  })\n  .then((similarImageData) => {\n    console.log(similarImageData)\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\nconst queryParams = {\n  \"page\": 1,\n  \"per_page\": 20,\n  \"view\": \"minimal\"\n};\n\nimagesApi.uploadEphemeralImage(body)\n  .then((data) => {\n    console.log(data.id);\n    return imagesApi.getSimilarImages(data.id, queryParams);\n  })\n  .then((similarImageData) => {\n    console.log(similarImageData);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -1509,7 +1509,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"name\": \"My collection\"\n};\n\nimagesApi.createLightbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"name\": \"My collection\"\n};\n\nimagesApi.createLightbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -1768,7 +1768,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\nconst body = {\n  \"name\": \"My new collection name\"\n};\n\nimagesApi.renameLightbox(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\nconst body = {\n  \"name\": \"My new collection name\"\n};\n\nimagesApi.renameLightbox(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -1844,7 +1844,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"136351027\"; // Collection ID\n\nimagesApi.deleteLightbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"136351027\"; // Collection ID\n\nimagesApi.deleteLightbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -1904,7 +1904,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"495863218\",\n      \"media_type\": \"image\"\n    }\n  ]\n};\n\nimagesApi.addLightboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"495863218\",\n      \"media_type\": \"image\"\n    }\n  ]\n};\n\nimagesApi.addLightboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -2105,7 +2105,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\n// Array of images to remove\nconst imagesToRemove = {\n  item_id: [\n    \"495863218\"\n  ]\n};\n\nimagesApi.deleteLightboxItems(collectionId, imagesToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\n// Array of images to remove\nconst imagesToRemove = {\n  \"item_id\": [\n    \"495863218\"\n  ]\n};\n\nimagesApi.deleteLightboxItems(collectionId, imagesToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -2839,7 +2839,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.VideosApi();\n\nconst queryParams = {\n  query: 'hot air balloon',\n  duration_from: 30,\n  sort: 'popular'\n};\n\napi.searchVideos(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst queryParams = {\n  \"query\": \"hot air balloon\",\n  \"duration_from\": 30,\n  \"sort\": \"popular\"\n};\n\nvideosApi.searchVideos(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -3224,7 +3224,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.VideosApi();\n\nconst body = {\n  videos: [\n    {\n      video_id: \"419235589\"\n    },\n    {\n      video_id: \"1079756147\"\n    }\n  ]\n};\n\nconst queryParams = {\n  subscription_id: SHUTTERSTOCK_SUBSCRIPTION_ID,\n  size: 'web'\n};\n\napi.searchVideos(body, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst body = {\n  \"videos\": [\n    {\n      \"video_id\": \"419235589\"\n    },\n    {\n      \"video_id\": \"1079756147\"\n    }\n  ]\n};\n\nconst queryParams = {\n  \"subscription_id\": SHUTTERSTOCK_SUBSCRIPTION_ID,\n  \"size\": \"web\"\n};\n\nvideosApi.searchVideos(body, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -3629,7 +3629,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst licenseId = 'i1188641347';\n\nconst body = {};\n\nvideosApi.downloadVideos(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst licenseId = \"i1188641347\";\n\nconst body = {};\n\nvideosApi.downloadVideos(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -3714,7 +3714,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst body = {\n  \"name\": \"New collection name\"\n};\n\nvideosApi.createClipbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst body = {\n  \"name\": \"New collection name\"\n};\n\nvideosApi.createClipbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -3941,15 +3941,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl -X DELETE https://api.shutterstock.com/v2/videos/collections/17555176 \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+            "source": "DATA='{\n  \"name\": \"Updated collection name\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/videos/collections/17555176 \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\";\n\nvideosApi.deleteClipbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"186765119\";\n\nconst body = {\n  \"name\": \"My new collection name\"\n};\n\nvideosApi.renameClipbox(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+            "source": "$body = [\n  \"name\" => \"Updated collection name\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
           }
         ],
         "tags": [
@@ -4017,21 +4017,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": {
-              "$ref": "#/paths/~1v2~1videos~1collections~1%7Bid%7D/post/x-code-samples/0/source"
-            }
+            "source": "curl -X DELETE https://api.shutterstock.com/v2/videos/collections/17555176 \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
           },
           {
             "lang": "javascript--nodejs",
-            "source": {
-              "$ref": "#/paths/~1v2~1videos~1collections~1%7Bid%7D/post/x-code-samples/1/source"
-            }
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\";\n\nvideosApi.deleteClipbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": {
-              "$ref": "#/paths/~1v2~1videos~1collections~1%7Bid%7D/post/x-code-samples/2/source"
-            }
+            "source": "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
           }
         ],
         "tags": [
@@ -4154,7 +4148,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\"; // Collection ID\n\n// Array of videos to add\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"10120264\",\n      \"media_type\": \"video\"\n    }\n  ]\n};\n\nvideosApi.addLightboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\"; // Collection ID\n\n// Array of videos to add\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"10120264\",\n      \"media_type\": \"video\"\n    }\n  ]\n};\n\nvideosApi.addLightboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -4350,7 +4344,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\";\n\n// Array of videos to remove\nconst videosToRemove = {\n  item_id: [\n    \"10120264\"\n  ]\n};\n\nvideosApi.deleteClipboxItems(collectionId, videosToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\";\n\n// Array of videos to remove\nconst videosToRemove = {\n  \"item_id\": [\n    \"10120264\"\n  ]\n};\n\nvideosApi.deleteClipboxItems(collectionId, videosToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -4839,7 +4833,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.AudioApi();\n\nconst queryParams = {\n  query: 'bluegrass',\n  duration_from: 60,\n  moods: ['uplifting']\n};\n\napi.searchAudio(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst queryParams = {\n  \"query\": \"bluegrass\",\n  \"duration_from\": 60,\n  \"moods\": [\"uplifting\"]\n};\n\naudioApi.searchAudio(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -5245,7 +5239,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"audio\": [\n    {\n      \"audio_id\": \"446348\",\n      \"license\": \"premier_music_comp\",\n      \"metadata\": {\n        \"purchase_order\": \"123\"\n      }\n    }\n  ]\n};\n\naudioApi.licenseTrack(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"audio\": [\n    {\n      \"audio_id\": \"446348\",\n      \"license\": \"premier_music_comp\",\n      \"metadata\": {\n        \"purchase_order\": \"123\"\n      }\n    }\n  ]\n};\n\naudioApi.licenseTrack(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -5386,7 +5380,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst licenseId = 'i1188641348'; // license ID, not track ID\n\naudioApi.downloadTracks(licenseId)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst licenseId = \"i1188641348\"; // license ID, not track ID\n\naudioApi.downloadTracks(licenseId)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -5452,7 +5446,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"name\": \"Best rock music\"\n};\n\naudioApi.createSoundbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"name\": \"Best rock music\"\n};\n\naudioApi.createSoundbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -5696,7 +5690,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433107\";\n\nconst body = {\n  \"name\": \"Best rock music\"\n};\n\naudioApi.renameSoundbox(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433107\";\n\nconst body = {\n  \"name\": \"Best rock music\"\n};\n\naudioApi.renameSoundbox(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -5773,7 +5767,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433107\";\n\naudioApi.deleteSoundbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433107\";\n\naudioApi.deleteSoundbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -5833,7 +5827,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433115\";\n\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"442583\"\n    },\n    {\n      \"id\": \"7491192\"\n    }\n  ]\n};\n\naudioApi.addSoundboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433115\";\n\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"442583\"\n    },\n    {\n      \"id\": \"7491192\"\n    }\n  ]\n};\n\naudioApi.addSoundboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -6034,7 +6028,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433119\";\n\n// Array of tracks to remove\nconst tracksToRemove = {\n  item_id: [\n    \"76688182\",\n    \"40005859\"\n  ]\n};\n\naudioApi.deleteSoundboxItems(collectionId, tracksToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433119\";\n\n// Array of tracks to remove\nconst tracksToRemove = {\n  \"item_id\": [\n    \"76688182\",\n    \"40005859\"\n  ]\n};\n\naudioApi.deleteSoundboxItems(collectionId, tracksToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -6247,7 +6241,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.EditorialApi();\n\nconst queryParams = {\n  query: 'football',\n  country: 'USA',\n  sort: 'newest',\n  date_start: '2018-10-23'\n};\n\nconst country = 'USA';\n\napi.searchEditorial(country, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.searchEditorial(country, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -6432,7 +6426,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require('shutterstock-api');\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst api = new sstk.EditorialApi();\n\nconst body = {\n  editorial: [\n    {\n      editorial_id: \"8594090h\",\n      license: \"premier_editorial_comp\"\n    }\n  ],\n  country: \"USA\"\n};\n\napi.licenseEditorialImage(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst body = {\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n};\n\neditorialApi.licenseEditorialImage(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -7707,7 +7701,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\n  headers: {\n    \"User-Agent\": \"request\"\n  },\n  qs: {\n    \"scope\": \"licenses.create licenses.view purchases.view\",\n    \"state\": \"demo_\" + Date.now(),\n    \"response_type\": \"code\",\n    \"redirect_uri\": \"http://localhost:3000/callback\",\n    \"client_id\": \"860bde70bb335163e2e4\"\n  },\n  useQueryString: true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
+            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\n  \"headers\": {\n    \"User-Agent\": \"request\"\n  },\n  \"qs\": {\n    \"scope\": \"licenses.create licenses.view purchases.view\",\n    \"state\": \"demo_\" + Date.now(),\n    \"response_type\": \"code\",\n    \"redirect_uri\": \"http://localhost:3000/callback\",\n    \"client_id\": \"860bde70bb335163e2e4\"\n  },\n  \"useQueryString\": true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
           },
           {
             "lang": "php",
@@ -7760,7 +7754,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nconst body = {\n  \"client_id\": \"860bde70bb335163e2e4\",\n  \"client_secret\": \"225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\",\n  \"grant_type\": \"authorization_code\",\n  \"code\": \"VaRLQ3rICmWjGr4ciI-GwR\"\n}\n\nrequest.post(\"https://api.shutterstock.com/v2/oauth/access_token\", {\n  headers: {\n    \"User-Agent\": \"request\"\n  },\n  body: body,\n  json: true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
+            "source": "const request = require(\"request-promise\");\n\nconst body = {\n  \"client_id\": \"860bde70bb335163e2e4\",\n  \"client_secret\": \"225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\",\n  \"grant_type\": \"authorization_code\",\n  \"code\": \"VaRLQ3rICmWjGr4ciI-GwR\"\n};\n\nrequest.post(\"https://api.shutterstock.com/v2/oauth/access_token\", {\n  \"headers\": {\n    \"User-Agent\": \"request\"\n  },\n  \"body\": body,\n  \"json\": true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
           },
           {
             "lang": "php",
