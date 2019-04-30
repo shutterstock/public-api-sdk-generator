@@ -8923,7 +8923,7 @@
             "type": "string"
           },
           "metadata": {
-            "description": "Any metadata that was passed in the original licensing call",
+            "description": "The metadata that was passed in the original licensing request",
             "type": "object"
           },
           "subscription_id": {
@@ -9832,8 +9832,7 @@
             "type": "string"
           },
           "metadata": {
-            "description": "Optional custom metdata to attach to the license",
-            "type": "object"
+            "$ref": "#/components/schemas/LicenseRequestMetadata"
           },
           "size": {
             "description": "Asset size to download, default is original",
@@ -9989,8 +9988,7 @@
             "type": "string"
           },
           "metadata": {
-            "description": "For enterprise downloads, the custom metadata",
-            "type": "object"
+            "$ref": "#/components/schemas/LicenseRequestMetadata"
           },
           "price": {
             "description": "For revenue-sharing transactions, the final cost to the end customer",
@@ -10108,6 +10106,35 @@
           }
         }
       },
+      "LicenseRequestMetadata": {
+        "description": "Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder",
+        "example": {
+          "customer_id": "12345",
+          "purchase_order": "123",
+          "job": "456",
+          "client": "Smith Co."
+        },
+        "maxProperties": 4,
+        "properties": {
+          "customer_id": {
+            "description": "The ID of a revenue-sharing partner's customer",
+            "type": "string"
+          },
+          "purchase_order": {
+            "description": "The customer's purchase order ID for the transaction",
+            "type": "string"
+          },
+          "job": {
+            "description": "Information about the job for which the media is licensed",
+            "type": "string"
+          },
+          "client": {
+            "description": "The name of the client for which the media is licensed",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "LicenseVideo": {
         "description": "Data required to license a video",
         "example": {
@@ -10124,8 +10151,7 @@
             "type": "boolean"
           },
           "metadata": {
-            "description": "Metadata about this video license",
-            "type": "object"
+            "$ref": "#/components/schemas/LicenseRequestMetadata"
           },
           "price": {
             "description": "Retail price amount; only for rev-share partners",
