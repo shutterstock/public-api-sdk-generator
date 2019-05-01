@@ -1,1 +1,0 @@
-**Note**: These examples target the development server at commerce.dev.shuttercorp.net, and therefore are not seen by customer-facing apps. Making changes to the production system is risky, and mistakes can have permanent impact both in the Commerce system and in Mason. Only the Commerce development team should make changes like these to the Commerce system.
