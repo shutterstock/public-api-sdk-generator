@@ -18,6 +18,7 @@ script:
   - cp ./dist/package.json ./public-api-javascript-sdk
   - cp ./dist/README.md ./public-api-javascript-sdk
   - cp -r ./dist/docs ./public-api-javascript-sdk
+  - cp -r ./build/jekyll/* ./public-api-javascript-sdk
   - cd ./public-api-javascript-sdk
   - nvm install 10
   - nvm use 10

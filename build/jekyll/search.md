@@ -2,7 +2,7 @@
 title: Search results
 keywords:
 summary:
-sidebar: meta_sidebar
+sidebar: sdk_sidebar
 permalink: search.html
 folder: meta
 toc: false
