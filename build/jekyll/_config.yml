@@ -15,7 +15,7 @@ site_title: Shutterstock JavaScript SDK
 company_name: Shutterstock
 # this appears in the footer
 
-github_editme_path: https://github.shuttercorp.net/tmcmackin/compliance-doc/blob/master
+github_editme_path:
 # if you're using Github, provide the basepath to the branch you've created for reviews, following the sample here. if not, leave this value blank.
 
 # google_analytics: UA-105239439-1
@@ -28,10 +28,11 @@ port: 4000
 # the port where the preview is rendered. You can leave this as is unless you have other Jekyll builds using this same port that might cause conflicts. in that case, use another port such as 4006.
 
 exclude:
-  - .idea/
   - .gitignore
   - node_modules/
-  - orphans/
+  - src/
+  - api/
+  - model/
 # these are the files and directories that jekyll will exclude from the build
 
 highlighter: rouge
@@ -65,7 +66,3 @@ sidebars:
 
 description: "Shutterstock JavaScript SDK"
 # the description is used in the feed.xml file
-
-# needed for sitemap.xml file only
-# url: http://commerce-docs.shuttercorp.net
-# baseurl: /documentation-theme-jekyll
