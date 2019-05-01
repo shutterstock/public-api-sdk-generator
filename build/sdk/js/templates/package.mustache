@@ -1,21 +1,24 @@
 {
   "name": "shutterstock-api",
   "version": "{{{projectVersion}}}",
-  "description": "{{{projectDescription}}}",
-  "license": "{{licenseName}}",
-  "main": "{{sourceFolder}}{{#invokerPackage}}/{{invokerPackage}}{{/invokerPackage}}/index.js",
+  "description": "The Shutterstock API provides access to Shutterstock's library of media as well as information about customers accounts and the contributors that provide the media",
+  "license": "MIT",
+  "main": "src/index.js",
   "scripts": {
+    "lint": "eslint ./src",
     "test": "./node_modules/mocha/bin/mocha --recursive"
   },
   "browser": {
     "fs": false
   },
   "dependencies": {
-    "superagent": "3.7.0"
+    "superagent": "^5.0.2"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.15.3",
     "mocha": "~2.3.4",
     "sinon": "1.17.3",
-    "expect.js": "~0.3.1"
+    "uuid": "^3.3.2"
   }
 }
