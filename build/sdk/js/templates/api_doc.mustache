@@ -1,6 +1,6 @@
 ---
 title: shutterstock-api.{{classname}}
-permalink: docs/{{classname}}.html
+permalink: docs/{{classname}}
 ---
 
 All URIs are relative to `{{basePath}}`.
@@ -78,13 +78,13 @@ api.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensi
 {{^allParams}}This endpoint does not accept any parameters.{{/allParams}}{{#allParams}}{{#-last}}
 Name | Type | Description
 ------------- | ------------- | -------------{{/-last}}{{/allParams}}
-{{#allParams}} {{paramName}} {{#required}}(required) {{/required}}| {{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isFile}}{{dataType}}{{/isFile}}{{^isFile}}[{{dataType}}]({{baseType}}.md){{/isFile}}{{/isPrimitiveType}}| {{description}}{{#defaultValue}}, defaults to {{defaultValue}}{{/defaultValue}} {{#allowableValues}}<br/><br/>Valid values: {{#enumVars}}{{{value}}}{{^-last}}, {{/-last}}{{/enumVars}}{{/allowableValues}}
+{{#allParams}} {{paramName}} {{#required}}(required) {{/required}}| {{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isFile}}{{dataType}}{{/isFile}}{{^isFile}}[{{dataType}}]({{baseType}}){{/isFile}}{{/isPrimitiveType}}| {{description}}{{#defaultValue}}, defaults to {{defaultValue}}{{/defaultValue}} {{#allowableValues}}<br/><br/>Valid values: {{#enumVars}}{{{value}}}{{^-last}}, {{/-last}}{{/enumVars}}{{/allowableValues}}
 {{/allParams}}
 
 ### Accepted authentication {#{{operationId}}-auth}
 
-{{^authMethods}}No authentication required.{{/authMethods}}{{#authMethods}}{{#isBasic}}- [Basic](../README.md#Basic_authentication){{/isBasic}}{{#isOAuth}}
-- [OAuth](../README.md#OAuth_authentication) {{^scopes}}(No scope required.){{/scopes}}{{#scopes}}Required scopes:
+{{^authMethods}}No authentication required.{{/authMethods}}{{#authMethods}}{{#isBasic}}- Basic{{/isBasic}}{{#isOAuth}}
+- OAuth {{^scopes}}(No scope required.){{/scopes}}{{#scopes}}Required scopes:
   - {{{scope}}}
 {{/scopes}}{{/isOAuth}}{{/authMethods}}
 
@@ -96,7 +96,7 @@ Name | Type | Description
 
 ### Return type {#{{operationId}}-return}
 
-{{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[{{returnType}}]({{returnBaseType}}.md){{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}No response body.{{/returnType}}
+{{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[{{returnType}}]({{returnBaseType}}){{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}No response body.{{/returnType}}
 
 {{#examples}}
 ### Example response {#{{operationId}}-response}
