@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 {{notes}}{{/notes}}
 
-### Example
+### Example {#{{operationId}}-example}
 
 {{#vendorExtensions.x-code-samples}}
 ```javascript
@@ -73,7 +73,7 @@ api.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensi
 {{/usePromises}}
 ```{{/vendorExtensions.x-code-samples}}
 
-### Parameters
+### Parameters {#{{operationId}}-parameters}
 
 {{^allParams}}This endpoint does not accept any parameters.{{/allParams}}{{#allParams}}{{#-last}}
 Name | Type | Description
@@ -81,25 +81,25 @@ Name | Type | Description
 {{#allParams}} {{paramName}} {{#required}}(required) {{/required}}| {{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isFile}}{{dataType}}{{/isFile}}{{^isFile}}[{{dataType}}]({{baseType}}.md){{/isFile}}{{/isPrimitiveType}}| {{description}}{{#defaultValue}}, defaults to {{defaultValue}}{{/defaultValue}} {{#allowableValues}}<br/><br/>Valid values: {{#enumVars}}{{{value}}}{{^-last}}, {{/-last}}{{/enumVars}}{{/allowableValues}}
 {{/allParams}}
 
-### Accepted authentication
+### Accepted authentication {#{{operationId}}-auth}
 
 {{^authMethods}}No authentication required.{{/authMethods}}{{#authMethods}}{{#isBasic}}- [Basic](../README.md#Basic_authentication){{/isBasic}}{{#isOAuth}}
 - [OAuth](../README.md#OAuth_authentication) {{^scopes}}(No scope required.){{/scopes}}{{#scopes}}Required scopes:
   - {{{scope}}}
 {{/scopes}}{{/isOAuth}}{{/authMethods}}
 
-### HTTP request headers
+### HTTP request headers {#{{operationId}}-headers}
 
 {{^consumes}}{{^produces}}No request headers required.{{/produces}}{{/consumes}}
 {{#consumes}}- Content-Type: {{{mediaType}}}{{#hasMore}}, {{/hasMore}}{{/consumes}}
 {{#produces}}- Accept: {{{mediaType}}}{{#hasMore}}, {{/hasMore}}{{/produces}}
 
-### Return type
+### Return type {#{{operationId}}-return}
 
 {{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[{{returnType}}]({{returnBaseType}}.md){{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}No response body.{{/returnType}}
 
 {{#examples}}
-### Example response
+### Example response {#{{operationId}}-response}
 
 {{{example}}}
 {{/examples}}
