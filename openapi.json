@@ -4564,20 +4564,41 @@
               "items": {
                 "type": "string",
                 "enum": [
+                  "Acoustic",
+                  "Ambient",
+                  "Audio Logo",
                   "Blues",
-                  "Children",
+                  "Chill Out",
                   "Classical",
+                  "Corporate",
                   "Country",
-                  "Dance/Electronic",
-                  "Hip-Hop/Rap",
+                  "Dance/Techno",
+                  "Dubstep",
+                  "Easy Listening",
+                  "Electro Pop",
+                  "Electronic",
+                  "Folk",
+                  "Games",
+                  "Hip Hop",
                   "Holiday",
+                  "Independent",
+                  "Indie Pop",
                   "Jazz",
+                  "Kids/Children",
+                  "Latin",
+                  "Masterworks",
+                  "Motown",
                   "New Age",
-                  "Pop/Rock",
-                  "R&B/Soul",
-                  "Reggae/Ska",
-                  "Spiritual",
-                  "World/International"
+                  "News",
+                  "Piano / Solo Instrumental",
+                  "Pop",
+                  "Production / Film Scores",
+                  "R&B",
+                  "Reggae",
+                  "Rock",
+                  "Trailer",
+                  "Vocals",
+                  "World"
                 ]
               }
             }
@@ -4618,7 +4639,35 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                  "Action/Sports",
+                  "Adventure/Discovery",
+                  "Aerobics/Workout",
+                  "Aggressive",
+                  "Comedy/Funny",
+                  "Crime/Thriller/Spy",
+                  "Dark/Somber",
+                  "Epic/Orchestral",
+                  "Fashion/Lifestyle",
+                  "Feel Good",
+                  "Gentle/Light",
+                  "Happy/Cheerful",
+                  "Horror/Scary",
+                  "Magical/Mystical",
+                  "Military/Patriotic",
+                  "Relaxation/Meditation",
+                  "Religious/Christian",
+                  "Romantic/Sentimental",
+                  "Sad/Nostalgic",
+                  "Sci-Fi/Future",
+                  "Sexy/Sensual",
+                  "Strange/Bizarre",
+                  "Suspense/Drama",
+                  "Underscores",
+                  "Uplifting",
+                  "Wedding"
+                ]
               }
             }
           },
