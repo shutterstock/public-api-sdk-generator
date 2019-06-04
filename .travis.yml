@@ -17,7 +17,7 @@ script:
   - cp -r ./dist/src ./public-api-javascript-sdk
   - cp ./dist/package.json ./public-api-javascript-sdk
   - cp ./dist/README.md ./public-api-javascript-sdk
-  - sed -i 's/\[\[String\]\]\(String\.md\)/[String]/g' ./dist/docs/*.md
+  - sed -i 's/\[\[String\]\](String.md)/[String]/g' ./dist/docs/*.md
   - cp -r ./dist/docs ./public-api-javascript-sdk
   - cd ./public-api-javascript-sdk
   - nvm install 10
