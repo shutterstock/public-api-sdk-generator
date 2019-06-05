@@ -1,0 +1,6 @@
+<div class="twistie"></div>
+{% if entry.url %}
+  <a href="{{base}}/{{include.entry.url}}">{{include.entry.title}}</a>
+{% else %}
+  <a href="#">{{include.entry.title}}</a>
+{% endif %}

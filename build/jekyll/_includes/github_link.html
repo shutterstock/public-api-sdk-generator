@@ -1,0 +1,16 @@
+{% unless page.editme == false %}
+
+{% if site.github_editme_path %}
+
+<li><a target="_blank" href="{{site.github_editme_path}}{{page.url | remove: ".html" | append: ".md"}}"><i class="fa fa-github fa-lg"></i> Edit</a></li>
+
+{% endif %}
+
+
+{% if site.gitlab_editme_path %}
+
+<li><a target="_blank" href="https://github.com/{{site.gitlab_editme_path}}{% unless page.url contains "index.html" %}pages/{% endunless %}{{page.folder}}{{page.url | remove: ".html" | append: ".md"}}"><i class="fa fa-gitlab fa-lg"></i> Edit</a></li>
+
+{% endif %}
+
+{% endunless %}

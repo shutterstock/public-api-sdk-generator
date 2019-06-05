@@ -1,0 +1,26 @@
+product: JavaScript SDK
+entries:
+
+  - title: Overview
+    url: index.html
+    
+  - title: Images
+    url: docs/ImagesApi.html
+
+  - title: Videos
+    url: docs/VideosApi.html
+
+  - title: Audio
+    url: docs/AudioApi.html
+
+  - title: Editorial
+    url: docs/EditorialApi.html
+
+  - title: Contributors
+    url: docs/ContributorsApi.html
+
+  - title: Users
+    url: docs/UsersApi.html
+
+  - title: Test
+    url: docs/TestApi.html

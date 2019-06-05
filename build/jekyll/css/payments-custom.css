@@ -1,0 +1,137 @@
+.navbar {
+  background-color: #3f4657;
+}
+
+button.navbar-toggle {
+  border-color: #82becd!important;
+}``
+
+.navbar-toggle:focus, .navbar-toggle:hover {
+  background-color: #82becd!important;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color: #82becd!important;
+}
+
+h2, h3, h4, h5 {
+  color: #82becd;
+  font-weight: bold;
+}
+
+.sidebarTitle {
+  color: #82becd!important;
+  font-weight: bold;
+  font-size: large;
+  padding: 15px;
+}
+
+.sidebarnav {
+  list-style-type:none;
+  padding-left: 0px;
+}
+
+.sidebarnav ul {
+  padding-left: 10px;
+  list-style-type:none;
+}
+
+.sidebarnav a {
+  padding-left: 5px;
+}
+
+.sidebarnav li {
+  font-size: 12px;
+  line-height: 18px;
+  padding: 2px 10px;
+}
+
+.sidebarnav li.currentPage > a {
+  background-color: #82becd;
+}
+
+.sidebarnav li > a:hover {
+  background-color: #82becd!important;
+}
+
+.sidebarnav a {
+  color: black;
+  display: block;
+  outline: none;
+  text-decoration: none;
+  position: relative;
+}
+
+.sidebarnav div.twistie {
+  position: relative;
+}
+
+.sidebarnav li.folder > div.twistie:before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: -12px;
+  border-style: solid;
+  border-width: 5px 0 5px 8px;
+  border-color: transparent transparent transparent #82becd;
+  transform: rotate(0deg);
+  transition: 0.3s;
+}
+
+.sidebarnav li.folder.active > div.twistie:before {
+  transform: rotate(90deg);
+}
+
+.sidebarnav li.navHeading {
+  padding-left: 15px;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* search */
+
+.searchResultHeading {
+    color: #82becd;
+    font-weight: bold;
+    font-size: large;
+}
+
+.searchResultText {
+  font-size: small;
+}
+
+/* index page */
+
+.ovcontainer div.service {
+  margin: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100px
+}
+.ovcontainer div img {
+  height: 50px;
+  width: 50px;
+  box-sizing: border-box;
+}
+.ovcontainer .ovcontainerHeading {
+  font-weight: bold;
+  display: block;
+}
+.ovcontainer .ovcontainerText {
+  font-weight: normal;
+  font-size: smaller;
+  display: block;
+}
+.ovcontainerList {
+  text-align: left;
+}
+
+table ul, table ol {
+  padding-left: 10px;
+}
+
+#toc {
+  padding-top: 20px;
+}

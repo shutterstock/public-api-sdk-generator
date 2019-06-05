@@ -1,0 +1,78 @@
+{% assign sidebar = site.data.sidebars[page.sidebar] %}
+
+{% include image.html file="shutterstock_logo.png" alt="" max-width="220" %}
+
+{% include base.html %}
+<hr class="navDivider"/>
+
+{% assign pageURL = page.url | replace_first: '/', '' %}
+
+{% unless page.hide_sidebar %}
+
+<div class="sidebarTitle">{{sidebar.product}} {{sidebar.version}}</div>
+
+<div id="mysidebarnav" class="sidebarnav">
+  {% for entry in sidebar.entries %}
+
+    {% if entry.entries %}
+
+      {% comment %} it's a folder {% endcomment %}
+      {% if pageURL == entry.url %}
+      <li class="active currentPage folder">
+
+        {% include sidebar_folderlink.html entry=entry %}
+
+        {% include sidebar_entries.html entry=entry %}
+
+      </li>
+      {% else %}
+      <li class="folder">
+
+        {% include sidebar_folderlink.html entry=entry %}
+
+        {% include sidebar_entries.html entry=entry %}
+
+      </li>
+      {% endif %}
+
+    {% else %}
+
+      {% comment %} it's not a folder {% endcomment %}
+
+      {% if entry.url %}
+
+        {% comment %} it's a single link {% endcomment %}
+        {% include sidebar_link.html entry=entry %}
+
+      {% else %}
+
+        {% comment %} it's a heading without a link {% endcomment %}
+        <li class="navHeading">{{entry.title}}</li>
+
+      {% endif %}
+
+    {% endif %}
+
+  {% endfor %}
+</div>
+
+{% comment %} this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.{% endcomment %}
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+{% comment %}
+This is to manually work the collapse when people click the triangles
+{% endcomment %}
+
+<script>
+$(document).on("click","div.twistie", function (event) {
+  var thisElement = $(this).parents('li.folder');
+  if (thisElement.hasClass("active")){
+    thisElement.navgoco('toggle', false);
+  } else{
+    thisElement.navgoco('toggle', true);
+  }
+  thisElement.toggleClass("active");
+});
+</script>
+
+{% endunless %}

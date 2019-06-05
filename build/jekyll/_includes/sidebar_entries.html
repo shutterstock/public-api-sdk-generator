@@ -1,0 +1,35 @@
+  {% comment %} show child items {% endcomment %}
+  {% comment %} try recursing here {% endcomment %}
+  <ul>
+    {% for subentry in include.entry.entries %}
+
+      {% if subentry.entries %}
+
+        {% comment %} it's a folder {% endcomment %}
+        {% if pageURL == subentry.url %}
+        <li class="active currentPage folder">
+
+          {% include sidebar_folderlink.html entry=subentry %}
+
+          {% include sidebar_entries.html entry=subentry %}
+
+        </li>
+        {% else %}
+        <li class="folder">
+
+          {% include sidebar_folderlink.html entry=subentry %}
+
+          {% include sidebar_entries.html entry=subentry %}
+
+        </li>
+        {% endif %}
+
+      {% else %}
+
+        {% comment %} it's not a folder {% endcomment %}
+
+        {% include sidebar_link.html entry=subentry %}
+
+      {% endif %}
+    {% endfor %}
+  </ul>

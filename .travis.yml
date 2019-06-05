@@ -28,3 +28,12 @@ script:
   - git add .
   - git commit --allow-empty -m "Updating JavaScript SDK"
   - git push
+  - git checkout gh-pages
+  - cp -r ../build/jekyll/* .
+  - cp ../dist/README.md .
+  - cp -r ../dist/docs .
+  - node ./scripts/fix-readme.js
+  - node ./scripts/add-front-matter.js
+  - git add .
+  - git commit --allow-empty -m "Updating JavaScript SDK documentation site"
+  - git push
