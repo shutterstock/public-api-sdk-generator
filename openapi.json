@@ -2419,6 +2419,151 @@
         "description": "This endpoint lists the IDs of images in a featured collection and the date that each was added."
       }
     },
+    "/v2/images/updated": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "description": "Show images that were added, deleted, or edited; by default, the endpoint returns images that were updated in any of these ways",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                "addition",
+                "deletion",
+                "edit"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "Show images updated on or after the specified date, in the format YYYY-MM-DD",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Show images updated before the specified date, in the format YYYY-MM-DD",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "interval",
+            "description": "Show images updated in the specified time period, where the time period is an interval (like SQL INTERVAL) such as 1 DAY, 6 HOUR, or 30 MINUTE; the default is 1 HOUR, which shows images that were updated in the hour preceding the request",
+            "schema": {
+              "type": "string",
+              "default": "1 HOUR"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "description": "Number of results per page, defaults to 100",
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "maximum": 2000,
+              "minimum": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Sort order",
+            "schema": {
+              "type": "string",
+              "default": "newest",
+              "enum": [
+                "newest",
+                "oldest"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatedMediaDataList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "1398917399",
+                          "updated_time": "2019-06-04T15:56:44-04:00",
+                          "updates": [
+                            "edit"
+                          ]
+                        },
+                        {
+                          "id": "1398978491",
+                          "updated_time": "2019-06-04T15:56:44-04:00",
+                          "updates": [
+                            "edit"
+                          ]
+                        },
+                        {
+                          "id": "1414537214",
+                          "updated_time": "2019-06-04T15:56:44-04:00",
+                          "updates": [
+                            "edit"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X GET https://api.shutterstock.com/v2/images/updated \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"interval=30 MINUTE\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst queryParams = {\n  \"interval\": \"30 MINUTE\"\n};\n\nimagesApi.getUpdatedImages(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$queryFields = [\n  \"interval\" => \"30 MINUTE\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "security": [],
+        "tags": [
+          "images"
+        ],
+        "operationId": "getUpdatedImages",
+        "summary": "List updated images",
+        "description": "This endpoint lists images that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the `interval` parameter to show images that were updated recently, but you can also use the `start_date` and `end_date` parameters to specify a range of no more than three days. Do not use the `interval` parameter with either `start_date` or `end_date`."
+      }
+    },
     "/v2/videos/search": {
       "get": {
         "parameters": [
@@ -4485,6 +4630,138 @@
         "operationId": "getSimilarVideos",
         "summary": "List similar videos",
         "description": "This endpoint searches for videos that are similar to a video that you specify."
+      }
+    },
+    "/v2/videos/updated": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "Show videos updated on or after the specified date, in the format YYYY-MM-DD",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "Show videos updated before the specified date, in the format YYYY-MM-DD",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "interval",
+            "description": "Show videos updated in the specified time period, where the time period is an interval (like SQL INTERVAL) such as 1 DAY, 6 HOUR, or 30 MINUTE; the default is 1 HOUR, which shows videos that were updated in the hour preceding the request",
+            "schema": {
+              "type": "string",
+              "default": "1 HOUR"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "maximum": 2000,
+              "minimum": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Sort by oldest or newest videos first",
+            "schema": {
+              "default": "newest",
+              "type": "string",
+              "enum": [
+                "newest",
+                "oldest"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatedMediaDataList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "1030611710",
+                          "updated_time": "2019-06-04T15:57:31-04:00",
+                          "updates": [
+                            "addition",
+                            "edit"
+                          ]
+                        },
+                        {
+                          "id": "1030611713",
+                          "updated_time": "2019-06-04T15:57:31-04:00",
+                          "updates": [
+                            "addition",
+                            "edit"
+                          ]
+                        },
+                        {
+                          "id": "1030611719",
+                          "updated_time": "2019-06-04T15:57:31-04:00",
+                          "updates": [
+                            "addition",
+                            "edit"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X GET https://api.shutterstock.com/v2/videos/updated \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"interval=30 MINUTE\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst queryParams = {\n  \"interval\": \"30 MINUTE\"\n};\n\nvideosApi.getUpdatedVideos(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$queryFields = [\n  \"interval\" => \"30 MINUTE\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "security": [],
+        "tags": [
+          "videos"
+        ],
+        "operationId": "getUpdatedVideos",
+        "summary": "List updated videos",
+        "description": "This endpoint lists videos that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the `interval` parameter to show videos that were updated recently, but you can also use the `start_date` and `end_date` parameters to specify a range of no more than three days. Do not use the `interval` parameter with either `start_date` or `end_date`."
       }
     },
     "/v2/audio/search": {
@@ -10623,12 +10900,12 @@
             "type": "string"
           },
           "updated_time": {
-            "description": "Date the media was updated",
+            "description": "Date that the media was updated",
             "format": "date-time",
             "type": "string"
           },
           "updates": {
-            "description": "List of updates",
+            "description": "Types of updates that were made to the piece of media",
             "items": {
               "type": "string"
             },
