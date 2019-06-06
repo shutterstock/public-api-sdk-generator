@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.4"
+    "version": "1.0.5"
   },
   "paths": {
     "/v2/images/search": {
@@ -2555,7 +2555,14 @@
             "source": "$queryFields = [\n  \"interval\" => \"30 MINUTE\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
-        "security": [],
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
         "tags": [
           "images"
         ],
