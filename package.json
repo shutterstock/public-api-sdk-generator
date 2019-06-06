@@ -8,5 +8,8 @@
   "dependencies": {
     "api-spec-converter": "^2.7.31",
     "lodash": "^4.17.11"
+  },
+  "resolutions": {
+    "*/**/js-yaml": "^3.13.1"
   }
 }
