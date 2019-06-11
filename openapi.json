@@ -10006,28 +10006,6 @@
         },
         "type": "object"
       },
-      "LicenseAgreement": {
-        "description": "Metadata about a license agreement",
-        "properties": {
-          "description": {
-            "type": "string"
-          },
-          "license": {
-            "type": "string"
-          },
-          "media_type": {
-            "description": "Type of media, such as image or video",
-            "type": "string"
-          },
-          "metadata": {
-            "$ref": "#/components/schemas/SubscriptionMetadata"
-          },
-          "price_per_download": {
-            "$ref": "#/components/schemas/Price"
-          }
-        },
-        "type": "object"
-      },
       "LicenseAudio": {
         "description": "An audio licensing item",
         "properties": {
