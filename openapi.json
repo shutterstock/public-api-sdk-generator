@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.5"
+    "version": "1.0.6"
   },
   "paths": {
     "/v2/images/search": {
@@ -10002,28 +10002,6 @@
           "width": {
             "description": "Width of this image size",
             "type": "integer"
-          }
-        },
-        "type": "object"
-      },
-      "LicenseAgreement": {
-        "description": "Metadata about a license agreement",
-        "properties": {
-          "description": {
-            "type": "string"
-          },
-          "license": {
-            "type": "string"
-          },
-          "media_type": {
-            "description": "Type of media, such as image or video",
-            "type": "string"
-          },
-          "metadata": {
-            "$ref": "#/components/schemas/SubscriptionMetadata"
-          },
-          "price_per_download": {
-            "$ref": "#/components/schemas/Price"
           }
         },
         "type": "object"
