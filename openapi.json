@@ -912,10 +912,10 @@
                         "image_id": "59656357",
                         "format": "jpg",
                         "metadata": {
-                          "purchase_order": "123",
-                          "job": "456",
-                          "client": "Smith Co.",
-                          "other": ""
+                          "customer_id": "12345",
+                          "geo_location": "US",
+                          "number_viewed": "15",
+                          "search_term": "dog"
                         }
                       },
                       {
@@ -923,10 +923,10 @@
                         "editorial_acknowledgement": true,
                         "format": "jpg",
                         "metadata": {
-                          "purchase_order": "321",
-                          "job": "654",
-                          "client": "Jones Co.",
-                          "other": ""
+                          "customer_id": "12345",
+                          "geo_location": "US",
+                          "number_viewed": "15",
+                          "search_term": "dog"
                         }
                       }
                     ]
@@ -3490,10 +3490,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-24T14:26:25-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3511,10 +3511,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-23T10:10:24-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3532,10 +3532,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-22T07:51:17-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3553,10 +3553,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-21T12:01:07-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3574,10 +3574,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-21T11:59:43-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3595,10 +3595,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-15T10:53:10-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3616,10 +3616,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-14T23:31:59-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3637,10 +3637,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-14T12:52:40-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3658,10 +3658,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-10T15:38:20-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -3679,10 +3679,10 @@
                           "subscription_id": "s8907043",
                           "download_time": "2018-05-10T15:24:28-04:00",
                           "metadata": {
-                            "client": "client3",
-                            "other": "other4",
-                            "job": "job2",
-                            "purchase_order": "purchase_order1"
+                            "customer_id": "12345",
+                            "geo_location": "US",
+                            "number_viewed": "15",
+                            "search_term": "dog"
                           },
                           "video": {
                             "id": "2140697",
@@ -5568,15 +5568,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "DATA='{\n  \"audio\": [\n    {\n      \"audio_id\": \"591623\",\n      \"license\": \"audio_standard\",\n      \"metadata\": {\n        \"purchase_order\": \"123\",\n        \"job\": \"\",\n        \"client\": \"\",\n        \"other\": \"\"\n      }\n    }\n  ]\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/audio/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+            "source": "DATA='{\n  \"audio\": [\n    {\n      \"audio_id\": \"591623\",\n      \"license\": \"audio_standard\",\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/audio/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"audio\": [\n    {\n      \"audio_id\": \"446348\",\n      \"license\": \"premier_music_comp\",\n      \"metadata\": {\n        \"purchase_order\": \"123\"\n      }\n    }\n  ]\n};\n\naudioApi.licenseTrack(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"audio\": [\n    {\n      \"audio_id\": \"446348\",\n      \"license\": \"premier_music_comp\",\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n};\n\naudioApi.licenseTrack(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$body = [\n  \"audio\" => [\n    [\n      \"audio_id\" => \"591623\",\n      \"license\" => \"audio_standard\",\n      \"metadata\" => [\n        \"purchase_order\" => \"123\",\n        \"job\" => \"\",\n        \"client\" => \"\",\n        \"other\" => \"\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+            "source": "$body = [\n  \"audio\" => [\n    [\n      \"audio_id\" => \"591623\",\n      \"license\" => \"audio_standard\",\n      \"metadata\" => [\n      \"customer_id\" => \"12345\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "tags": [
@@ -5600,10 +5600,7 @@
                         "audio_id": "591623",
                         "license": "audio_standard",
                         "metadata": {
-                          "purchase_order": "123",
-                          "job": "",
-                          "client": "",
-                          "other": ""
+                          "customer_id": "12345"
                         }
                       }
                     ]
@@ -10410,9 +10407,9 @@
         "description": "Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder",
         "example": {
           "customer_id": "12345",
-          "purchase_order": "123",
-          "job": "456",
-          "client": "Smith Co."
+          "geo_location": "US",
+          "number_viewed": "15",
+          "search_term": "dog"
         },
         "maxProperties": 4,
         "properties": {
@@ -10420,16 +10417,16 @@
             "description": "The ID of a revenue-sharing partner's customer",
             "type": "string"
           },
-          "purchase_order": {
-            "description": "The customer's purchase order ID for the transaction",
+          "geo_location": {
+            "description": "The customer's location",
             "type": "string"
           },
-          "job": {
-            "description": "Information about the job for which the media is licensed",
+          "number_viewed": {
+            "description": "How many pieces of media the customer viewed",
             "type": "string"
           },
-          "client": {
-            "description": "The name of the client for which the media is licensed",
+          "search_term": {
+            "description": "The search term that the customer used",
             "type": "string"
           }
         },
