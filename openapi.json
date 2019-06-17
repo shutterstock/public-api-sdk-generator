@@ -4762,7 +4762,14 @@
             "source": "$queryFields = [\n  \"interval\" => \"30 MINUTE\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
-        "security": [],
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
         "tags": [
           "videos"
         ],
