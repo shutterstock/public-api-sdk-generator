@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.6"
+    "version": "1.0.7"
   },
   "paths": {
     "/v2/images/search": {
@@ -4762,7 +4762,14 @@
             "source": "$queryFields = [\n  \"interval\" => \"30 MINUTE\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
-        "security": [],
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
         "tags": [
           "videos"
         ],
@@ -4863,7 +4870,7 @@
                   "Classical",
                   "Corporate",
                   "Country",
-                  "Dance/Techno",
+                  "Dance / Techno",
                   "Dubstep",
                   "Easy Listening",
                   "Electro Pop",
@@ -4875,7 +4882,7 @@
                   "Independent",
                   "Indie Pop",
                   "Jazz",
-                  "Kids/Children",
+                  "Kids / Children",
                   "Latin",
                   "Masterworks",
                   "Motown",
@@ -4935,29 +4942,29 @@
               "items": {
                 "type": "string",
                 "enum": [
-                  "Action/Sports",
-                  "Adventure/Discovery",
-                  "Aerobics/Workout",
+                  "Action / Sports",
+                  "Adventure / Discovery",
+                  "Aerobics / Workout",
                   "Aggressive",
-                  "Comedy/Funny",
-                  "Crime/Thriller/Spy",
-                  "Dark/Somber",
-                  "Epic/Orchestral",
-                  "Fashion/Lifestyle",
+                  "Comedy / Funny",
+                  "Crime / Thriller / Spy",
+                  "Dark / Somber",
+                  "Epic / Orchestral",
+                  "Fashion / Lifestyle",
                   "Feel Good",
-                  "Gentle/Light",
-                  "Happy/Cheerful",
-                  "Horror/Scary",
-                  "Magical/Mystical",
-                  "Military/Patriotic",
-                  "Relaxation/Meditation",
-                  "Religious/Christian",
+                  "Gentle / Light",
+                  "Happy / Cheerful",
+                  "Horror / Scary",
+                  "Magical / Mystical",
+                  "Military / Patriotic",
+                  "Relaxation / Meditation",
+                  "Religious / Christian",
                   "Romantic/Sentimental",
-                  "Sad/Nostalgic",
-                  "Sci-Fi/Future",
-                  "Sexy/Sensual",
-                  "Strange/Bizarre",
-                  "Suspense/Drama",
+                  "Sad / Nostalgic",
+                  "Sci-Fi / Future",
+                  "Sexy / Sensual",
+                  "Strange / Bizarre",
+                  "Suspense / Drama",
                   "Underscores",
                   "Uplifting",
                   "Wedding"
@@ -5057,7 +5064,7 @@
             }
           },
           {
-            "description": "Fields to display in response",
+            "description": "Fields to display in the response; see the documentation for the fields parameter in the overview section",
             "in": "query",
             "name": "fields",
             "schema": {
