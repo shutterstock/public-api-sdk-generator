@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.7"
+    "version": "1.0.8"
   },
   "paths": {
     "/v2/images/search": {
@@ -437,7 +437,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst queryParams = {\n  \"query\": \"New York\",\n  \"sort\": \"popular\",\n  \"orientation\": \"horizontal\"\n};\n\nimagesApi.searchImages(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst queryParams = {\n  \"query\": \"New York\",\n  \"sort\": \"popular\",\n  \"orientation\": \"horizontal\"\n};\n\nimagesApi.searchImages(queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -2991,7 +2991,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst queryParams = {\n  \"query\": \"hot air balloon\",\n  \"duration_from\": 30,\n  \"sort\": \"popular\"\n};\n\nvideosApi.searchVideos(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst queryParams = {\n  \"query\": \"hot air balloon\",\n  \"duration_from\": 30,\n  \"sort\": \"popular\"\n};\n\nvideosApi.searchVideos(queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -5223,7 +5223,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst queryParams = {\n  \"query\": \"bluegrass\",\n  \"duration_from\": 60,\n  \"moods\": [\"uplifting\"]\n};\n\naudioApi.searchAudio(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst queryParams = {\n  \"query\": \"bluegrass\",\n  \"duration_from\": 60,\n  \"moods\": [\"uplifting\"]\n};\n\naudioApi.searchAudio(queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
@@ -6628,7 +6628,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.searchEditorial(country, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.searchEditorial(country, queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
