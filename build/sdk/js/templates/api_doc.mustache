@@ -52,7 +52,7 @@ const queryParams = { {{#allParams}}{{^required}}
 
 {{#usePromises}}
 api.{{{operationId}}}({{#allParams}}{{#required}}{{{paramName}}}{{#vendorExtensions.x-codegen-hasMoreRequired}}, {{/vendorExtensions.x-codegen-hasMoreRequired}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{{#vendorExtensions.x-codegen-hasRequiredParams}}, {{/vendorExtensions.x-codegen-hasRequiredParams}}queryParams{{/hasOptionalParams}}){{#returnType}}
-  .then(({ data }) => {
+  .then((data) => {
     console.log(data);
   }){{/returnType}}
   .catch((error) => {
