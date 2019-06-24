@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.8"
+    "version": "1.0.9"
   },
   "paths": {
     "/v2/images/search": {
@@ -1521,7 +1521,7 @@
         ],
         "operationId": "createLightbox",
         "summary": "Create image collections",
-        "description": "This endpoint creates one or more image collections (lightboxes). To add images to the collections, use `POST /images/collections/{id}/items`.",
+        "description": "This endpoint creates one or more image collections (lightboxes). To add images to the collections, use `POST /v2/images/collections/{id}/items`.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1722,7 +1722,7 @@
         ],
         "operationId": "getLightbox",
         "summary": "Get the details of image collections",
-        "description": "This endpoint gets more detailed information about a collection, including its cover image and timestamps for its creation and most recent update. To get the images in collections, use `GET /images/collections/{id}/items`."
+        "description": "This endpoint gets more detailed information about a collection, including its cover image and timestamps for its creation and most recent update. To get the images in collections, use `GET /v2/images/collections/{id}/items`."
       },
       "post": {
         "parameters": [
@@ -2320,7 +2320,7 @@
         ],
         "operationId": "getFeaturedLightbox",
         "summary": "Get the details of featured image collections",
-        "description": "This endpoint gets more detailed information about a featured collection, including its cover image and timestamps for its creation and most recent update. To get the images, use `GET /images/collections/featured/{id}/items`."
+        "description": "This endpoint gets more detailed information about a featured collection, including its cover image and timestamps for its creation and most recent update. To get the images, use `GET /v2/images/collections/featured/{id}/items`."
       }
     },
     "/v2/images/collections/featured/{id}/items": {
@@ -3878,7 +3878,7 @@
         ],
         "operationId": "createClipbox",
         "summary": "Create video collections",
-        "description": "This endpoint creates one or more collections (clipboxes). To add videos to collections, use `POST /videos/collections/{id}/items`.",
+        "description": "This endpoint creates one or more collections (clipboxes). To add videos to collections, use `POST /v2/videos/collections/{id}/items`.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -4051,7 +4051,7 @@
         ],
         "operationId": "getClipbox",
         "summary": "Get the details of video collections",
-        "description": "This endpoint gets more detailed information about a collection, including the timestamp for its creation and the number of videos in it. To get the videos in collections, use GET /videos/collections/{id}/items."
+        "description": "This endpoint gets more detailed information about a collection, including the timestamp for its creation and the number of videos in it. To get the videos in collections, use GET /v2/videos/collections/{id}/items."
       },
       "post": {
         "parameters": [
@@ -5845,7 +5845,7 @@
         ],
         "operationId": "createSoundbox",
         "summary": "Create audio collections",
-        "description": "This endpoint creates one or more collections (soundboxes). To add tracks, use `POST /audio/collections/{id}/items`.",
+        "description": "This endpoint creates one or more collections (soundboxes). To add tracks, use `POST /v2/audio/collections/{id}/items`.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -6031,7 +6031,7 @@
         ],
         "operationId": "getSoundbox",
         "summary": "Get the details of audio collections",
-        "description": "This endpoint gets more detailed information about a collection, including the number of items in it and when it was last updated. To get the tracks in collections, use `GET /audio/collections/{id}/items`."
+        "description": "This endpoint gets more detailed information about a collection, including the number of items in it and when it was last updated. To get the tracks in collections, use `GET /v2/audio/collections/{id}/items`."
       },
       "post": {
         "parameters": [
@@ -7495,7 +7495,7 @@
         ],
         "operationId": "getContributorCollections",
         "summary": "Get details about contributors' collections",
-        "description": "This endpoint gets more detailed information about a contributor's collection, including its cover image, timestamps for its creation, and most recent update. To get the items in collections, use GET /contributors/{contributor_id}/collections/{id}/items."
+        "description": "This endpoint gets more detailed information about a contributor's collection, including its cover image, timestamps for its creation, and most recent update. To get the items in collections, use GET /v2/contributors/{contributor_id}/collections/{id}/items."
       }
     },
     "/v2/contributors/{contributor_id}/collections/{id}/items": {
@@ -10072,7 +10072,11 @@
             "enum": [
               "audio_standard",
               "audio_enhanced",
-              "audio_platform"
+              "audio_platform",
+              "premier_music_basic",
+              "premier_music_extended",
+              "premier_music_pro",
+              "premier_music_comp"
             ],
             "type": "string"
           },
