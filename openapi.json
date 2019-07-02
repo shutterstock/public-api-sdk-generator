@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.9"
+    "version": "1.0.10"
   },
   "paths": {
     "/v2/images/search": {
@@ -4849,7 +4849,7 @@
             }
           },
           {
-            "description": "Show tracks with each of the specified genres",
+            "description": "Show tracks with each of the specified genres; to get the list of genres, use `GET /v2/audio/genres`",
             "in": "query",
             "name": "genre",
             "explode": true,
@@ -4860,44 +4860,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "Acoustic",
-                  "Ambient",
-                  "Audio Logo",
-                  "Blues",
-                  "Chill Out",
-                  "Classical",
-                  "Corporate",
-                  "Country",
-                  "Dance / Techno",
-                  "Dubstep",
-                  "Easy Listening",
-                  "Electro Pop",
-                  "Electronic",
-                  "Folk",
-                  "Games",
-                  "Hip Hop",
-                  "Holiday",
-                  "Independent",
-                  "Indie Pop",
-                  "Jazz",
-                  "Kids / Children",
-                  "Latin",
-                  "Masterworks",
-                  "Motown",
-                  "New Age",
-                  "News",
-                  "Piano / Solo Instrumental",
-                  "Pop",
-                  "Production / Film Scores",
-                  "R&B",
-                  "Reggae",
-                  "Rock",
-                  "Trailer",
-                  "Vocals",
-                  "World"
-                ]
+                "type": "string"
               },
               "uniqueItems": false
             }
@@ -4912,7 +4875,7 @@
             }
           },
           {
-            "description": "Show tracks with each of the specified instruments",
+            "description": "Show tracks with each of the specified instruments; to get the list of instruments, use `GET /v2/audio/instruments`",
             "in": "query",
             "name": "instruments",
             "explode": true,
@@ -4929,7 +4892,7 @@
             }
           },
           {
-            "description": "Show tracks with each of the specified moods",
+            "description": "Show tracks with each of the specified moods; to get the list of moods, use `GET /v2/audio/moods`",
             "in": "query",
             "name": "moods",
             "explode": true,
@@ -4940,35 +4903,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "Action / Sports",
-                  "Adventure / Discovery",
-                  "Aerobics / Workout",
-                  "Aggressive",
-                  "Comedy / Funny",
-                  "Crime / Thriller / Spy",
-                  "Dark / Somber",
-                  "Epic / Orchestral",
-                  "Fashion / Lifestyle",
-                  "Feel Good",
-                  "Gentle / Light",
-                  "Happy / Cheerful",
-                  "Horror / Scary",
-                  "Magical / Mystical",
-                  "Military / Patriotic",
-                  "Relaxation / Meditation",
-                  "Religious / Christian",
-                  "Romantic/Sentimental",
-                  "Sad / Nostalgic",
-                  "Sci-Fi / Future",
-                  "Sexy / Sensual",
-                  "Strange / Bizarre",
-                  "Suspense / Drama",
-                  "Underscores",
-                  "Uplifting",
-                  "Wedding"
-                ]
+                "type": "string"
               },
               "uniqueItems": false
             }
@@ -5233,6 +5168,123 @@
         "operationId": "searchAudio",
         "summary": "Search for tracks",
         "description": "This endpoint searches for tracks. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter."
+      }
+    },
+    "/v2/audio/genres": {
+      "get": {
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "audio"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenreList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        "Rock"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getGenres",
+        "summary": "List audio genres",
+        "description": "This endpoint returns a list of all audio genres."
+      }
+    },
+    "/v2/audio/instruments": {
+      "get": {
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "audio"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        "Electric Guitar"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getInstruments",
+        "summary": "List audio instruments",
+        "description": "This endpoint returns a list of all audio instruments."
+      }
+    },
+    "/v2/audio/moods": {
+      "get": {
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "audio"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MoodList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        "Aggressive"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getMoods",
+        "summary": "List audio moods",
+        "description": "This endpoint returns a list of all audio moods."
       }
     },
     "/v2/audio": {
@@ -9776,6 +9828,23 @@
           }
         }
       },
+      "GenreList": {
+        "description": "List of genres",
+        "example": {
+          "data": [
+            "Rock"
+          ]
+        },
+        "properties": {
+          "data": {
+            "description": "List of genres",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        }
+      },
       "Image": {
         "description": "Information about an image",
         "properties": {
@@ -10059,6 +10128,23 @@
           }
         },
         "type": "object"
+      },
+      "InstrumentList": {
+        "description": "List of instruments",
+        "example": {
+          "data": [
+            "Electric Guitar"
+          ]
+        },
+        "properties": {
+          "data": {
+            "description": "List of instruments",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        }
       },
       "LicenseAudio": {
         "description": "An audio licensing item",
@@ -10648,6 +10734,23 @@
           }
         },
         "type": "object"
+      },
+      "MoodList": {
+        "description": "List of moods",
+        "example": {
+          "data": [
+            "Aggressive"
+          ]
+        },
+        "properties": {
+          "data": {
+            "description": "List of moods",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        }
       },
       "OauthAccessTokenResponse": {
         "description": "Access token response to client apps",
