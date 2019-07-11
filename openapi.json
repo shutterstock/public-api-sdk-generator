@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.11"
+    "version": "1.0.12"
   },
   "paths": {
     "/v2/images/search": {
@@ -8357,7 +8357,8 @@
           "id",
           "title"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
       "Allotment": {
         "description": "Allotment",
@@ -8490,8 +8491,7 @@
           },
           "affiliate_url": {
             "description": "Affiliate referral link; appears only for registered affiliate partners",
-            "type": "string",
-            "format": "uri"
+            "type": "string"
           },
           "album": {
             "$ref": "#/components/schemas/Album"
@@ -8644,7 +8644,8 @@
           "media_type",
           "contributor"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
       "AudioAssetDetails": {
         "description": "Audio asset metadata",
@@ -8833,6 +8834,10 @@
           "total_count": {
             "description": "Total count of all results across all pages",
             "type": "integer"
+          },
+          "search_id": {
+            "description": "ID of the search",
+            "type": "string"
           }
         },
         "required": [
@@ -8840,7 +8845,8 @@
           "total_count",
           "search_id"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
       "AuthorizeResponse": {
         "description": "Response to Authorize requests",
@@ -9843,7 +9849,12 @@
             },
             "type": "array"
           }
-        }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
       },
       "Image": {
         "description": "Information about an image",
@@ -10144,7 +10155,12 @@
             },
             "type": "array"
           }
-        }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
       },
       "LicenseAudio": {
         "description": "An audio licensing item",
@@ -10750,7 +10766,12 @@
             },
             "type": "array"
           }
-        }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
       },
       "OauthAccessTokenResponse": {
         "description": "Access token response to client apps",
