@@ -10560,7 +10560,7 @@
         },
         "maxProperties": 4,
         "properties": {
-          "customer_id": {
+          "customer_ID": {
             "description": "The ID of a revenue-sharing partner's customer",
             "type": "string"
           },
