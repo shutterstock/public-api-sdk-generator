@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.12"
+    "version": "1.0.13"
   },
   "paths": {
     "/v2/images/search": {
@@ -109,29 +109,7 @@
             "in": "query",
             "name": "language",
             "schema": {
-              "type": "string",
-              "enum": [
-                "cs",
-                "da",
-                "de",
-                "en",
-                "es",
-                "fi",
-                "fr",
-                "hu",
-                "it",
-                "ja",
-                "ko",
-                "nb",
-                "nl",
-                "pl",
-                "pt",
-                "ru",
-                "sv",
-                "th",
-                "tr",
-                "zh"
-              ]
+              "$ref": "#/components/schemas/Language"
             }
           },
           {
@@ -463,6 +441,15 @@
             }
           },
           {
+            "description": "Language for the keywords and categories in the response",
+            "in": "query",
+            "name": "language",
+            "example": "es",
+            "schema": {
+              "$ref": "#/components/schemas/Language"
+            }
+          },
+          {
             "description": "Amount of detail to render in the response",
             "in": "query",
             "name": "view",
@@ -592,6 +579,17 @@
     },
     "/v2/images/categories": {
       "get": {
+        "parameters": [
+          {
+            "description": "Language for the keywords and categories in the response",
+            "in": "query",
+            "name": "language",
+            "example": "es",
+            "schema": {
+              "$ref": "#/components/schemas/Language"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -668,6 +666,15 @@
             "example": "465011609",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Language for the keywords and categories in the response",
+            "in": "query",
+            "name": "language",
+            "example": "es",
+            "schema": {
+              "$ref": "#/components/schemas/Language"
             }
           },
           {
@@ -881,15 +888,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "DATA='{\n  \"images\": [\n    {\n      \"image_id\": \"59656357\",\n      \"price\": 12.50,\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n}'\n\ncurl -X POST 'https://api.shutterstock.com/v2/images/licenses' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"$DATA\"\n"
+            "source": "DATA='{\n  \"images\": [\n    {\n      \"image_id\": \"59656357\",\n      \"price\": 12.50,\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n}'\n\ncurl -X POST \"https://api.shutterstock.com/v2/images/licenses?subscription_id=$SUBSCRIPTION_ID\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"$DATA\"\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"images\": [\n    {\n      \"image_id\": \"419235589\",\n      \"price\": 12.50,\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n};\n\nconst queryParams = {\n  \"format\": \"jpg\",\n  \"size\": \"huge\"\n};\n\nimagesApi.licenseImages(body, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"images\": [\n    {\n      \"image_id\": \"419235589\",\n      \"price\": 12.50,\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n};\n\nconst queryParams = {\n  \"format\": \"jpg\",\n  \"size\": \"huge\",\n  \"subscription_id\": process.env.SUBSCRIPTION_ID\n};\n\nimagesApi.licenseImages(body, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$body = [\n  \"images\" => [\n    [\n      \"image_id\" => \"539753938\",\n      \"price\" => 12.50,\n      \"metadata\" => [\n        \"customer_id\" => \"12345\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$body = [\n  \"images\" => [\n    [\n      \"image_id\" => \"539753938\",\n      \"price\" => 12.50,\n      \"metadata\" => [\n        \"customer_id\" => \"12345\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses?subscription_id=$SUBSCRIPTION_ID\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "tags": [
@@ -2688,29 +2695,7 @@
             "in": "query",
             "name": "language",
             "schema": {
-              "type": "string",
-              "enum": [
-                "cs",
-                "da",
-                "de",
-                "en",
-                "es",
-                "fi",
-                "fr",
-                "hu",
-                "it",
-                "ja",
-                "ko",
-                "nb",
-                "nl",
-                "pl",
-                "pt",
-                "ru",
-                "sv",
-                "th",
-                "tr",
-                "zh"
-              ]
+              "$ref": "#/components/schemas/Language"
             }
           },
           {
@@ -3124,6 +3109,15 @@
             "example": "30867073",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Language for the keywords and categories in the response",
+            "in": "query",
+            "name": "language",
+            "example": "es",
+            "schema": {
+              "$ref": "#/components/schemas/Language"
             }
           },
           {
@@ -4190,6 +4184,17 @@
     },
     "/v2/videos/categories": {
       "get": {
+        "parameters": [
+          {
+            "description": "Language for the keywords and categories in the response",
+            "in": "query",
+            "name": "language",
+            "example": "es",
+            "schema": {
+              "$ref": "#/components/schemas/Language"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -4522,6 +4527,15 @@
             "example": "2140697",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Language for the keywords and categories in the response",
+            "in": "query",
+            "name": "language",
+            "example": "es",
+            "schema": {
+              "$ref": "#/components/schemas/Language"
             }
           },
           {
@@ -10161,6 +10175,33 @@
         ],
         "type": "object",
         "additionalProperties": false
+      },
+      "Language": {
+        "description": "Two-character language code",
+        "title": "language",
+        "enum": [
+          "cs",
+          "da",
+          "de",
+          "en",
+          "es",
+          "fi",
+          "fr",
+          "hu",
+          "it",
+          "ja",
+          "ko",
+          "nb",
+          "nl",
+          "pl",
+          "pt",
+          "ru",
+          "sv",
+          "th",
+          "tr",
+          "zh"
+        ],
+        "type": "string"
       },
       "LicenseAudio": {
         "description": "An audio licensing item",
