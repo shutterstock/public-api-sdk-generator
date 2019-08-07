@@ -26,4 +26,6 @@ COPY build/sdk/config.json .
 
 RUN java -jar /opt/swagger-codegen-cli/swagger-codegen-cli.jar generate -i ./swagger2.json -o ./dist -c ./config.json -l javascript -t ./build/sdk/js/templates
 
+RUN sed -i 's/\\"//g' ./dist/docs/*
+
 ENTRYPOINT ["/bin/sh"]
