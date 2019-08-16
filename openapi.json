@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.13"
+    "version": "1.0.14"
   },
   "paths": {
     "/v2/images/search": {
@@ -60,6 +60,20 @@
               "type": "array",
               "items": {
                 "type": "string"
+              }
+            }
+          },
+          {
+            "description": "Show images from contributors in one or more specified countries, by 2-letter country code",
+            "in": "query",
+            "name": "contributor_country",
+            "example": "US",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 2
               }
             }
           },
@@ -1349,7 +1363,7 @@
         ],
         "operationId": "uploadEphemeralImage",
         "summary": "Upload images",
-        "description": "This endpoint uploads an image for reverse image search. The image must be in JPEG or PNG format.",
+        "description": "This endpoint uploads an image for reverse image search. The image must be in JPEG or PNG format. To get the search results, pass the ID that this endpoint returns to the `GET /v2/images/{id}/similar` endpoint.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2229,6 +2243,9 @@
         },
         "security": [
           {
+            "basic": []
+          },
+          {
             "customer_accessCode": []
           }
         ],
@@ -2318,6 +2335,9 @@
           }
         },
         "security": [
+          {
+            "basic": []
+          },
           {
             "customer_accessCode": []
           }
@@ -2414,6 +2434,9 @@
           }
         },
         "security": [
+          {
+            "basic": []
+          },
           {
             "customer_accessCode": []
           }
@@ -2637,6 +2660,20 @@
               "type": "array",
               "items": {
                 "type": "string"
+              }
+            }
+          },
+          {
+            "description": "Show videos from contributors in one or more specified countries, by 2-letter country code",
+            "in": "query",
+            "name": "contributor_country",
+            "example": "US",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 2
               }
             }
           },
