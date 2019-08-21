@@ -10653,24 +10653,7 @@
           "search_term": "dog"
         },
         "maxProperties": 4,
-        "properties": {
-          "customer_id": {
-            "description": "The ID of a revenue-sharing partner's customer",
-            "type": "string"
-          },
-          "geo_location": {
-            "description": "The customer's location",
-            "type": "string"
-          },
-          "number_viewed": {
-            "description": "How many pieces of media the customer viewed",
-            "type": "string"
-          },
-          "search_term": {
-            "description": "The search term that the customer used",
-            "type": "string"
-          }
-        },
+        "properties": {},
         "type": "object"
       },
       "LicenseVideo": {
