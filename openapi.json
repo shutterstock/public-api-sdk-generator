@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.14"
+    "version": "1.0.15"
   },
   "paths": {
     "/v2/images/search": {
@@ -10214,7 +10214,7 @@
         "additionalProperties": false
       },
       "Language": {
-        "description": "Two-character language code",
+        "description": "Language code",
         "title": "language",
         "enum": [
           "cs",
@@ -10236,7 +10236,8 @@
           "sv",
           "th",
           "tr",
-          "zh"
+          "zh",
+          "zh-Hant"
         ],
         "type": "string"
       },
