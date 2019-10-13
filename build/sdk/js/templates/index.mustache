@@ -57,7 +57,7 @@
      * @property {module:<#invokerPackage><invokerPackage>/</invokerPackage><#apiPackage><apiPackage>/</apiPackage><importPath>}
      */</emitJSDoc>
     <importPath>: <importPath></apis></apiInfo>
-  };
+  };<={{ }}=>
 
   exports.setBasicAuth = function(username, password) {
     exports.ApiClient.instance.authentications['basic'].username = username;
@@ -69,7 +69,7 @@
   };
 
   exports.ApiClient.instance.defaultHeaders = {
-    'User-Agent': 'public-api-sdk-generator/{{{projectVersion}}}'
+    'User-Agent': 'public-api-sdk-generator/{{projectVersion}}'
   };
 
   exports.setSandbox = function(isSandbox) {
@@ -78,5 +78,5 @@
       'https://api.shutterstock.com';
   };
 
-  return exports;<={{ }}=>
+  return exports;
 }));
