@@ -14,7 +14,7 @@ RUN node build/swagger/openapiToSwagger.js
 
 ######################################
 
-FROM swaggerapi/swagger-codegen-cli:2.4.2 as sdk-build
+FROM swaggerapi/swagger-codegen-cli:2.4.9 as sdk-build
 
 RUN mkdir -p /opt/node-sdk/dist
 
