@@ -14,7 +14,7 @@ RUN node build/swagger/openapiToSwagger.js
 
 ######################################
 
-FROM swaggerapi/swagger-codegen-cli:2.4.2 as sdk-build
+FROM swaggerapi/swagger-codegen-cli:2.4.9 as sdk-build
 
 RUN mkdir -p /opt/node-sdk/dist
 
@@ -25,7 +25,5 @@ COPY build/sdk/js/templates ./build/sdk/js/templates
 COPY build/sdk/config.json .
 
 RUN java -jar /opt/swagger-codegen-cli/swagger-codegen-cli.jar generate -i ./swagger2.json -o ./dist -c ./config.json -l javascript -t ./build/sdk/js/templates
-
-RUN sed -i 's/\\"//g' ./dist/docs/*
 
 ENTRYPOINT ["/bin/sh"]
