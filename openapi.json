@@ -8310,7 +8310,12 @@
           }
         }
       }
-    }
+    },
+    "/v2/cv/images": {},
+    "/v2/cv/similar/images": {},
+    "/v2/cv/videos": {},
+    "/v2/cv/similar/videos": {},
+    "/v2/cv/{asset_type}/{id}/keywords": {}
   },
   "servers": [
     {
