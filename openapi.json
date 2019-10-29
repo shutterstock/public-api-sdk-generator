@@ -64,7 +64,7 @@
             }
           },
           {
-            "description": "Show images from contributors in one or more specified countries, by 2-letter country code",
+            "description": "Show images from contributors in one or more specified countries by 2-letter ISO 3166-1 alpha-2 country code, such as DE or US",
             "in": "query",
             "name": "contributor_country",
             "example": "US",
@@ -2664,7 +2664,7 @@
             }
           },
           {
-            "description": "Show videos from contributors in one or more specified countries, by 2-letter country code",
+            "description": "Show videos from contributors in one or more specified countries by 2-letter ISO 3166-1 alpha-2 country code, such as DE or US",
             "in": "query",
             "name": "contributor_country",
             "example": "US",
@@ -6567,7 +6567,7 @@
             }
           },
           {
-            "description": "Show only editorial content that is available for distribution in a certain country; specify with 3-letter country code",
+            "description": "Show only editorial content that is available for distribution in a certain country; specify with 3-letter ISO 3166-1 alpha-3 country code such as USA or DEU",
             "in": "query",
             "name": "country",
             "required": true,
@@ -6757,7 +6757,7 @@
             }
           },
           {
-            "description": "Returns only if the content is available for distribution in a certain country; specify with 3-letter country code",
+            "description": "Returns only if the content is available for distribution in a certain country; specify with 3-letter ISO 3166-1 alpha-3 country code such as USA or DEU",
             "in": "query",
             "name": "country",
             "required": true,
@@ -6959,7 +6959,7 @@
       "get": {
         "parameters": [
           {
-            "description": "Returns only livefeeds that are available for distribution in a certain country; specify with 3-letter country code",
+            "description": "Returns only livefeeds that are available for distribution in a certain country; specify with 3-letter ISO 3166-1 alpha-3 country code such as USA or DEU",
             "in": "query",
             "name": "country",
             "required": true,
@@ -7066,7 +7066,7 @@
             }
           },
           {
-            "description": "Returns only if the livefeed is available for distribution in a certain country; specify with 3-letter country code",
+            "description": "Returns only if the livefeed is available for distribution in a certain country; specify with 3-letter ISO 3166-1 alpha-3 country code such as USA or DEU",
             "in": "query",
             "name": "country",
             "required": true,
@@ -7144,7 +7144,7 @@
             }
           },
           {
-            "description": "Returns only if the livefeed items are available for distribution in a certain country; specify with 3-letter country code",
+            "description": "Returns only if the livefeed items are available for distribution in a certain country; specify with 3-letter ISO 3166-1 alpha-3 country code such as USA or DEU",
             "in": "query",
             "name": "country",
             "required": true,
@@ -9264,7 +9264,7 @@
             "type": "string"
           },
           "location": {
-            "description": "Country code representing the contributors' locale",
+            "description": "2-letter ISO 3166-1 alpha-2 country code representing the contributors' locale, such as DE or US",
             "type": "string"
           },
           "portfolio_url": {
@@ -10394,7 +10394,7 @@
         "description": "License editorial content request",
         "properties": {
           "country": {
-            "description": "3-letter country code for where the editorial content will be distributed; this mandatory value is used for rights checks",
+            "description": "3-letter ISO 3166-1 alpha-3 country code for where the editorial content will be distributed; this mandatory value is used for rights checks",
             "type": "string",
             "example": "USA"
           },
