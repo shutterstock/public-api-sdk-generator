@@ -24,6 +24,6 @@ COPY --from=swagger-build /opt/swagger-build/swagger2.json .
 COPY build/sdk/js/templates ./build/sdk/js/templates
 COPY build/sdk/config.json .
 
-RUN java -jar /opt/swagger-codegen-cli/swagger-codegen-cli.jar generate -i ./swagger2.json -o ./dist -c ./config.json -l javascript -t ./build/sdk/js/templates
+RUN java -jar /opt/swagger-codegen-cli/swagger-codegen-cli.jar generate -i ./swagger2.json -o . -c ./config.json -l javascript -t ./build/sdk/js/templates
 
 ENTRYPOINT ["/bin/sh"]
