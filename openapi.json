@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.15"
+    "version": "1.0.16"
   },
   "paths": {
     "/v2/images/search": {
@@ -1189,197 +1189,6 @@
             }
           },
           "description": "Information about the images to redownload",
-          "required": true
-        }
-      }
-    },
-    "/v2/images": {
-      "get": {
-        "parameters": [
-          {
-            "description": "One or more image IDs",
-            "in": "query",
-            "name": "id",
-            "required": true,
-            "example": [
-              "1110335168",
-              "465011609"
-            ],
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "description": "Amount of detail to render in the response",
-            "in": "query",
-            "name": "view",
-            "example": "minimal",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "minimal",
-                "full"
-              ],
-              "default": "minimal"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ImageDataList"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "data": [
-                        {
-                          "id": "465011609",
-                          "aspect": 0.8501,
-                          "assets": {
-                            "preview": {
-                              "height": 450,
-                              "url": "https://image.shutterstock.com/display_pic_with_logo/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg",
-                              "width": 382
-                            },
-                            "small_thumb": {
-                              "height": 100,
-                              "url": "https://thumb7.shutterstock.com/thumb_small/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg",
-                              "width": 85
-                            },
-                            "large_thumb": {
-                              "height": 150,
-                              "url": "https://thumb7.shutterstock.com/thumb_large/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg",
-                              "width": 128
-                            },
-                            "huge_thumb": {
-                              "height": 260,
-                              "url": "https://image.shutterstock.com/image-vector/happy-mid-autumn-festival-background-260nw-465011609.jpg",
-                              "width": 221
-                            }
-                          },
-                          "contributor": {
-                            "id": "1384888"
-                          },
-                          "description": "Happy Mid Autumn Festival background with golden glitter Moon and hand drawn Moon Rabbits. Vector illustration",
-                          "image_type": "vector",
-                          "media_type": "image",
-                          "url": "https://www.shutterstock.com/image-photo/465011609"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        },
-        "security": [
-          {
-            "basic": []
-          },
-          {
-            "customer_accessCode": []
-          }
-        ],
-        "tags": [
-          "images"
-        ],
-        "operationId": "getImageList",
-        "summary": "List images",
-        "description": "This endpoint lists information about one or more images, including the available sizes."
-      },
-      "post": {
-        "responses": {
-          "201": {
-            "description": "201 Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ImageCreateResponse"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "Udb14e1c3540bdbf82b4b3fe12d3a44f2"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "413": {
-            "description": "Payload Too Large"
-          }
-        },
-        "security": [
-          {
-            "basic": []
-          },
-          {
-            "customer_accessCode": []
-          }
-        ],
-        "tags": [
-          "images"
-        ],
-        "x-code-samples": [
-          {
-            "lang": "shell",
-            "source": "curl -X POST 'https://api.shutterstock.com/v2/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg -w 0`\\\"}\"\n"
-          },
-          {
-            "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\nconst queryParams = {\n  \"page\": 1,\n  \"per_page\": 20,\n  \"view\": \"minimal\"\n};\n\nimagesApi.uploadEphemeralImage(body)\n  .then((data) => {\n    console.log(data.id);\n    return imagesApi.getSimilarImages(data.id, queryParams);\n  })\n  .then((similarImageData) => {\n    console.log(similarImageData);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
-          },
-          {
-            "lang": "php",
-            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$body = [\n  \"base64_image\" => $encodedImageData\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
-          }
-        ],
-        "operationId": "uploadEphemeralImage",
-        "summary": "Upload images",
-        "description": "This endpoint uploads an image for reverse image search. The image must be in JPEG or PNG format. To get the search results, pass the ID that this endpoint returns to the `GET /v2/images/{id}/similar` endpoint.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ImageCreateRequest"
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "base64_image": "R0lGODlhgACAAPcAAEwiBLyaLOzNUNmWFNjOrNSuN7x6PPzqeOTMgfKSDMyuTPzwsdi2dHwuBPzbVu"
-                  }
-                }
-              }
-            }
-          },
-          "description": "The image data in JPEG or PNG format",
           "required": true
         }
       }
@@ -7262,6 +7071,567 @@
         "summary": "Get editorial livefeed items"
       }
     },
+    "/v2/cv/images": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Computer vision image upload information",
+                  "properties": {
+                    "upload_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "upload_id"
+                  ],
+                  "type": "object"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "upload_id": "Udb14e1c3540bdbf82b4b3fe12d3a44f2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "413": {
+            "description": "Payload Too Large"
+          },
+          "415": {
+            "description": "Unsupported Media Type"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "computer_vision"
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "RESPONSE=$(curl -X POST 'https://api.shutterstock.com/v2/cv/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg`\\\"}\")\n\necho \"The next step requires the jq program.\"\n\nUPLOAD_ID=$(jq -r .upload_id <<< $RESPONSE)\n\ncurl -X GET https://api.shutterstock.com/v2/cv/similar/images \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"asset_type=images\" \\\n--data-urlencode \"asset_id=$UPLOAD_ID\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst computerVisionApi = new sstk.CvApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\ncomputerVisionApi.uploadImage(body)\n  .then((data) => {\n    console.log(data.upload_id);\n    return computerVisionApi.getSimilarImages({\n      \"asset_type\": \"images\",\n      \"asset_id\": data.upload_id\n    });\n  })\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$uploadBody = [\n  \"base64_image\" => $encodedImageData\n];\n$uploadEncodedBody = json_encode($uploadBody);\n\n$uploadOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $uploadEncodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $uploadOptions);\n$uploadResponse = curl_exec($handle);\ncurl_close($handle);\n\n$uploadDecodedResponse = json_decode($uploadResponse);\nprint_r($uploadDecodedResponse->upload_id);\n\n$similarQuery = [\n  \"asset_type\" => \"images\",\n  \"asset_id\" => $uploadDecodedResponse->upload_id,\n];\n\n$similarOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/similar/images?\" . http_build_query($similarQuery),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $similarOptions);\n$similarResponse = curl_exec($handle);\ncurl_close($handle);\n\nprint_r($similarResponse);\n"
+          }
+        ],
+        "operationId": "uploadImage",
+        "summary": "Upload images",
+        "description": "This endpoint uploads an image for reverse image or video search. Images must be in JPEG or PNG format. To get the search results, pass the upload ID that this endpoint returns to the GET /v2/cv/similar/images or GET /v2/cv/similar/videos endpoints. Contact us for access to this endpoint.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageCreateRequest"
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "base64_image": "R0lGODlhgACAAPcAAEwiBLyaLOzNUNmWFNjOrNSuN7x6PPzqeOTMgfKSDMyuTPzwsdi2dHwuBPzbVu"
+                  }
+                }
+              }
+            }
+          },
+          "description": "The image data as a base64 string",
+          "required": true
+        }
+      }
+    },
+    "/v2/cv/similar/images": {
+      "get": {
+        "parameters": [
+          {
+            "description": "The asset ID or upload ID to find similar videos for",
+            "in": "query",
+            "name": "asset_id",
+            "required": true,
+            "example": "U123456",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Language for the keywords and categories in the response",
+            "in": "query",
+            "name": "language",
+            "example": "es",
+            "schema": {
+              "$ref": "#/components/schemas/Language"
+            }
+          },
+          {
+            "description": "Page number",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "description": "Number of results per page, defaults to 20",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 20
+            }
+          },
+          {
+            "description": "Amount of detail to render in the response",
+            "in": "query",
+            "name": "view",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "minimal",
+                "full"
+              ],
+              "default": "minimal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageSearchResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "per_page": 1,
+                      "total_count": 200,
+                      "search_id": "",
+                      "data": [
+                        {
+                          "id": "224429596",
+                          "aspect": 1,
+                          "assets": {
+                            "preview": {
+                              "height": 450,
+                              "url": "https://image.shutterstock.com/display_pic_with_logo/302287/224429596/stock-vector-happy-halloween-vector-224429596.jpg",
+                              "width": 450
+                            },
+                            "small_thumb": {
+                              "height": 100,
+                              "url": "https://thumb1.shutterstock.com/thumb_small/302287/224429596/stock-vector-happy-halloween-vector-224429596.jpg",
+                              "width": 100
+                            },
+                            "large_thumb": {
+                              "height": 150,
+                              "url": "https://thumb1.shutterstock.com/thumb_large/302287/224429596/stock-vector-happy-halloween-vector-224429596.jpg",
+                              "width": 150
+                            },
+                            "huge_thumb": {
+                              "height": 260,
+                              "url": "https://image.shutterstock.com/image-vector/happy-halloween-vector-260nw-224429596.jpg",
+                              "width": 260
+                            }
+                          },
+                          "contributor": {
+                            "id": "302287"
+                          },
+                          "description": "Happy Halloween - vector",
+                          "image_type": "vector",
+                          "media_type": "image"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "computer_vision"
+        ],
+        "operationId": "getSimilarImages",
+        "summary": "List similar images",
+        "description": "This endpoint returns images that are visually similar to an image that you specify or upload."
+      }
+    },
+    "/v2/cv/similar/videos": {
+      "get": {
+        "parameters": [
+          {
+            "description": "The asset ID or upload ID to find similar videos for",
+            "in": "query",
+            "name": "asset_id",
+            "required": true,
+            "example": "U123456",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Language for the keywords and categories in the response",
+            "in": "query",
+            "name": "language",
+            "example": "es",
+            "schema": {
+              "$ref": "#/components/schemas/Language"
+            }
+          },
+          {
+            "description": "Page number",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "description": "Number of results per page, defaults to 20",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 20
+            }
+          },
+          {
+            "description": "Amount of detail to render in the response",
+            "in": "query",
+            "name": "view",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "minimal",
+                "full"
+              ],
+              "default": "minimal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoSearchResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "per_page": 1,
+                      "total_count": 200,
+                      "search_id": "",
+                      "data": [
+                        {
+                          "media_type": "video",
+                          "id": "33248488",
+                          "description": "The Concept of: Digitalization of Information Flow Moving Through Rack Servers in Data Center. Shot on RED EPIC-W 8K Helium Cinema Camera.",
+                          "aspect": 1.778,
+                          "duration": 19,
+                          "contributor": {
+                            "id": "178456"
+                          },
+                          "aspect_ratio": "16:9",
+                          "assets": {
+                            "thumb_webm": {
+                              "url": "https://ak8.picdn.net/shutterstock/videos/33248488/thumb/stock-footage-the-concept-of-digitalization-of-information-flow-moving-through-rack-servers-in-data-center-shot.webm"
+                            },
+                            "thumb_mp4": {
+                              "url": "https://ak8.picdn.net/shutterstock/videos/33248488/thumb/stock-footage-the-concept-of-digitalization-of-information-flow-moving-through-rack-servers-in-data-center-shot.mp4"
+                            },
+                            "preview_webm": {
+                              "url": "https://ak8.picdn.net/shutterstock/videos/33248488/preview/stock-footage-the-concept-of-digitalization-of-information-flow-moving-through-rack-servers-in-data-center-shot.webm"
+                            },
+                            "preview_mp4": {
+                              "url": "https://ak8.picdn.net/shutterstock/videos/33248488/preview/stock-footage-the-concept-of-digitalization-of-information-flow-moving-through-rack-servers-in-data-center-shot.mp4"
+                            },
+                            "thumb_jpg": {
+                              "url": "https://ak8.picdn.net/shutterstock/videos/33248488/thumb/12.jpg"
+                            },
+                            "preview_jpg": {
+                              "url": "https://ak8.picdn.net/shutterstock/videos/33248488/thumb/12.jpg"
+                            }
+                          },
+                          "url": "https://www.shutterstock.com/video/clip-33248488"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "computer_vision"
+        ],
+        "operationId": "getSimilarVideos",
+        "summary": "List similar videos",
+        "description": "This endpoint returns videos that are visually similar to an image that you specify or upload."
+      }
+    },
+    "/v2/images": {
+      "get": {
+        "parameters": [
+          {
+            "description": "One or more image IDs",
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "example": [
+              "1110335168",
+              "465011609"
+            ],
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "description": "Amount of detail to render in the response",
+            "in": "query",
+            "name": "view",
+            "example": "minimal",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "minimal",
+                "full"
+              ],
+              "default": "minimal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageDataList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "465011609",
+                          "aspect": 0.8501,
+                          "assets": {
+                            "preview": {
+                              "height": 450,
+                              "url": "https://image.shutterstock.com/display_pic_with_logo/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg",
+                              "width": 382
+                            },
+                            "small_thumb": {
+                              "height": 100,
+                              "url": "https://thumb7.shutterstock.com/thumb_small/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg",
+                              "width": 85
+                            },
+                            "large_thumb": {
+                              "height": 150,
+                              "url": "https://thumb7.shutterstock.com/thumb_large/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg",
+                              "width": 128
+                            },
+                            "huge_thumb": {
+                              "height": 260,
+                              "url": "https://image.shutterstock.com/image-vector/happy-mid-autumn-festival-background-260nw-465011609.jpg",
+                              "width": 221
+                            }
+                          },
+                          "contributor": {
+                            "id": "1384888"
+                          },
+                          "description": "Happy Mid Autumn Festival background with golden glitter Moon and hand drawn Moon Rabbits. Vector illustration",
+                          "image_type": "vector",
+                          "media_type": "image",
+                          "url": "https://www.shutterstock.com/image-photo/465011609"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "images"
+        ],
+        "operationId": "getImageList",
+        "summary": "List images",
+        "description": "This endpoint lists information about one or more images, including the available sizes."
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageCreateResponse"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "Udb14e1c3540bdbf82b4b3fe12d3a44f2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "413": {
+            "description": "Payload Too Large"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "computer_vision"
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X POST 'https://api.shutterstock.com/v2/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg`\\\"}\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\nconst queryParams = {\n  \"page\": 1,\n  \"per_page\": 20,\n  \"view\": \"minimal\"\n};\n\nimagesApi.uploadEphemeralImage(body)\n  .then((data) => {\n    console.log(data.id);\n    return imagesApi.getSimilarImages(data.id, queryParams);\n  })\n  .then((similarImageData) => {\n    console.log(similarImageData);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$body = [\n  \"base64_image\" => $encodedImageData\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "operationId": "uploadEphemeralImage",
+        "summary": "Upload ephemeral images",
+        "description": "Deprecated; use `POST /v2/cv/images` instead. This endpoint uploads an image for reverse image search. The image must be in JPEG or PNG format. To get the search results, pass the ID that this endpoint returns to the `GET /v2/images/{id}/similar` endpoint.",
+        "deprecated": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageCreateRequest"
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "base64_image": "R0lGODlhgACAAPcAAEwiBLyaLOzNUNmWFNjOrNSuN7x6PPzqeOTMgfKSDMyuTPzwsdi2dHwuBPzbVu"
+                  }
+                }
+              }
+            }
+          },
+          "description": "The image data in JPEG or PNG format",
+          "required": true
+        }
+      }
+    },
     "/v2/contributors": {
       "get": {
         "parameters": [
@@ -8336,6 +8706,29 @@
               "licenses.view": "Grant read-only access to a user's licenses.",
               "collections.edit": "Grant the ability to create new collections, edit a collection, and modify the contents of a collection",
               "collections.view": "Grant read-only access to a collection and its contents.",
+              "user.view": "Grants read-only access to a user's basic account information (includes username, id, first and last name). If email is the same as username, it also implies user.email"
+            }
+          }
+        }
+      },
+      "contributor_accessCode": {
+        "type": "oauth2",
+        "x-shutterstock-realm": "contributor",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://contributor-accounts.shutterstock.com/oauth/authorize",
+            "tokenUrl": "https://contributor-accounts.shutterstock.com/oauth/access_token",
+            "scopes": {
+              "collections.edit": "Grant the ability to create new collections, edit a collection, and modify the contents of a collection",
+              "collections.view": "Grant read-only access to a collection and its contents.",
+              "earnings.view": "Grant the ability to view a user's current earnings and payouts.",
+              "licenses.create": "Grant the ability to download and license media on behalf of the user.",
+              "media.edit": "Grant the ability to make changes to a user's existing approved media.",
+              "media.submit": "Grant the ability to submit a user's uploaded media for review and check their approval states.",
+              "media.upload": "Grant the ability to upload media to a user's account.",
+              "user.address": "Grants read-only access to a user's physical address.",
+              "user.edit": "Grants read and write access to all user account information.",
+              "user.email": "Grants read-only access to a user's email address.",
               "user.view": "Grants read-only access to a user's basic account information (includes username, id, first and last name). If email is the same as username, it also implies user.email"
             }
           }
