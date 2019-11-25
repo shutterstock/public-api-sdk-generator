@@ -1033,6 +1033,12 @@
                           "license": "standard",
                           "subscription_id": "s18382630",
                           "download_time": "2016-10-03T15:58:18-04:00",
+                          "metadata": {
+                            "client": "Company A",
+                            "other": "Important media",
+                            "purchase_order": "457234",
+                            "job": "Important project"
+                          },
                           "image": {
                             "id": "114350371",
                             "format": {
@@ -1048,6 +1054,12 @@
                           "license": "standard",
                           "subscription_id": "s18382630",
                           "download_time": "2016-10-03T16:01:12-04:00",
+                          "metadata": {
+                            "client": "Company A",
+                            "other": "Important media",
+                            "purchase_order": "457234",
+                            "job": "Important project"
+                          },
                           "image": {
                             "id": "135658703",
                             "format": {
@@ -1063,6 +1075,12 @@
                           "license": "standard",
                           "subscription_id": "s18382630",
                           "download_time": "2016-10-03T16:01:18-04:00",
+                          "metadata": {
+                            "client": "Company A",
+                            "other": "Important media",
+                            "purchase_order": "457234",
+                            "job": "Important project"
+                          },
                           "image": {
                             "id": "107771801",
                             "format": {
