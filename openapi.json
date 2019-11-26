@@ -1033,6 +1033,12 @@
                           "license": "standard",
                           "subscription_id": "s18382630",
                           "download_time": "2016-10-03T15:58:18-04:00",
+                          "metadata": {
+                            "client": "Company A",
+                            "other": "Important media",
+                            "purchase_order": "457234",
+                            "job": "Important project"
+                          },
                           "image": {
                             "id": "114350371",
                             "format": {
@@ -1048,6 +1054,12 @@
                           "license": "standard",
                           "subscription_id": "s18382630",
                           "download_time": "2016-10-03T16:01:12-04:00",
+                          "metadata": {
+                            "client": "Company A",
+                            "other": "Important media",
+                            "purchase_order": "457234",
+                            "job": "Important project"
+                          },
                           "image": {
                             "id": "135658703",
                             "format": {
@@ -1063,6 +1075,12 @@
                           "license": "standard",
                           "subscription_id": "s18382630",
                           "download_time": "2016-10-03T16:01:18-04:00",
+                          "metadata": {
+                            "client": "Company A",
+                            "other": "Important media",
+                            "purchase_order": "457234",
+                            "job": "Important project"
+                          },
                           "image": {
                             "id": "107771801",
                             "format": {
@@ -8654,13 +8672,72 @@
                     ]
                   },
                   "realm": {
-                    "description": "User type to be authorized (usually 'consumer')",
+                    "description": "User type to be authorized (usually 'customer')",
                     "type": "string",
                     "enum": [
                       "customer",
                       "contributor"
                     ],
                     "default": "customer"
+                  },
+                  "expires": {
+                    "description": "Whether or not the token expires, expiring tokens come with a refresh_token to renew the access_token",
+                    "type": "boolean",
+                    "default": false
+                  }
+                },
+                "required": [
+                  "client_id",
+                  "client_secret",
+                  "grant_type"
+                ]
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "client_id": "141024g14g28104gff1h"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "description": "Client ID (Consumer Key) of your application",
+                    "type": "string"
+                  },
+                  "client_secret": {
+                    "description": "Client Secret (Consumer Secret) of your application",
+                    "type": "string"
+                  },
+                  "code": {
+                    "description": "Response code from the /oauth/authorize flow; required if grant_type=authorization_code",
+                    "type": "string"
+                  },
+                  "grant_type": {
+                    "description": "Grant type: authorization_code generates user tokens, client_credentials generates short-lived client grants",
+                    "type": "string",
+                    "enum": [
+                      "authorization_code",
+                      "client_credentials",
+                      "refresh_token"
+                    ]
+                  },
+                  "realm": {
+                    "description": "User type to be authorized (usually 'customer')",
+                    "type": "string",
+                    "enum": [
+                      "customer",
+                      "contributor"
+                    ],
+                    "default": "customer"
+                  },
+                  "expires": {
+                    "description": "Whether or not the token expires, expiring tokens come with a refresh_token to renew the access_token",
+                    "type": "boolean",
+                    "default": false
                   }
                 },
                 "required": [
@@ -11236,12 +11313,20 @@
             "type": "string"
           },
           "expires_in": {
-            "description": "Number of seconds before token expires (tokens generated via `authorization_code` do not expire)",
+            "description": "Number of seconds before token expires, only present for expiring tokens",
             "type": "integer"
           },
           "token_type": {
             "default": "Bearer",
             "description": "Type of token",
+            "type": "string"
+          },
+          "refresh_token": {
+            "description": "A refresh token that can be used to renew the access_token when it expires, only present for expiring tokens",
+            "type": "string"
+          },
+          "user_token": {
+            "description": "Metadata about the access_token, only present for expiring tokens",
             "type": "string"
           }
         },
