@@ -8107,62 +8107,6 @@
       }
     },
     "/v2/user": {
-      "post": {
-        "responses": {
-          "200": {
-            "description": "No response was specified",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserPostResponse"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Successfully registered"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        },
-        "security": [
-          {
-            "customer_accessCode": []
-          }
-        ],
-        "tags": [
-          "users"
-        ],
-        "operationId": "createUser",
-        "summary": "Register user",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserPostRequest"
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "email": "user@domain.com",
-                    "username": "userfromdomain",
-                    "password": "totallysafepassword"
-                  }
-                }
-              }
-            }
-          },
-          "description": "User details",
-          "required": true
-        }
-      },
       "get": {
         "responses": {
           "200": {
@@ -11756,41 +11700,6 @@
             "type": "string"
           }
         },
-        "type": "object"
-      },
-      "UserPostRequest": {
-        "description": "Data required to create a user",
-        "properties": {
-          "email": {
-            "description": "Email address for the new user",
-            "type": "string"
-          },
-          "password": {
-            "description": "Password for the new user",
-            "type": "string"
-          },
-          "username": {
-            "description": "User name for the new user",
-            "type": "string"
-          }
-        },
-        "required": [
-          "email",
-          "password"
-        ],
-        "type": "object"
-      },
-      "UserPostResponse": {
-        "description": "The response to a request to create a user",
-        "properties": {
-          "id": {
-            "description": "Unique internal identifier for user",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id"
-        ],
         "type": "object"
       },
       "Video": {
