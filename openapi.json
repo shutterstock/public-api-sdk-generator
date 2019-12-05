@@ -5496,7 +5496,11 @@
               "enum": [
                 "audio_standard",
                 "audio_enhanced",
-                "audio_platform"
+                "audio_platform",
+                "premier_music_basic",
+                "premier_music_extended",
+                "premier_music_pro",
+                "premier_music_comp"
               ],
               "default": "audio_standard"
             }
