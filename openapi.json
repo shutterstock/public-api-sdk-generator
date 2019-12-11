@@ -5496,7 +5496,11 @@
               "enum": [
                 "audio_standard",
                 "audio_enhanced",
-                "audio_platform"
+                "audio_platform",
+                "premier_music_basic",
+                "premier_music_extended",
+                "premier_music_pro",
+                "premier_music_comp"
               ],
               "default": "audio_standard"
             }
@@ -8626,13 +8630,16 @@
                   },
                   "expires": {
                     "description": "Whether or not the token expires, expiring tokens come with a refresh_token to renew the access_token",
-                    "type": "boolean",
-                    "default": false
+                    "type": "string",
+                    "enum": [
+                      "true",
+                      "false"
+                    ],
+                    "default": "false"
                   }
                 },
                 "required": [
                   "client_id",
-                  "client_secret",
                   "grant_type"
                 ]
               },
