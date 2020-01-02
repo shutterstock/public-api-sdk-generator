@@ -8584,7 +8584,7 @@
           },
           {
             "lang": "php",
-            "source": "$body = [ \"client_id\" => \"860bde70bb335163e2e4\", \"client_secret\" => \"225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\", \"grant_type\" => \"authorization_code\", \"code\" => \"VaRLQ3rICmWjGr4ciI-GwR\" ]; $encodedBody = json_encode($body);\n$options = [ CURLOPT_URL => \"https://api.shutterstock.com/v2/oauth/access_token\", CURLOPT_CUSTOMREQUEST => \"POST\", CURLOPT_POSTFIELDS => $encodedBody, CURLOPT_USERAGENT => \"php/curl\", CURLOPT_RETURNTRANSFER => 1 ];\n$handle = curl_init(); curl_setopt_array($handle, $options); $response = curl_exec($handle); curl_close($handle);\n$decodedResponse = json_decode($response); print_r($decodedResponse);"
+            "source": "$body = [\n  \"client_id\" => \"860bde70bb335163e2e4\",\n  \"client_secret\" => \"225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\",\n  \"grant_type\" => \"authorization_code\",\n  \"code\" => \"VaRLQ3rICmWjGr4ciI-GwR\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/oauth/access_token\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Content-Type: application/json\",\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "tags": [
