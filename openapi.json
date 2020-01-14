@@ -8213,6 +8213,7 @@
     },
     "/v2/user/subscriptions": {
       "get": {
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
