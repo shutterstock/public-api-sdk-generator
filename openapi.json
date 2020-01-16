@@ -45,7 +45,7 @@
             }
           },
           {
-            "description": "Specify a hexadecimal color in the format '4F21EA'; the API groups it into one of 15 color categories and returns images that primarily use that color category",
+            "description": "Specify either a hexadecimal color in the format '4F21EA' or 'grayscale'; the API groups it into one of 15 color categories and returns images that primarily use that color category",
             "in": "query",
             "name": "color",
             "schema": {
