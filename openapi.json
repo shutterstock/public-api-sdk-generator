@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.16"
+    "version": "1.0.17"
   },
   "paths": {
     "/v2/images/search": {
@@ -7194,7 +7194,7 @@
             "in": "query",
             "name": "asset_id",
             "required": true,
-            "example": "U123456",
+            "example": "U6ba16262e3bc2db470b8e3cfa8aaab25",
             "schema": {
               "type": "string"
             }
@@ -7332,7 +7332,7 @@
             "in": "query",
             "name": "asset_id",
             "required": true,
-            "example": "U123456",
+            "example": "U6ba16262e3bc2db470b8e3cfa8aaab25",
             "schema": {
               "type": "string"
             }
@@ -7460,6 +7460,89 @@
         "operationId": "getSimilarVideos",
         "summary": "List similar videos",
         "description": "This endpoint returns videos that are visually similar to an image that you specify or upload."
+      }
+    },
+    "/v2/cv/keywords": {
+      "get": {
+        "parameters": [
+          {
+            "description": "The asset ID or upload ID to suggest keywords for",
+            "in": "query",
+            "name": "asset_id",
+            "required": true,
+            "example": "U6ba16262e3bc2db470b8e3cfa8aaab25",
+            "schema": {
+              "oneOf": [
+                {
+                  "description": "ID that is returned when you upload an asset to the Computer Vision upload endpoint.",
+                  "example": "U6ba16262e3bc2db470b8e3cfa8aaab25",
+                  "type": "string",
+                  "pattern": "^U\\w+$"
+                },
+                {
+                  "description": "Standard Shutterstock numeric assetId.",
+                  "example": "18765466",
+                  "type": "string",
+                  "pattern": "^[1-9]\\d*$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeywordDataList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        "nature",
+                        "wildlife",
+                        "animal",
+                        "cute",
+                        "bamboo",
+                        "panda",
+                        "china",
+                        "wild",
+                        "endangered",
+                        "black",
+                        "bear"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "computer_vision"
+        ],
+        "operationId": "getKeywords",
+        "summary": "List suggested keywords",
+        "description": "This endpoint returns a list of suggested keywords for a media item that you specify or upload."
       }
     },
     "/v2/images": {
@@ -8213,6 +8296,7 @@
     },
     "/v2/user/subscriptions": {
       "get": {
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -8523,15 +8607,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl \"https://api.shutterstock.com/v2/oauth/authorize\" \\ -X GET \\ -G \\ --data-urlencode \"scope=licenses.create licenses.view purchases.view\" \\ --data-urlencode \"state=demo_`date +%s`\" \\ --data-urlencode \"response_type=code\" \\ --data-urlencode \"redirect_uri=http://localhost:3000/callback\" \\ --data-urlencode \"client_id=860bde70bb335163e2e4\""
+            "source": "curl \"https://api.shutterstock.com/v2/oauth/authorize\" \\ -X GET \\ -G \\ --data-urlencode \"scope=licenses.create licenses.view purchases.view\" \\ --data-urlencode \"state=demo_`date +%s`\" \\ --data-urlencode \"response_type=code\" \\ --data-urlencode \"redirect_uri=http://localhost:3000/callback\" \\ --data-urlencode \"client_id=$CLIENT_ID\""
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\n  \"headers\": {\n    \"User-Agent\": \"request\"\n  },\n  \"qs\": {\n    \"scope\": \"licenses.create licenses.view purchases.view\",\n    \"state\": \"demo_\" + Date.now(),\n    \"response_type\": \"code\",\n    \"redirect_uri\": \"http://localhost:3000/callback\",\n    \"client_id\": \"860bde70bb335163e2e4\"\n  },\n  \"useQueryString\": true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
+            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\n  \"headers\": {\n    \"User-Agent\": \"request\"\n  },\n  \"qs\": {\n    \"scope\": \"licenses.create licenses.view purchases.view\",\n    \"state\": \"demo_\" + Date.now(),\n    \"response_type\": \"code\",\n    \"redirect_uri\": \"http://localhost:3000/callback\",\n    \"client_id\": CLIENT_ID\n  },\n  \"useQueryString\": true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$queryFields = [ \"client_id\" => \"860bde70bb335163e2e4\", \"redirect_uri\" => \"http://localhost:3000/callback\", \"response_type\" => \"code\", \"scope\" => \"licenses.create licenses.view purchases.view\", \"state\" => time() ];\n$options = [ CURLOPT_URL => \"https://api.shutterstock.com/v2/oauth/authorize?\" . http_build_query($queryFields), CURLOPT_USERAGENT => \"php/curl\", CURLOPT_RETURNTRANSFER => 1 ];\n$handle = curl_init(); curl_setopt_array($handle, $options); $response = curl_exec($handle); curl_close($handle);\n$decodedResponse = json_decode($response); print_r($decodedResponse);"
+            "source": "$queryFields = [ \"client_id\" => $clientId, \"redirect_uri\" => \"http://localhost:3000/callback\", \"response_type\" => \"code\", \"scope\" => \"licenses.create licenses.view purchases.view\", \"state\" => time() ];\n$options = [ CURLOPT_URL => \"https://api.shutterstock.com/v2/oauth/authorize?\" . http_build_query($queryFields), CURLOPT_USERAGENT => \"php/curl\", CURLOPT_RETURNTRANSFER => 1 ];\n$handle = curl_init(); curl_setopt_array($handle, $options); $response = curl_exec($handle); curl_close($handle);\n$decodedResponse = json_decode($response); print_r($decodedResponse);"
           }
         ],
         "tags": [
@@ -8576,15 +8660,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl \"https://api.shutterstock.com/v2/oauth/access_token\" \\ -X POST \\ --data-urlencode \"client_id=860bde70bb335163e2e4\" \\ --data-urlencode \"client_secret=225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\" \\ --data-urlencode \"grant_type=authorization_code\" \\ --data-urlencode \"code=VaRLQ3rICmWjGr4ciI-GwR\""
+            "source": "curl \"https://api.shutterstock.com/v2/oauth/access_token\" \\ -X POST \\ --data-urlencode \"client_id=$CLIENT_ID\" \\ --data-urlencode \"client_secret=$CLIENT_SECRET\" \\ --data-urlencode \"grant_type=authorization_code\" \\ --data-urlencode \"code=$CODE\""
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nconst body = {\n  \"client_id\": \"860bde70bb335163e2e4\",\n  \"client_secret\": \"225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\",\n  \"grant_type\": \"authorization_code\",\n  \"code\": \"VaRLQ3rICmWjGr4ciI-GwR\"\n};\n\nrequest.post(\"https://api.shutterstock.com/v2/oauth/access_token\", {\n  \"headers\": {\n    \"User-Agent\": \"request\"\n  },\n  \"body\": body,\n  \"json\": true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
+            "source": "const request = require(\"request-promise\");\n\nconst body = {\n  \"client_id\": clientId,\n  \"client_secret\": clientSecret,\n  \"grant_type\": \"authorization_code\",\n  \"code\": code,\n};\n\nrequest.post(\"https://api.shutterstock.com/v2/oauth/access_token\", {\n  \"headers\": {\n    \"User-Agent\": \"request\"\n  },\n  \"body\": body,\n  \"json\": true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$body = [\n  \"client_id\" => \"860bde70bb335163e2e4\",\n  \"client_secret\" => \"225d245d28e5b1a37db7fd4ceb8cdf360a3ae5a7\",\n  \"grant_type\" => \"authorization_code\",\n  \"code\" => \"VaRLQ3rICmWjGr4ciI-GwR\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/oauth/access_token\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Content-Type: application/json\",\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$body = [\n  \"client_id\" => $clientId,\n  \"client_secret\" => $clientSecret,\n  \"grant_type\" => \"authorization_code\",\n  \"code\" => $code\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/oauth/access_token\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Content-Type: application/json\",\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "tags": [
@@ -10633,6 +10717,29 @@
         ],
         "type": "object",
         "additionalProperties": false
+      },
+      "KeywordDataList": {
+        "description": "List of keywords",
+        "properties": {
+          "data": {
+            "description": "Keywords",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "errors": {
+            "description": "Error list; appears only if there was an error",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "Server-generated message, if any",
+            "type": "string"
+          }
+        }
       },
       "Language": {
         "description": "Language code",
