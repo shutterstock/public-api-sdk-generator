@@ -7152,15 +7152,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "RESPONSE=$(curl -X POST 'https://api.shutterstock.com/v2/cv/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg`\\\"}\")\n\necho \"The next step requires the jq program.\"\n\nUPLOAD_ID=$(jq -r .upload_id <<< $RESPONSE)\n\ncurl -X GET https://api.shutterstock.com/v2/cv/similar/images \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"asset_type=images\" \\\n--data-urlencode \"asset_id=$UPLOAD_ID\"\n"
+            "source": "curl -X POST 'https://api.shutterstock.com/v2/cv/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg`\\\"}\"\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst computerVisionApi = new sstk.CvApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\ncomputerVisionApi.uploadImage(body)\n  .then((data) => {\n    console.log(data.upload_id);\n    return computerVisionApi.getSimilarImages({\n      \"asset_type\": \"images\",\n      \"asset_id\": data.upload_id\n    });\n  })\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst computerVisionApi = new sstk.ComputerVisionApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\ncomputerVisionApi.uploadImage(body)\n  .then((data) => {\n    console.log(data.upload_id);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$uploadBody = [\n  \"base64_image\" => $encodedImageData\n];\n$uploadEncodedBody = json_encode($uploadBody);\n\n$uploadOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $uploadEncodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $uploadOptions);\n$uploadResponse = curl_exec($handle);\ncurl_close($handle);\n\n$uploadDecodedResponse = json_decode($uploadResponse);\nprint_r($uploadDecodedResponse->upload_id);\n\n$similarQuery = [\n  \"asset_type\" => \"images\",\n  \"asset_id\" => $uploadDecodedResponse->upload_id,\n];\n\n$similarOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/similar/images?\" . http_build_query($similarQuery),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $similarOptions);\n$similarResponse = curl_exec($handle);\ncurl_close($handle);\n\nprint_r($similarResponse);\n"
+            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$uploadBody = [\n  \"base64_image\" => $encodedImageData\n];\n$uploadEncodedBody = json_encode($uploadBody);\n\n$uploadOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $uploadEncodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $uploadOptions);\n$uploadResponse = curl_exec($handle);\ncurl_close($handle);\n\n$uploadDecodedResponse = json_decode($uploadResponse);\nprint_r($uploadDecodedResponse->upload_id);\n"
           }
         ],
         "operationId": "uploadImage",
@@ -7319,6 +7319,20 @@
         "tags": [
           "computer_vision"
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "RESPONSE=$(curl -X POST 'https://api.shutterstock.com/v2/cv/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg`\\\"}\")\n\necho \"The next step requires the jq program.\"\n\nUPLOAD_ID=$(jq -r .upload_id <<< $RESPONSE)\n\ncurl -X GET https://api.shutterstock.com/v2/cv/similar/images \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"asset_id=$UPLOAD_ID\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst computerVisionApi = new sstk.ComputerVisionApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\ncomputerVisionApi.uploadImage(body)\n  .then((data) => {\n    console.log(data.upload_id);\n    return computerVisionApi.getSimilarImages(data.upload_id);\n  })\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$uploadBody = [\n  \"base64_image\" => $encodedImageData\n];\n$uploadEncodedBody = json_encode($uploadBody);\n\n$uploadOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $uploadEncodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $uploadOptions);\n$uploadResponse = curl_exec($handle);\ncurl_close($handle);\n\n$uploadDecodedResponse = json_decode($uploadResponse);\nprint_r($uploadDecodedResponse->upload_id);\n\n$similarQuery = [\n  \"asset_type\" => \"images\",\n  \"asset_id\" => $uploadDecodedResponse->upload_id,\n];\n\n$similarOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/similar/images?\" . http_build_query($similarQuery),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $similarOptions);\n$similarResponse = curl_exec($handle);\ncurl_close($handle);\n\nprint_r($similarResponse);\n"
+          }
+        ],
         "operationId": "getSimilarImages",
         "summary": "List similar images",
         "description": "This endpoint returns images that are visually similar to an image that you specify or upload."
@@ -7457,6 +7471,20 @@
         "tags": [
           "computer_vision"
         ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "RESPONSE=$(curl -X POST 'https://api.shutterstock.com/v2/cv/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg`\\\"}\")\n\necho \"The next step requires the jq program.\"\n\nUPLOAD_ID=$(jq -r .upload_id <<< $RESPONSE)\n\ncurl -X GET https://api.shutterstock.com/v2/cv/similar/videos \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"asset_id=$UPLOAD_ID\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst computerVisionApi = new sstk.ComputerVisionApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\ncomputerVisionApi.uploadImage(body)\n  .then((data) => {\n    console.log(data.upload_id);\n    return computerVisionApi.getSimilarVideos(data.upload_id);\n  })\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$uploadBody = [\n  \"base64_image\" => $encodedImageData\n];\n$uploadEncodedBody = json_encode($uploadBody);\n\n$uploadOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $uploadEncodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $uploadOptions);\n$uploadResponse = curl_exec($handle);\ncurl_close($handle);\n\n$uploadDecodedResponse = json_decode($uploadResponse);\nprint_r($uploadDecodedResponse->upload_id);\n\n$similarQuery = [\n  \"asset_type\" => \"images\",\n  \"asset_id\" => $uploadDecodedResponse->upload_id,\n];\n\n$similarOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/similar/videos?\" . http_build_query($similarQuery),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $similarOptions);\n$similarResponse = curl_exec($handle);\ncurl_close($handle);\n\nprint_r($similarResponse);\n"
+          }
+        ],
         "operationId": "getSimilarVideos",
         "summary": "List similar videos",
         "description": "This endpoint returns videos that are visually similar to an image that you specify or upload."
@@ -7539,6 +7567,20 @@
         ],
         "tags": [
           "computer_vision"
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "RESPONSE=$(curl -X POST 'https://api.shutterstock.com/v2/cv/images' \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"{\\\"base64_image\\\":\\\"`base64 myImage.jpg`\\\"}\")\n\necho \"The next step requires the jq program.\"\n\nUPLOAD_ID=$(jq -r .upload_id <<< $RESPONSE)\n\ncurl -X GET https://api.shutterstock.com/v2/cv/keywords \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-G \\\n--data-urlencode \"asset_id=$UPLOAD_ID\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\nconst fs = require(\"fs\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst computerVisionApi = new sstk.ComputerVisionApi();\n\nconst imageFile = fs.readFileSync(\"./myImage.jpg\");\nconst base64File = Buffer.from(imageFile).toString(\"base64\");\n\nconst body = new sstk.ImageCreateRequest(base64File);\n\ncomputerVisionApi.uploadImage(body)\n  .then((data) => {\n    console.log(data.upload_id);\n    return computerVisionApi.getKeywords(data.upload_id);\n  })\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$imageData = file_get_contents(\"myImage.jpg\");\n$encodedImageData = base64_encode($imageData);\n\n$uploadBody = [\n  \"base64_image\" => $encodedImageData\n];\n$uploadEncodedBody = json_encode($uploadBody);\n\n$uploadOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/images\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $uploadEncodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $uploadOptions);\n$uploadResponse = curl_exec($handle);\ncurl_close($handle);\n\n$uploadDecodedResponse = json_decode($uploadResponse);\nprint_r($uploadDecodedResponse->upload_id);\n\n$keywordsQuery = [\n  \"asset_id\" => $uploadDecodedResponse->upload_id,\n];\n\n$keywordsOptions = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/cv/keywords?\" . http_build_query($keywordsQuery),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $keywordsOptions);\n$keywordsResponse = curl_exec($handle);\ncurl_close($handle);\n\nprint_r($keywordsResponse);"
+          }
         ],
         "operationId": "getKeywords",
         "summary": "List suggested keywords",
