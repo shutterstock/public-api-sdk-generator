@@ -2286,13 +2286,13 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string"
-              },
-              "enum": [
-                "addition",
-                "deletion",
-                "edit"
-              ]
+                "type": "string",
+                "enum": [
+                  "addition",
+                  "deletion",
+                  "edit"
+                ]
+              }
             }
           },
           {
@@ -7555,6 +7555,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "415": {
+            "description": "Unsupported Media Type"
           }
         },
         "security": [
@@ -8273,6 +8276,9 @@
         },
         "security": [
           {
+            "contributor_accessCode": [
+              "user.view"
+            ],
             "customer_accessCode": [
               "user.view"
             ]
@@ -8859,8 +8865,7 @@
               "purchases.view": "Grant read-only access to a user's purchase history.",
               "licenses.view": "Grant read-only access to a user's licenses.",
               "collections.edit": "Grant the ability to create new collections, edit a collection, and modify the contents of a collection",
-              "collections.view": "Grant read-only access to a collection and its contents.",
-              "user.view": "Grants read-only access to a user's basic account information (includes username, id, first and last name). If email is the same as username, it also implies user.email"
+              "collections.view": "Grant read-only access to a collection and its contents."
             }
           }
         }
