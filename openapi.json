@@ -2286,13 +2286,13 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string"
-              },
-              "enum": [
-                "addition",
-                "deletion",
-                "edit"
-              ]
+                "type": "string",
+                "enum": [
+                  "addition",
+                  "deletion",
+                  "edit"
+                ]
+              }
             }
           },
           {
@@ -7555,6 +7555,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "415": {
+            "description": "Unsupported Media Type"
           }
         },
         "security": [
@@ -8273,6 +8276,9 @@
         },
         "security": [
           {
+            "contributor_accessCode": [
+              "user.view"
+            ],
             "customer_accessCode": [
               "user.view"
             ]
@@ -8653,7 +8659,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nrequest.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\n  \"headers\": {\n    \"User-Agent\": \"request\"\n  },\n  \"qs\": {\n    \"scope\": \"licenses.create licenses.view purchases.view\",\n    \"state\": \"demo_\" + Date.now(),\n    \"response_type\": \"code\",\n    \"redirect_uri\": \"http://localhost:3000/callback\",\n    \"client_id\": CLIENT_ID\n  },\n  \"useQueryString\": true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
+            "source": "const axios = require(\"axios\");\n\naxios.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\n  \"params\": {\n    \"scope\": \"licenses.create licenses.view purchases.view\",\n    \"state\": \"demo_\" + Math.round(new Date() / 1000),\n    \"response_type\": \"code\",\n    \"redirect_uri\": \"http://localhost:3000/callback\",\n    \"client_id\": clientId\n  },\n  // Don't follow the redirect because this program is not running in a browser\n  \"maxRedirects\": 0,\n})\n  .catch(({ response }) => {\n    // HTTP 302: Redirect\n    console.log(response.data);\n  });\n"
           },
           {
             "lang": "php",
@@ -8706,7 +8712,7 @@
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const request = require(\"request-promise\");\n\nconst body = {\n  \"client_id\": clientId,\n  \"client_secret\": clientSecret,\n  \"grant_type\": \"authorization_code\",\n  \"code\": code,\n};\n\nrequest.post(\"https://api.shutterstock.com/v2/oauth/access_token\", {\n  \"headers\": {\n    \"User-Agent\": \"request\"\n  },\n  \"body\": body,\n  \"json\": true\n})\n  .then((res) => {\n    console.log(res);\n  });\n"
+            "source": "const axios = require(\"axios\");\n\nconst body = {\n  \"client_id\": clientId,\n  \"client_secret\": clientSecret,\n  \"grant_type\": \"authorization_code\",\n  \"code\": code,\n};\n\naxios.post(\"https://api.shutterstock.com/v2/oauth/access_token\", body)\n  .then((res) => {\n    console.log(res);\n  });\n"
           },
           {
             "lang": "php",
@@ -8859,8 +8865,7 @@
               "purchases.view": "Grant read-only access to a user's purchase history.",
               "licenses.view": "Grant read-only access to a user's licenses.",
               "collections.edit": "Grant the ability to create new collections, edit a collection, and modify the contents of a collection",
-              "collections.view": "Grant read-only access to a collection and its contents.",
-              "user.view": "Grants read-only access to a user's basic account information (includes username, id, first and last name). If email is the same as username, it also implies user.email"
+              "collections.view": "Grant read-only access to a collection and its contents."
             }
           }
         }
