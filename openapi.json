@@ -896,6 +896,9 @@
             "customer_accessCode": [
               "licenses.create",
               "purchases.view"
+            ],
+            "ldap_accessCode": [
+              "user.view"
             ]
           }
         ],
