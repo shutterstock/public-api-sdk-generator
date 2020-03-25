@@ -10552,6 +10552,9 @@
           "huge_jpg": {
             "$ref": "#/components/schemas/ImageSizeDetails"
           },
+          "huge_thumb": {
+            "$ref": "#/components/schemas/Thumbnail"
+          },
           "huge_tiff": {
             "$ref": "#/components/schemas/ImageSizeDetails"
           },
