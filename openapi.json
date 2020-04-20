@@ -8632,7 +8632,7 @@
           "302": {
             "description": "Redirect user to authenticate with Shutterstock",
             "content": {
-              "text/json": {
+              "text/html": {
                 "schema": {
                   "$ref": "#/components/schemas/AuthorizeResponse"
                 },
