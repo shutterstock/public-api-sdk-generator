@@ -7104,16 +7104,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "description": "Computer vision image upload information",
-                  "properties": {
-                    "upload_id": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "upload_id"
-                  ],
-                  "type": "object"
+                  "$ref": "#/components/schemas/ComputerVisionImageCreateResponse"
                 },
                 "examples": {
                   "response": {
@@ -7505,16 +7496,10 @@
             "schema": {
               "oneOf": [
                 {
-                  "description": "ID that is returned when you upload an asset to the Computer Vision upload endpoint.",
-                  "example": "U6ba16262e3bc2db470b8e3cfa8aaab25",
-                  "type": "string",
-                  "pattern": "^U\\w+$"
+                  "$ref": "#/components/schemas/AssetUploadId"
                 },
                 {
-                  "description": "Standard Shutterstock numeric assetId.",
-                  "example": "18765466",
-                  "type": "string",
-                  "pattern": "^[1-9]\\d*$"
+                  "$ref": "#/components/schemas/AssetId"
                 }
               ]
             }
@@ -8632,7 +8617,7 @@
           "302": {
             "description": "Redirect user to authenticate with Shutterstock",
             "content": {
-              "text/json": {
+              "text/html": {
                 "schema": {
                   "$ref": "#/components/schemas/AuthorizeResponse"
                 },
@@ -9750,6 +9735,18 @@
         },
         "required": [
           "name"
+        ],
+        "type": "object"
+      },
+      "ComputerVisionImageCreateResponse": {
+        "description": "Computer vision image upload information",
+        "properties": {
+          "upload_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "upload_id"
         ],
         "type": "object"
       },
