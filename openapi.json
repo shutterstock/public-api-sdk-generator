@@ -6577,6 +6577,251 @@
         "description": "This endpoint searches for editorial images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
       }
     },
+    "/v2/editorial/updated": {
+      "get": {
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Specify `addition` to return only images that were added or `edit` to return only images that were edited or deleted",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "edit",
+                "addition"
+              ]
+            },
+            "example": "edit",
+            "required": true
+          },
+          {
+            "name": "date_updated_start",
+            "description": "Show images images added, edited, or deleted after the specified date, in RFC 3339 section 5.6 format, such as 2020-04-10T10:00:00Z",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-02T13:00-05:00",
+            "required": true
+          },
+          {
+            "name": "date_updated_end",
+            "description": "Show images images added, edited, or deleted before the specified date, in RFC 3339 section 5.6 format, such as 2020-04-10T10:00:00Z",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-04T14:00-05:00",
+            "required": true
+          },
+          {
+            "name": "date_taken_start",
+            "description": "Show images that were taken on or after the specified date, in the format YYYY-MM-DD; use this parameter if you want recently created images from the collection instead of updated older assets",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$"
+            },
+            "example": "2020-02-04"
+          },
+          {
+            "name": "date_taken_end",
+            "description": "Show images that were taken before the specified date, in the format YYYY-MM-DD",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$"
+            },
+            "example": "2020-02-05"
+          },
+          {
+            "name": "cursor",
+            "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJ2IjoxLCJzIjoyfQ=="
+          },
+          {
+            "description": "Sort by",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "newest",
+                "oldest"
+              ],
+              "default": "newest"
+            },
+            "example": "newest"
+          },
+          {
+            "name": "supplier_code",
+            "description": "Show only editorial content from certain suppliers",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 5
+              }
+            },
+            "example": "ABC"
+          },
+          {
+            "description": "Show only editorial content that is available for distribution in a certain country; specify with 3-letter ISO 3166-1 alpha-3 country code such as USA or DEU",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "USA"
+          },
+          {
+            "description": "Number of results per page, defaults to 500",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "type": "integer",
+              "minimum": 100,
+              "maximum": 500,
+              "default": 500
+            },
+            "example": 200
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialUpdatedResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "per_page": 1,
+                      "next": "eyJ2IjoxLCJzIjoxfQ==",
+                      "prev": "",
+                      "data": [
+                        {
+                          "id": "9804979n",
+                          "title": "Hong Kong kicks off international e-Sports competition, China - 24 Aug 2018",
+                          "caption": "",
+                          "description": "Members of the TyLoo e-Sports team from China prepare to face off against the Kinguin e-Sports team from Poland at the ICBC (Asia) e-Sports and Music Festival Hong Kong 2018, Hong Kong, China, 24 August 2018. The festival runs from 24 to 26 August with professional gamers from around the world competing in international e-sports tournaments.",
+                          "byline": "ALEX HOFFORD/EPA-EFE/Shutterstock",
+                          "supplier_code": "EPA",
+                          "keywords": [],
+                          "date_taken": "2018-08-24",
+                          "categories": [],
+                          "aspect": 1.481,
+                          "assets": {
+                            "thumb_170": {
+                              "height": 115,
+                              "width": 170,
+                              "url": "https://editorial01.shutterstock.com/thumb/9804979n/c4377a53/Shutterstock_9804979n.jpg"
+                            },
+                            "thumb_220": {
+                              "height": 149,
+                              "width": 220,
+                              "url": "https://editorial01.shutterstock.com/thumb-220/9804979n/c57a68c7/Shutterstock_9804979n.jpg"
+                            },
+                            "watermark_450": {
+                              "height": 304,
+                              "width": 450,
+                              "url": "https://editorial01.shutterstock.com/wm-preview-450/9804979n/37d19dce/Shutterstock_9804979n.jpg"
+                            },
+                            "watermark_1500": {
+                              "height": 1500,
+                              "width": 1040,
+                              "url": "https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg"
+                            },
+                            "original": {
+                              "display_name": "Original",
+                              "height": 3263,
+                              "width": 4831,
+                              "is_licensable": true
+                            },
+                            "small_jpg": {
+                              "display_name": "Small",
+                              "height": 337,
+                              "width": 500,
+                              "is_licensable": true
+                            },
+                            "medium_jpg": {
+                              "display_name": "Med",
+                              "height": 675,
+                              "width": 1000,
+                              "is_licensable": true
+                            }
+                          },
+                          "updated_time": "2019-07-15T20:04:44-04:00",
+                          "updates": [
+                            "addition"
+                          ],
+                          "commercial_status": {
+                            "status": "available"
+                          },
+                          "rights": {
+                            "countries": "CAN,+DEU,+GBR,+USA,-*"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/updated \\\n-H \"Accept: application/json\" \\\n-G \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n--data-urlencode \"type=edit\" \\\n--data-urlencode \"country=USA\" \\\n--data-urlencode \"date_updated_start=2020-02-02T13:00:00Z\" \\\n--data-urlencode \"date_updated_end=2020-02-02T15:00:00Z\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst type = \"edit\";\nconst dateUpdatedStart = \"2020-02-02T13:00:00Z\";\nconst dateUpdatedEnd = \"2020-02-02T15:00:00Z\";\nconst country = \"USA\";\n\neditorialApi.getUpdatedImages(type, dateUpdatedStart, dateUpdatedEnd, country)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$queryFields = [\n  \"type\" => \"edit\",\n  \"country\" => \"USA\",\n  \"date_updated_start\" => \"2020-02-02T13:00:00Z\",\n  \"date_updated_end\" => \"2020-02-02T15:00:00Z\",\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "tags": [
+          "editorial"
+        ],
+        "operationId": "getUpdatedImages",
+        "summary": "List updated content",
+        "description": "This endpoint lists editorial images that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the date_updated_start and date_updated_end parameters to specify a range updates based on when the updates happened. You can also use the date_taken_start and date_taken_end parameters to specify a range of updates based on when the image was taken."
+      }
+    },
     "/v2/editorial/{id}": {
       "get": {
         "parameters": [
@@ -10119,6 +10364,88 @@
         ],
         "type": "object"
       },
+      "EditorialUpdatedContent": {
+        "description": "Metadata about updated editorial content",
+        "properties": {
+          "commercial_status": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          },
+          "aspect": {
+            "type": "number"
+          },
+          "assets": {
+            "$ref": "#/components/schemas/EditorialAssets"
+          },
+          "byline": {
+            "type": "string"
+          },
+          "caption": {
+            "type": "string"
+          },
+          "categories": {
+            "description": "List of categories",
+            "items": {
+              "$ref": "#/components/schemas/EditorialCategory"
+            },
+            "type": "array"
+          },
+          "date_taken": {
+            "format": "date",
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": {
+            "type": "string"
+          },
+          "updated_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rights": {
+            "type": "object",
+            "properties": {
+              "countries": {
+                "type": "string"
+              }
+            }
+          },
+          "updates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "supplier_code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
       "EditorialContentDataList": {
         "description": "List of editorial items",
         "properties": {
@@ -10282,6 +10609,38 @@
         "required": [
           "data",
           "total_count"
+        ],
+        "type": "object"
+      },
+      "EditorialUpdatedResults": {
+        "description": "Editorial updated results",
+        "properties": {
+          "data": {
+            "description": "Editorial updated items",
+            "items": {
+              "$ref": "#/components/schemas/EditorialUpdatedContent"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "Optional error message",
+            "type": "string"
+          },
+          "next": {
+            "description": "Cursor value that represents the next page of results",
+            "type": "string"
+          },
+          "per_page": {
+            "description": "Number of results per page",
+            "type": "integer"
+          },
+          "prev": {
+            "description": "Cursor value that represents the previous page of results",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data"
         ],
         "type": "object"
       },
