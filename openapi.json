@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.20"
+    "version": "1.0.21"
   },
   "paths": {
     "/v2/images/search": {
@@ -7429,13 +7429,42 @@
       "get": {
         "parameters": [
           {
-            "description": "The asset ID or upload ID to find similar videos for",
+            "description": "The asset ID or upload ID to find similar images for",
             "in": "query",
             "name": "asset_id",
             "required": true,
             "example": "U6ba16262e3bc2db470b8e3cfa8aaab25",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Show only images with the specified license",
+            "in": "query",
+            "name": "license",
+            "schema": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "commercial",
+                  "editorial",
+                  "enhanced",
+                  "sensitive",
+                  "NOT enhanced",
+                  "NOT sensitive"
+                ],
+                "type": "string"
+              },
+              "default": "commercial"
+            }
+          },
+          {
+            "description": "Enable or disable safe search",
+            "in": "query",
+            "name": "safe",
+            "schema": {
+              "type": "boolean",
+              "default": true
             }
           },
           {
@@ -7588,6 +7617,35 @@
             "example": "U6ba16262e3bc2db470b8e3cfa8aaab25",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Show only videos with the specified license",
+            "in": "query",
+            "name": "license",
+            "schema": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "commercial",
+                  "editorial",
+                  "enhanced",
+                  "sensitive",
+                  "NOT enhanced",
+                  "NOT sensitive"
+                ],
+                "type": "string"
+              },
+              "default": "commercial"
+            }
+          },
+          {
+            "description": "Enable or disable safe search",
+            "in": "query",
+            "name": "safe",
+            "schema": {
+              "type": "boolean",
+              "default": true
             }
           },
           {
