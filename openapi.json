@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.21"
+    "version": "1.0.22"
   },
   "paths": {
     "/v2/images/search": {
@@ -384,6 +384,16 @@
                               "height": 260,
                               "url": "https://image.shutterstock.com/image-vector/minimal-geometric-background-dynamic-shapes-260nw-1120280123.jpg",
                               "width": 435
+                            },
+                            "preview_1000": {
+                              "url": "https://ak.picdn.net/shutterstock/photos/1120280123/watermark_1000/f4954f705e782cc12cd13910137e3555/preview_1000-1120280123.jpg",
+                              "width": 1000,
+                              "height": 600
+                            },
+                            "preview_1500": {
+                              "url": "https://image.shutterstock.com/z/stock-vector-minimal-geometric-background-dynamic-shapes-composition-eps-vector-1120280123.jpg",
+                              "width": 1500,
+                              "height": 900
                             }
                           },
                           "contributor": {
@@ -525,6 +535,16 @@
                           "height": 260,
                           "url": "https://image.shutterstock.com/image-vector/happy-mid-autumn-festival-background-260nw-465011609.jpg",
                           "width": 221
+                        },
+                        "preview_1000": {
+                          "url": "https://ak.picdn.net/shutterstock/photos/465011609/watermark_1000/e80e64e55f14aeb951feaf93ea337dc0/preview_1000-465011609.jpg",
+                          "width": 850,
+                          "height": 1000
+                        },
+                        "preview_1500": {
+                          "url": "https://image.shutterstock.com/z/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg",
+                          "width": 1275,
+                          "height": 1500
                         }
                       },
                       "categories": [
@@ -765,6 +785,16 @@
                               "height": 260,
                               "url": "https://image.shutterstock.com/image-vector/happy-halloween-vector-260nw-224429596.jpg",
                               "width": 260
+                            },
+                            "preview_1000": {
+                              "url": "https://ak.picdn.net/shutterstock/photos/224429596/watermark_1000/9b5c88b67f10298f7b5340f21dffc953/preview_1000-224429596.jpg",
+                              "width": 1000,
+                              "height": 1000
+                            },
+                            "preview_1500": {
+                              "url": "https://image.shutterstock.com/z/stock-vector-happy-halloween-vector-224429596.jpg",
+                              "width": 1500,
+                              "height": 1500
                             }
                           },
                           "contributor": {
@@ -6577,6 +6607,65 @@
         "description": "This endpoint searches for editorial images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
       }
     },
+    "/v2/editorial/categories": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialCategoryResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "name": "Animal"
+                        },
+                        {
+                          "name": "Awards"
+                        },
+                        {
+                          "name": "Art"
+                        },
+                        {
+                          "name": "Film Stills"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial"
+        ],
+        "operationId": "getEditorialCategories",
+        "summary": "List editorial categories",
+        "description": "This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to."
+      }
+    },
     "/v2/editorial/updated": {
       "get": {
         "parameters": [
@@ -7550,6 +7639,16 @@
                               "height": 260,
                               "url": "https://image.shutterstock.com/image-vector/happy-halloween-vector-260nw-224429596.jpg",
                               "width": 260
+                            },
+                            "preview_1000": {
+                              "url": "https://ak.picdn.net/shutterstock/photos/224429596/watermark_1000/9b5c88b67f10298f7b5340f21dffc953/preview_1000-224429596.jpg",
+                              "width": 1000,
+                              "height": 1000
+                            },
+                            "preview_1500": {
+                              "url": "https://image.shutterstock.com/z/stock-vector-happy-halloween-vector-224429596.jpg",
+                              "width": 1500,
+                              "height": 1500
                             }
                           },
                           "contributor": {
@@ -7950,6 +8049,16 @@
                               "height": 260,
                               "url": "https://image.shutterstock.com/image-vector/happy-mid-autumn-festival-background-260nw-465011609.jpg",
                               "width": 221
+                            },
+                            "preview_1000": {
+                              "url": "https://ak.picdn.net/shutterstock/photos/465011609/watermark_1000/e80e64e55f14aeb951feaf93ea337dc0/preview_1000-465011609.jpg",
+                              "width": 850,
+                              "height": 1000
+                            },
+                            "preview_1500": {
+                              "url": "https://image.shutterstock.com/z/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg",
+                              "width": 1275,
+                              "height": 1500
                             }
                           },
                           "contributor": {
@@ -9232,14 +9341,14 @@
         "additionalProperties": false
       },
       "Allotment": {
-        "description": "Allotment",
+        "description": "An allotment of credits as part of a subscription",
         "properties": {
           "downloads_left": {
-            "description": "Number of licenses remaining in the subscription",
+            "description": "Number of credits remaining in the subscription",
             "type": "integer"
           },
           "downloads_limit": {
-            "description": "Total number of licenses available to this subscription",
+            "description": "Total number of credits available to this subscription",
             "type": "integer"
           },
           "end_time": {
@@ -9256,7 +9365,7 @@
         "type": "object"
       },
       "Artist": {
-        "description": "Artist metadata",
+        "description": "Metadata about the artist that created the media",
         "properties": {
           "name": {
             "type": "string",
@@ -9519,7 +9628,7 @@
         "additionalProperties": false
       },
       "AudioAssetDetails": {
-        "description": "Audio asset metadata",
+        "description": "Information about a file that is part of an audio asset",
         "properties": {
           "file_size": {
             "description": "File size of the track",
@@ -9533,7 +9642,7 @@
         "type": "object"
       },
       "AudioAssets": {
-        "description": "Audio assets",
+        "description": "Files that are available as part of an audio asset",
         "properties": {
           "album_art": {
             "$ref": "#/components/schemas/AudioAssetDetails"
@@ -9747,7 +9856,7 @@
         "type": "object"
       },
       "CategoryDataList": {
-        "description": "List of categories",
+        "description": "List of categories that images can belong to",
         "properties": {
           "data": {
             "description": "Categories",
@@ -9782,7 +9891,7 @@
         }
       },
       "Collection": {
-        "description": "Collection metadata",
+        "description": "Metadata about a collection of assets",
         "properties": {
           "cover_item": {
             "$ref": "#/components/schemas/CollectionItem"
@@ -9847,7 +9956,7 @@
         "type": "object"
       },
       "CollectionCreateResponse": {
-        "description": "Create collection response",
+        "description": "Collection creation response",
         "example": {
           "id": "48433105"
         },
@@ -9937,7 +10046,7 @@
         }
       },
       "CollectionItem": {
-        "description": "Collection item metadata",
+        "description": "Metadata about an item that is part of a collection",
         "properties": {
           "added_time": {
             "description": "The date the item was added to the collection",
@@ -9959,7 +10068,7 @@
         "type": "object"
       },
       "CollectionItemDataList": {
-        "description": "List of collections",
+        "description": "List of items in a collection",
         "example": {
           "data": [
             {
@@ -9978,7 +10087,7 @@
         },
         "properties": {
           "data": {
-            "description": "Collections",
+            "description": "Assets in the collection",
             "items": {
               "$ref": "#/components/schemas/CollectionItem"
             },
@@ -10010,7 +10119,7 @@
         }
       },
       "CollectionItemRequest": {
-        "description": "Request to get the list of collection items",
+        "description": "Request to get a list of items in a collection",
         "properties": {
           "items": {
             "description": "List of items",
@@ -10042,7 +10151,7 @@
         "type": "object"
       },
       "ComputerVisionImageCreateResponse": {
-        "description": "Computer vision image upload information",
+        "description": "Asset upload information",
         "properties": {
           "upload_id": {
             "type": "string"
@@ -10054,7 +10163,7 @@
         "type": "object"
       },
       "Contributor": {
-        "description": "Contributor",
+        "description": "Information about a contributor",
         "properties": {
           "id": {
             "description": "ID of the contributor",
@@ -10067,7 +10176,7 @@
         "type": "object"
       },
       "ContributorProfile": {
-        "description": "Contributor profile",
+        "description": "Contributor profile data",
         "properties": {
           "about": {
             "description": "Short description of the contributors' library",
@@ -10166,7 +10275,7 @@
         }
       },
       "ContributorProfileSocialMedia": {
-        "description": "Contributor profile on social media",
+        "description": "Contributor profile social media links",
         "properties": {
           "facebook": {
             "description": "Facebook link for contributor",
@@ -10297,7 +10406,7 @@
         }
       },
       "DownloadHistoryFormatDetails": {
-        "description": "Information about the format of the download",
+        "description": "Information about the format of a download",
         "properties": {
           "format": {
             "description": "The format of the downloaded media",
@@ -10367,13 +10476,25 @@
         "type": "object"
       },
       "EditorialCategory": {
-        "description": "Editorial category names",
+        "description": "Name of an editorial category",
         "properties": {
           "name": {
             "type": "string"
           }
         },
         "type": "object"
+      },
+      "EditorialCategoryResults": {
+        "description": "List of editorial categories",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EditorialCategory"
+            }
+          }
+        }
       },
       "EditorialContent": {
         "description": "Metadata about editorial content",
@@ -10735,7 +10856,7 @@
         "type": "object"
       },
       "FeaturedCollection": {
-        "description": "Featured collection metadata",
+        "description": "Metadata about a featured collection",
         "properties": {
           "cover_item": {
             "$ref": "#/components/schemas/FeaturedCollectionCoverItem"
@@ -10832,7 +10953,7 @@
         }
       },
       "GenreList": {
-        "description": "List of genres",
+        "description": "List of audio genres",
         "example": {
           "data": [
             "Rock"
@@ -10961,7 +11082,7 @@
         "type": "object"
       },
       "ImageAssets": {
-        "description": "Image asset information",
+        "description": "Information about the assets that are part of an image",
         "properties": {
           "huge_jpg": {
             "$ref": "#/components/schemas/ImageSizeDetails"
@@ -11006,10 +11127,10 @@
         "type": "object"
       },
       "ImageCreateRequest": {
-        "description": "Image data for upload",
+        "description": "Request to upload an image",
         "properties": {
           "base64_image": {
-            "description": "A Base64 encoded jpeg or png",
+            "description": "A Base 64 encoded jpeg or png",
             "type": "string"
           }
         },
@@ -11214,7 +11335,7 @@
         "type": "string"
       },
       "LicenseAudio": {
-        "description": "An audio licensing item",
+        "description": "An audio track in a licensing request",
         "properties": {
           "audio_id": {
             "description": "ID of the track being licensed",
@@ -11244,7 +11365,7 @@
         "type": "object"
       },
       "LicenseAudioRequest": {
-        "description": "License audio tracks",
+        "description": "Audio license request data",
         "example": {
           "audio": [
             {
@@ -11388,7 +11509,7 @@
         "description": "The response to a licensing request for editorial content",
         "properties": {
           "allotment_charge": {
-            "description": "For pre-paid plans, how many allotments were used for the item license",
+            "description": "For pre-paid plans, how many credits were used for the item license",
             "type": "integer"
           },
           "download": {
@@ -11444,7 +11565,7 @@
         }
       },
       "LicenseFormat": {
-        "description": "A description of a license",
+        "description": "Description of a license",
         "properties": {
           "description": {
             "description": "Description of the license",
@@ -11557,7 +11678,7 @@
         "description": "The response to a licensing request for an image",
         "properties": {
           "allotment_charge": {
-            "description": "Number of allotments that this licensing event used",
+            "description": "Number of credits that this licensing event used",
             "type": "integer"
           },
           "download": {
@@ -11703,7 +11824,7 @@
         "description": "The response to a licensing request for a video",
         "properties": {
           "allotment_charge": {
-            "description": "Number of allotments that this licensing event used",
+            "description": "Number of credits that this licensing event used",
             "type": "integer"
           },
           "download": {
@@ -11728,7 +11849,7 @@
         "type": "object"
       },
       "LicenseVideoResultDataList": {
-        "description": "List of license results",
+        "description": "List of video license results",
         "properties": {
           "data": {
             "description": "License results",
@@ -11763,7 +11884,7 @@
         }
       },
       "Model": {
-        "description": "Model",
+        "description": "Information about a human model or property that appears in media; used to search for assets that this model is in",
         "properties": {
           "id": {
             "description": "ID of the model",
@@ -11786,7 +11907,7 @@
         "type": "object"
       },
       "MoodList": {
-        "description": "List of moods",
+        "description": "List of audio moods",
         "example": {
           "data": [
             "Aggressive"
@@ -11794,7 +11915,7 @@
         },
         "properties": {
           "data": {
-            "description": "List of moods",
+            "description": "List of audio moods",
             "items": {
               "type": "string"
             },
@@ -11945,7 +12066,7 @@
         "type": "object"
       },
       "Subscription": {
-        "description": "Subscription",
+        "description": "Subscription information",
         "properties": {
           "allotment": {
             "$ref": "#/components/schemas/Allotment"
@@ -12022,7 +12143,7 @@
         }
       },
       "SubscriptionMetadata": {
-        "description": "Subscription Metadata",
+        "description": "Subscription metadata",
         "type": "object"
       },
       "TestEcho": {
@@ -12164,7 +12285,7 @@
         }
       },
       "Url": {
-        "description": "URL Object",
+        "description": "URL object",
         "properties": {
           "url": {
             "description": "URL that can be used to download the unwatermarked, licensed asset",
@@ -12177,10 +12298,10 @@
         "type": "object"
       },
       "Urls": {
-        "description": "URLs object",
+        "description": "List of URLs",
         "properties": {
           "urls": {
-            "description": "List of URLs",
+            "description": "URLs",
             "items": {
               "type": "string"
             },
