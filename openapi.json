@@ -3,14 +3,14 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.22"
+    "version": "1.0.24"
   },
   "paths": {
     "/v2/images/search": {
       "get": {
         "parameters": [
           {
-            "description": "Show images added on the specified date, in the format YYYY-MM-DD",
+            "description": "Show images added on the specified date",
             "in": "query",
             "name": "added_date",
             "schema": {
@@ -19,7 +19,7 @@
             }
           },
           {
-            "description": "Show images added on or after the specified date, in the format YYYY-MM-DD",
+            "description": "Show images added on or after the specified date",
             "in": "query",
             "name": "added_date_start",
             "schema": {
@@ -28,7 +28,37 @@
             }
           },
           {
-            "description": "Show images added before the specified date, in the format YYYY-MM-DD",
+            "description": "Show images with the specified aspect ratio or higher, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image",
+            "in": "query",
+            "name": "aspect_ratio_min",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            }
+          },
+          {
+            "description": "Show images with the specified aspect ratio or lower, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image",
+            "in": "query",
+            "name": "aspect_ratio_max",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            }
+          },
+          {
+            "description": "Show images with the specified aspect ratio, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image",
+            "in": "query",
+            "name": "aspect_ratio",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            }
+          },
+          {
+            "description": "Show images added before the specified date",
             "in": "query",
             "name": "added_date_end",
             "schema": {
@@ -75,6 +105,15 @@
                 "minLength": 2,
                 "maxLength": 2
               }
+            }
+          },
+          {
+            "description": "Fields to display in the response; see the documentation for the fields parameter in the overview section",
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string",
+              "uniqueItems": true
             }
           },
           {
@@ -271,6 +310,23 @@
             "name": "query",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Raise or lower search result rankings based on the result's relevance to a specified region; you can provide a country code or an IP address from which the API infers a country",
+            "in": "query",
+            "name": "region",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "country-code"
+                },
+                {
+                  "type": "string",
+                  "format": "ipv4"
+                }
+              ]
             }
           },
           {
@@ -2331,7 +2387,7 @@
           {
             "in": "query",
             "name": "start_date",
-            "description": "Show images updated on or after the specified date, in the format YYYY-MM-DD",
+            "description": "Show images updated on or after the specified date",
             "schema": {
               "type": "string",
               "format": "date"
@@ -2340,7 +2396,7 @@
           {
             "in": "query",
             "name": "end_date",
-            "description": "Show images updated before the specified date, in the format YYYY-MM-DD",
+            "description": "Show images updated before the specified date",
             "schema": {
               "type": "string",
               "format": "date"
@@ -2465,7 +2521,7 @@
       "get": {
         "parameters": [
           {
-            "description": "Show videos added on the specified date, in the format YYYY-MM-DD",
+            "description": "Show videos added on the specified date",
             "in": "query",
             "name": "added_date",
             "schema": {
@@ -2474,7 +2530,7 @@
             }
           },
           {
-            "description": "Show videos added on or after the specified date, in the format YYYY-MM-DD",
+            "description": "Show videos added on or after the specified date",
             "in": "query",
             "name": "added_date_start",
             "schema": {
@@ -2483,7 +2539,7 @@
             }
           },
           {
-            "description": "Show videos added before the specified date, in the format YYYY-MM-DD",
+            "description": "Show videos added before the specified date",
             "in": "query",
             "name": "added_date_end",
             "schema": {
@@ -4556,7 +4612,7 @@
           {
             "in": "query",
             "name": "start_date",
-            "description": "Show videos updated on or after the specified date, in the format YYYY-MM-DD",
+            "description": "Show videos updated on or after the specified date",
             "schema": {
               "type": "string",
               "format": "date"
@@ -4565,7 +4621,7 @@
           {
             "in": "query",
             "name": "end_date",
-            "description": "Show videos updated before the specified date, in the format YYYY-MM-DD",
+            "description": "Show videos updated before the specified date",
             "schema": {
               "type": "string",
               "format": "date"
@@ -6452,7 +6508,7 @@
             }
           },
           {
-            "description": "Show only editorial content generated on or after a specific date, in the format of YYYY-MM-DD",
+            "description": "Show only editorial content generated on or after a specific date",
             "in": "query",
             "name": "date_start",
             "schema": {
@@ -6461,7 +6517,7 @@
             }
           },
           {
-            "description": "Show only editorial content generated on or before a specific date, in the format of YYYY-MM-DD",
+            "description": "Show only editorial content generated on or before a specific date",
             "in": "query",
             "name": "date_end",
             "schema": {
@@ -6685,7 +6741,7 @@
           },
           {
             "name": "date_updated_start",
-            "description": "Show images images added, edited, or deleted after the specified date, in RFC 3339 section 5.6 format, such as 2020-04-10T10:00:00Z",
+            "description": "Show images images added, edited, or deleted after the specified date",
             "in": "query",
             "schema": {
               "type": "string",
@@ -6696,7 +6752,7 @@
           },
           {
             "name": "date_updated_end",
-            "description": "Show images images added, edited, or deleted before the specified date, in RFC 3339 section 5.6 format, such as 2020-04-10T10:00:00Z",
+            "description": "Show images images added, edited, or deleted before the specified date",
             "in": "query",
             "schema": {
               "type": "string",
@@ -6707,7 +6763,7 @@
           },
           {
             "name": "date_taken_start",
-            "description": "Show images that were taken on or after the specified date, in the format YYYY-MM-DD; use this parameter if you want recently created images from the collection instead of updated older assets",
+            "description": "Show images that were taken on or after the specified date; use this parameter if you want recently created images from the collection instead of updated older assets",
             "in": "query",
             "schema": {
               "type": "string",
@@ -6717,7 +6773,7 @@
           },
           {
             "name": "date_taken_end",
-            "description": "Show images that were taken before the specified date, in the format YYYY-MM-DD",
+            "description": "Show images that were taken before the specified date",
             "in": "query",
             "schema": {
               "type": "string",
@@ -7509,7 +7565,7 @@
               }
             }
           },
-          "description": "The image data as a base64 string",
+          "description": "A Base 64 encoded jpeg or png; images can be no larger than 10mb and can be no larger than 10,000 pixels in width or height",
           "required": true
         }
       }
@@ -9352,12 +9408,12 @@
             "type": "integer"
           },
           "end_time": {
-            "description": "Date the subscription ends, in the format YYYY-MM-ddTHH:mm:ssZ",
+            "description": "Date the subscription ends",
             "format": "date-time",
             "type": "string"
           },
           "start_time": {
-            "description": "Date the subscription started, in the format YYYY-MM-ddTHH:mm:ssZ",
+            "description": "Date the subscription started",
             "format": "date-time",
             "type": "string"
           }
@@ -9465,7 +9521,7 @@
         },
         "properties": {
           "added_date": {
-            "description": "Date this track was added to the Shutterstock library, in the format: YYYY-MM-DD",
+            "description": "Date this track was added to the Shutterstock library",
             "format": "date",
             "type": "string"
           },
@@ -9573,7 +9629,7 @@
             "type": "array"
           },
           "published_time": {
-            "description": "Time this track was published, in the format YYYY-MM-DDThh:mm:ssZ",
+            "description": "Time this track was published",
             "format": "date-time",
             "type": "string"
           },
@@ -9597,7 +9653,7 @@
             "type": "array"
           },
           "submitted_time": {
-            "description": "Time this track was submitted, in the format YYYY-MM-DDThh:mm:ssZ",
+            "description": "Time this track was submitted",
             "format": "date-time",
             "type": "string"
           },
@@ -9606,7 +9662,7 @@
             "type": "string"
           },
           "updated_time": {
-            "description": "Time this track was last updated, in the format YYYY-MM-DDThh:mm:ssZ",
+            "description": "Time this track was last updated",
             "format": "date-time",
             "type": "string"
           },
@@ -10329,7 +10385,7 @@
             "$ref": "#/components/schemas/DownloadHistoryMediaDetails"
           },
           "download_time": {
-            "description": "Date the media was downloaded the first time, in the format YYYY-MM-DDThh:mm:ssZ",
+            "description": "Date the media was downloaded the first time",
             "format": "date-time",
             "type": "string"
           },
@@ -10862,7 +10918,7 @@
             "$ref": "#/components/schemas/FeaturedCollectionCoverItem"
           },
           "created_time": {
-            "description": "Date that the collection was created, format in YYYY-MM-DDThh:mm:ssT",
+            "description": "Date that the collection was created",
             "format": "date-time",
             "type": "string"
           },
@@ -10875,7 +10931,7 @@
             "type": "string"
           },
           "items_updated_time": {
-            "description": "Date that an item in the collection was last added or removed, in the format YYYY-MM-DDThh:mm:ssZ",
+            "description": "Date that an item in the collection was last added or removed",
             "format": "date-time",
             "type": "string"
           },
@@ -10892,7 +10948,7 @@
             "type": "integer"
           },
           "updated_time": {
-            "description": "Date that the collection was last modified, in the format YYYY-MM-DDThh:mm:ssZ",
+            "description": "Date that the collection was last modified",
             "format": "date-time",
             "type": "string"
           }
@@ -10978,7 +11034,7 @@
         "description": "Information about an image",
         "properties": {
           "added_date": {
-            "description": "Date that the image was added by the contributor, in the format YYYY-MM-DD",
+            "description": "Date that the image was added by the contributor",
             "format": "date",
             "type": "string"
           },
@@ -11130,7 +11186,7 @@
         "description": "Request to upload an image",
         "properties": {
           "base64_image": {
-            "description": "A Base 64 encoded jpeg or png",
+            "description": "A Base 64 encoded jpeg or png; images can be no larger than 10mb and can be no larger than 10,000 pixels in width or height",
             "type": "string"
           }
         },
@@ -12076,7 +12132,7 @@
             "type": "string"
           },
           "expiration_time": {
-            "description": "Date the subscription ends, in the format YYYY-MM-ddTHH:mm:ssZ",
+            "description": "Date the subscription ends",
             "format": "date-time",
             "type": "string"
           },
@@ -12386,7 +12442,7 @@
         "description": "Information about a video",
         "properties": {
           "added_date": {
-            "description": "Date this video was added to the Shutterstock library, in the format YYYY-MM-DD",
+            "description": "Date this video was added to the Shutterstock library",
             "format": "date",
             "type": "string"
           },
@@ -12615,6 +12671,28 @@
           }
         },
         "type": "object"
+      }
+    },
+    "x-string-formats": {
+      "country-code": {
+        "format": "A two-character (ISO 3166 Alpha-2) country code",
+        "example": "US"
+      },
+      "date": {
+        "format": "YYYY-MM-DD",
+        "example": "2020-05-29"
+      },
+      "date-time": {
+        "format": "YYYY-MM-DDTHH:mm:ssZ",
+        "example": "2020-05-29T12:10:22-05:00"
+      },
+      "ipv4": {
+        "format": "A valid IPv4 address",
+        "example": "1.1.1.1"
+      },
+      "uri": {
+        "format": "A valid URI",
+        "example": "https://wwww.shutterstock.com"
       }
     }
   }
