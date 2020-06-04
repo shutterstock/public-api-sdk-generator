@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.22"
+    "version": "1.0.24"
   },
   "paths": {
     "/v2/images/search": {
@@ -25,6 +25,36 @@
             "schema": {
               "type": "string",
               "format": "date"
+            }
+          },
+          {
+            "description": "Show images with the specified aspect ratio or higher, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image",
+            "in": "query",
+            "name": "aspect_ratio_min",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            }
+          },
+          {
+            "description": "Show images with the specified aspect ratio or lower, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image",
+            "in": "query",
+            "name": "aspect_ratio_max",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            }
+          },
+          {
+            "description": "Show images with the specified aspect ratio, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image",
+            "in": "query",
+            "name": "aspect_ratio",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": true
             }
           },
           {
@@ -75,6 +105,15 @@
                 "minLength": 2,
                 "maxLength": 2
               }
+            }
+          },
+          {
+            "description": "Fields to display in the response; see the documentation for the fields parameter in the overview section",
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string",
+              "uniqueItems": true
             }
           },
           {
@@ -271,6 +310,23 @@
             "name": "query",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "A 2-letter country code or an IP address to regionalize the results for",
+            "in": "query",
+            "name": "region",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "countryCode"
+                },
+                {
+                  "type": "string",
+                  "format": "ipv4"
+                }
+              ]
             }
           },
           {
@@ -7509,7 +7565,7 @@
               }
             }
           },
-          "description": "The image data as a base64 string",
+          "description": "A Base 64 encoded jpeg or png; images can be no larger than 10mb and can be no larger than 10,000 pixels in width or height",
           "required": true
         }
       }
@@ -11130,7 +11186,7 @@
         "description": "Request to upload an image",
         "properties": {
           "base64_image": {
-            "description": "A Base 64 encoded jpeg or png",
+            "description": "A Base 64 encoded jpeg or png; images can be no larger than 10mb and can be no larger than 10,000 pixels in width or height",
             "type": "string"
           }
         },
