@@ -8324,6 +8324,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8402,6 +8405,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8496,6 +8502,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8571,6 +8580,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8688,6 +8700,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
