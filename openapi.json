@@ -97,7 +97,6 @@
             "description": "Show images from contributors in one or more specified countries",
             "in": "query",
             "name": "contributor_country",
-            "example": "US",
             "schema": {
               "type": "array",
               "items": {
@@ -8324,6 +8323,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8402,6 +8404,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8496,6 +8501,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8571,6 +8579,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8688,6 +8699,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
