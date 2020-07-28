@@ -97,7 +97,6 @@
             "description": "Show images from contributors in one or more specified countries",
             "in": "query",
             "name": "contributor_country",
-            "example": "US",
             "schema": {
               "type": "array",
               "items": {
@@ -6740,7 +6739,7 @@
           },
           {
             "name": "date_updated_start",
-            "description": "Show images images added, edited, or deleted after the specified date",
+            "description": "Show images images added, edited, or deleted after the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.",
             "in": "query",
             "schema": {
               "type": "string",
@@ -6751,7 +6750,7 @@
           },
           {
             "name": "date_updated_end",
-            "description": "Show images images added, edited, or deleted before the specified date",
+            "description": "Show images images added, edited, or deleted before the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.",
             "in": "query",
             "schema": {
               "type": "string",
@@ -8324,6 +8323,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8402,6 +8404,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8496,6 +8501,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8571,6 +8579,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8688,6 +8699,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -12099,7 +12113,8 @@
               "small",
               "medium",
               "huge",
-              "supersize"
+              "supersize",
+              "vector"
             ],
             "type": "string"
           },
