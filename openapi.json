@@ -97,7 +97,6 @@
             "description": "Show images from contributors in one or more specified countries",
             "in": "query",
             "name": "contributor_country",
-            "example": "US",
             "schema": {
               "type": "array",
               "items": {
@@ -260,24 +259,27 @@
             "in": "query",
             "name": "people_ethnicity",
             "schema": {
-              "type": "string",
-              "enum": [
-                "african",
-                "african_american",
-                "black",
-                "brazilian",
-                "chinese",
-                "caucasian",
-                "east_asian",
-                "hispanic",
-                "japanese",
-                "middle_eastern",
-                "native_american",
-                "pacific_islander",
-                "south_asian",
-                "southeast_asian",
-                "other"
-              ]
+              "type": "array",
+              "items": {
+                "enum": [
+                  "african",
+                  "african_american",
+                  "black",
+                  "brazilian",
+                  "chinese",
+                  "caucasian",
+                  "east_asian",
+                  "hispanic",
+                  "japanese",
+                  "middle_eastern",
+                  "native_american",
+                  "pacific_islander",
+                  "south_asian",
+                  "southeast_asian",
+                  "other"
+                ],
+                "type": "string"
+              }
             }
           },
           {
@@ -504,6 +506,68 @@
         "operationId": "searchImages",
         "summary": "Search for images",
         "description": "This endpoint searches for images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT. Free API accounts show results only from a limited library of media, not the full Shutterstock media library. Also, the number of search fields they can use in a request is limited."
+      }
+    },
+    "/v2/images/search/suggestions": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Search term for which you want keyword suggestions",
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "example": "cats",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Limit the number of suggestions",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 25
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Suggestions"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "images"
+        ],
+        "operationId": "getImageSuggestions",
+        "summary": "Get suggestions for a search term",
+        "description": "This endpoint provides autocomplete suggestions for partial search terms."
       }
     },
     "/v2/images/{id}": {
@@ -2731,24 +2795,27 @@
             "in": "query",
             "name": "people_ethnicity",
             "schema": {
-              "type": "string",
-              "enum": [
-                "african",
-                "african_american",
-                "black",
-                "brazilian",
-                "chinese",
-                "caucasian",
-                "east_asian",
-                "hispanic",
-                "japanese",
-                "middle_eastern",
-                "native_american",
-                "pacific_islander",
-                "south_asian",
-                "southeast_asian",
-                "other"
-              ]
+              "type": "array",
+              "items": {
+                "enum": [
+                  "african",
+                  "african_american",
+                  "black",
+                  "brazilian",
+                  "chinese",
+                  "caucasian",
+                  "east_asian",
+                  "hispanic",
+                  "japanese",
+                  "middle_eastern",
+                  "native_american",
+                  "pacific_islander",
+                  "south_asian",
+                  "southeast_asian",
+                  "other"
+                ],
+                "type": "string"
+              }
             }
           },
           {
@@ -2937,6 +3004,68 @@
         "operationId": "searchVideos",
         "summary": "Search for videos",
         "description": "This endpoint searches for videos. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
+      }
+    },
+    "/v2/videos/search/suggestions": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Search term for which you want keyword suggestions",
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "example": "cats",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Limit the number of the suggestions",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 25
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Suggestions"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "videos"
+        ],
+        "operationId": "getVideoSuggestions",
+        "summary": "Get suggestions for a search term",
+        "description": "This endpoint provides autocomplete suggestions for partial search terms."
       }
     },
     "/v2/videos": {
@@ -6740,7 +6869,7 @@
           },
           {
             "name": "date_updated_start",
-            "description": "Show images images added, edited, or deleted after the specified date",
+            "description": "Show images images added, edited, or deleted after the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.",
             "in": "query",
             "schema": {
               "type": "string",
@@ -6751,7 +6880,7 @@
           },
           {
             "name": "date_updated_end",
-            "description": "Show images images added, edited, or deleted before the specified date",
+            "description": "Show images images added, edited, or deleted before the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.",
             "in": "query",
             "schema": {
               "type": "string",
@@ -8324,6 +8453,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8402,6 +8534,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8496,6 +8631,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8571,6 +8709,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -8688,6 +8829,9 @@
         "security": [
           {
             "customer_accessCode": []
+          },
+          {
+            "basic": []
           }
         ],
         "tags": [
@@ -12099,7 +12243,8 @@
               "small",
               "medium",
               "huge",
-              "supersize"
+              "supersize",
+              "vector"
             ],
             "type": "string"
           },
@@ -12206,6 +12351,19 @@
       },
       "SubscriptionMetadata": {
         "description": "Subscription metadata",
+        "type": "object"
+      },
+      "Suggestions": {
+        "description": "List of search suggestions",
+        "properties": {
+          "data": {
+            "description": "Search suggestions",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
         "type": "object"
       },
       "TestEcho": {
