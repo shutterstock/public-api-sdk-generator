@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.25"
+    "version": "1.0.26"
   },
   "paths": {
     "/v2/images/search": {
@@ -5710,15 +5710,12 @@
             "schema": {
               "type": "string",
               "enum": [
-                "audio_standard",
-                "audio_enhanced",
                 "audio_platform",
                 "premier_music_basic",
                 "premier_music_extended",
                 "premier_music_pro",
                 "premier_music_comp"
-              ],
-              "default": "audio_standard"
+              ]
             }
           },
           {
@@ -5775,15 +5772,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "DATA='{\n  \"audio\": [\n    {\n      \"audio_id\": \"591623\",\n      \"license\": \"audio_standard\",\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/audio/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
+            "source": "DATA='{\n  \"audio\": [\n    {\n      \"audio_id\": \"591623\",\n      \"license\": \"audio_platform\",\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/audio/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"audio\": [\n    {\n      \"audio_id\": \"446348\",\n      \"license\": \"premier_music_comp\",\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n};\n\naudioApi.licenseTrack(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"audio\": [\n    {\n      \"audio_id\": \"446348\",\n      \"license\": \"audio_platform\",\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n};\n\naudioApi.licenseTrack(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$body = [\n  \"audio\" => [\n    [\n      \"audio_id\" => \"591623\",\n      \"license\" => \"audio_standard\",\n      \"metadata\" => [\n      \"customer_id\" => \"12345\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$body = [\n  \"audio\" => [\n    [\n      \"audio_id\" => \"591623\",\n      \"license\" => \"audio_platform\",\n      \"metadata\" => [\n      \"customer_id\" => \"12345\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "tags": [
@@ -5805,7 +5802,7 @@
                     "audio": [
                       {
                         "audio_id": "591623",
-                        "license": "audio_standard",
+                        "license": "audio_platform",
                         "metadata": {
                           "customer_id": "12345"
                         }
@@ -11549,8 +11546,6 @@
           "license": {
             "description": "Type of license",
             "enum": [
-              "audio_standard",
-              "audio_enhanced",
               "audio_platform",
               "premier_music_basic",
               "premier_music_extended",
