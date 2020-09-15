@@ -10745,88 +10745,6 @@
         ],
         "type": "object"
       },
-      "EditorialUpdatedContent": {
-        "description": "Metadata about updated editorial content",
-        "properties": {
-          "commercial_status": {
-            "properties": {
-              "status": {
-                "type": "string"
-              },
-              "reason": {
-                "type": "string"
-              }
-            }
-          },
-          "aspect": {
-            "type": "number"
-          },
-          "assets": {
-            "$ref": "#/components/schemas/EditorialAssets"
-          },
-          "byline": {
-            "type": "string"
-          },
-          "caption": {
-            "type": "string"
-          },
-          "categories": {
-            "description": "List of categories",
-            "items": {
-              "$ref": "#/components/schemas/EditorialCategory"
-            },
-            "type": "array"
-          },
-          "date_taken": {
-            "format": "date",
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "keywords": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "title": {
-            "type": "string"
-          },
-          "updated_time": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "created_time": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "rights": {
-            "type": "object",
-            "properties": {
-              "countries": {
-                "type": "string"
-              }
-            }
-          },
-          "updates": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "supplier_code": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "type": "object"
-      },
       "EditorialContentDataList": {
         "description": "List of editorial items",
         "properties": {
@@ -10990,6 +10908,88 @@
         "required": [
           "data",
           "total_count"
+        ],
+        "type": "object"
+      },
+      "EditorialUpdatedContent": {
+        "description": "Metadata about updated editorial content",
+        "properties": {
+          "commercial_status": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          },
+          "aspect": {
+            "type": "number"
+          },
+          "assets": {
+            "$ref": "#/components/schemas/EditorialAssets"
+          },
+          "byline": {
+            "type": "string"
+          },
+          "caption": {
+            "type": "string"
+          },
+          "categories": {
+            "description": "List of categories",
+            "items": {
+              "$ref": "#/components/schemas/EditorialCategory"
+            },
+            "type": "array"
+          },
+          "date_taken": {
+            "format": "date",
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": {
+            "type": "string"
+          },
+          "updated_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rights": {
+            "type": "object",
+            "properties": {
+              "countries": {
+                "type": "string"
+              }
+            }
+          },
+          "updates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "supplier_code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
         ],
         "type": "object"
       },
