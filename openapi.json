@@ -9719,7 +9719,7 @@
           "title": "Another Tomorrow",
           "updated_time": "2016-08-18T17:59:33-04:00",
           "vocal_description": "",
-          "url": "https://www.shutterstock.com/music/track/another-tomorrow/442583"
+          "url": ""
         },
         "properties": {
           "added_date": {
@@ -9873,7 +9873,7 @@
             "type": "string"
           },
           "url": {
-            "description": "Link to track information page; included only for certain accounts",
+            "description": "",
             "type": "string"
           }
         },
@@ -11365,9 +11365,6 @@
           "huge_thumb": {
             "$ref": "#/components/schemas/Thumbnail"
           },
-          "huge_tiff": {
-            "$ref": "#/components/schemas/ImageSizeDetails"
-          },
           "large_thumb": {
             "$ref": "#/components/schemas/Thumbnail"
           },
@@ -11390,9 +11387,6 @@
             "$ref": "#/components/schemas/Thumbnail"
           },
           "supersize_jpg": {
-            "$ref": "#/components/schemas/ImageSizeDetails"
-          },
-          "supersize_tiff": {
             "$ref": "#/components/schemas/ImageSizeDetails"
           },
           "vector_eps": {
