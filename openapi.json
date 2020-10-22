@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.26"
+    "version": "1.0.27"
   },
   "paths": {
     "/v2/images/search": {
@@ -990,7 +990,8 @@
                 "small",
                 "medium",
                 "huge",
-                "vector"
+                "vector",
+                "custom"
               ],
               "default": "huge"
             }
@@ -1163,6 +1164,34 @@
               ],
               "default": "newest"
             }
+          },
+          {
+            "description": "Filter licenses by username of licensee",
+            "in": "query",
+            "name": "username",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Show licenses created on or after the specified date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-02T13:00-05:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "Show licenses created before the specified date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-02T13:00-05:00"
           }
         ],
         "responses": {
@@ -1271,7 +1300,7 @@
         ],
         "operationId": "getImageLicenseList",
         "summary": "List image licenses",
-        "description": "This endpoint lists existing licenses. You can filter the results according to the type of license or the image ID."
+        "description": "This endpoint lists existing licenses."
       }
     },
     "/v2/images/licenses/{id}/downloads": {
@@ -3541,6 +3570,34 @@
               ],
               "default": "newest"
             }
+          },
+          {
+            "description": "Filter licenses by username of licensee",
+            "in": "query",
+            "name": "username",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Show licenses created on or after the specified date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-02T13:00-05:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "Show licenses created before the specified date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-02T13:00-05:00"
           }
         ],
         "responses": {
@@ -3796,7 +3853,7 @@
         ],
         "operationId": "getVideoLicenseList",
         "summary": "List video licenses",
-        "description": "This endpoint lists existing licenses. You can filter the results according to the type of license or the video ID."
+        "description": "This endpoint lists existing licenses."
       }
     },
     "/v2/videos/licenses/{id}/downloads": {
@@ -10524,6 +10581,22 @@
         ],
         "type": "object"
       },
+      "CustomSizeDimensions": {
+        "description": "A custom height or a custom width to resize the image to, but not both (experimental)",
+        "properties": {
+          "height": {
+            "description": "Custom height to resize the image to",
+            "type": "integer",
+            "minimum": 100
+          },
+          "width": {
+            "description": "Custom width to resize the image to",
+            "type": "integer",
+            "minimum": 100
+          }
+        },
+        "type": "object"
+      },
       "DownloadHistory": {
         "description": "Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object",
         "properties": {
@@ -10745,88 +10818,6 @@
         ],
         "type": "object"
       },
-      "EditorialUpdatedContent": {
-        "description": "Metadata about updated editorial content",
-        "properties": {
-          "commercial_status": {
-            "properties": {
-              "status": {
-                "type": "string"
-              },
-              "reason": {
-                "type": "string"
-              }
-            }
-          },
-          "aspect": {
-            "type": "number"
-          },
-          "assets": {
-            "$ref": "#/components/schemas/EditorialAssets"
-          },
-          "byline": {
-            "type": "string"
-          },
-          "caption": {
-            "type": "string"
-          },
-          "categories": {
-            "description": "List of categories",
-            "items": {
-              "$ref": "#/components/schemas/EditorialCategory"
-            },
-            "type": "array"
-          },
-          "date_taken": {
-            "format": "date",
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "keywords": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "title": {
-            "type": "string"
-          },
-          "updated_time": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "created_time": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "rights": {
-            "type": "object",
-            "properties": {
-              "countries": {
-                "type": "string"
-              }
-            }
-          },
-          "updates": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "supplier_code": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "type": "object"
-      },
       "EditorialContentDataList": {
         "description": "List of editorial items",
         "properties": {
@@ -10990,6 +10981,88 @@
         "required": [
           "data",
           "total_count"
+        ],
+        "type": "object"
+      },
+      "EditorialUpdatedContent": {
+        "description": "Metadata about updated editorial content",
+        "properties": {
+          "commercial_status": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          },
+          "aspect": {
+            "type": "number"
+          },
+          "assets": {
+            "$ref": "#/components/schemas/EditorialAssets"
+          },
+          "byline": {
+            "type": "string"
+          },
+          "caption": {
+            "type": "string"
+          },
+          "categories": {
+            "description": "List of categories",
+            "items": {
+              "$ref": "#/components/schemas/EditorialCategory"
+            },
+            "type": "array"
+          },
+          "date_taken": {
+            "format": "date",
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": {
+            "type": "string"
+          },
+          "updated_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rights": {
+            "type": "object",
+            "properties": {
+              "countries": {
+                "type": "string"
+              }
+            }
+          },
+          "updates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "supplier_code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
         ],
         "type": "object"
       },
@@ -11841,9 +11914,13 @@
               "small",
               "medium",
               "huge",
-              "vector"
+              "vector",
+              "custom"
             ],
             "type": "string"
+          },
+          "custom_dimensions": {
+            "$ref": "#/components/schemas/CustomSizeDimensions"
           },
           "subscription_id": {
             "description": "ID of the subscription to use for the download.",
