@@ -1207,7 +1207,7 @@
                     "value": {
                       "data": [
                         {
-                          "id": "i1188641320",
+                          "id": "e121",
                           "user": {
                             "username": "userone"
                           },
@@ -1228,7 +1228,7 @@
                           }
                         },
                         {
-                          "id": "i1188641335",
+                          "id": "e122",
                           "user": {
                             "username": "userone"
                           },
@@ -1249,7 +1249,7 @@
                           }
                         },
                         {
-                          "id": "i1188641341",
+                          "id": "e123",
                           "user": {
                             "username": "userone"
                           },
@@ -1311,7 +1311,7 @@
             "in": "path",
             "name": "id",
             "required": true,
-            "example": "i1188641347",
+            "example": "e123",
             "schema": {
               "type": "string"
             }
@@ -1320,15 +1320,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "DATA='{\n  \"size\": \"huge\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/images/licenses/i1188641347/downloads \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+            "source": "DATA='{\n  \"size\": \"huge\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/images/licenses/e123/downloads \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst licenseId = \"i1188641347\"; // license ID, not image ID\n\nconst body = {\n  \"size\": \"huge\"\n};\n\nimagesApi.downloadImage(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst licenseId = \"e123\"; // license ID, not image ID\n\nconst body = {\n  \"size\": \"huge\"\n};\n\nimagesApi.downloadImage(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$body = [\n  \"size\" => \"huge\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses/i1188641347/downloads\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+            "source": "$body = [\n  \"size\" => \"huge\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses/e123/downloads\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "responses": {
@@ -3613,7 +3613,7 @@
                     "value": {
                       "data": [
                         {
-                          "id": "v3286346",
+                          "id": "e121",
                           "user": {
                             "username": "myusername"
                           },
@@ -3634,7 +3634,7 @@
                           }
                         },
                         {
-                          "id": "v3285467",
+                          "id": "e122",
                           "user": {
                             "username": "myusername"
                           },
@@ -3655,7 +3655,7 @@
                           }
                         },
                         {
-                          "id": "v3283718",
+                          "id": "e123",
                           "user": {
                             "username": "myusername"
                           },
@@ -3676,7 +3676,7 @@
                           }
                         },
                         {
-                          "id": "v3283019",
+                          "id": "e124",
                           "user": {
                             "username": "myusername"
                           },
@@ -3697,7 +3697,7 @@
                           }
                         },
                         {
-                          "id": "v3283016",
+                          "id": "e125",
                           "user": {
                             "username": "myusername"
                           },
@@ -3718,7 +3718,7 @@
                           }
                         },
                         {
-                          "id": "v3278213",
+                          "id": "e126",
                           "user": {
                             "username": "myusername"
                           },
@@ -3739,7 +3739,7 @@
                           }
                         },
                         {
-                          "id": "v3277514",
+                          "id": "e127",
                           "user": {
                             "username": "myusername"
                           },
@@ -3760,7 +3760,7 @@
                           }
                         },
                         {
-                          "id": "v3275900",
+                          "id": "e128",
                           "user": {
                             "username": "myusername"
                           },
@@ -3781,7 +3781,7 @@
                           }
                         },
                         {
-                          "id": "v3273884",
+                          "id": "e129",
                           "user": {
                             "username": "myusername"
                           },
@@ -3802,7 +3802,7 @@
                           }
                         },
                         {
-                          "id": "v3273878",
+                          "id": "e130",
                           "user": {
                             "username": "myusername"
                           },
@@ -3864,7 +3864,7 @@
             "in": "path",
             "name": "id",
             "required": true,
-            "example": "i1188641347",
+            "example": "e123",
             "schema": {
               "type": "string"
             }
@@ -3908,15 +3908,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "DATA='{}'\n\ncurl -X POST https://api.shutterstock.com/v2/videos/licenses/i1188641347/downloads \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+            "source": "DATA='{}'\n\ncurl -X POST https://api.shutterstock.com/v2/videos/licenses/e123/downloads \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst licenseId = \"i1188641347\";\n\nconst body = {};\n\nvideosApi.downloadVideos(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst licenseId = \"e123\";\n\nconst body = {};\n\nvideosApi.downloadVideos(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$body = [];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/licenses/i1188641347/downloads\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+            "source": "$body = [];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/licenses/e123/downloads\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "tags": [
@@ -5193,88 +5193,96 @@
                 "examples": {
                   "response": {
                     "value": {
-                      "vocal_description": "",
-                      "keywords": [
-                        "celebratory",
-                        "chic",
-                        "euphoric",
-                        "good times",
-                        "hip",
-                        "optimistic",
-                        "party",
-                        "soaring",
-                        "upbeat"
-                      ],
-                      "artists": [
+                      "page": 1,
+                      "per_page": 5,
+                      "total_count": 25,
+                      "search_id": "c298887c-6f3e-45df-b6cd-41b246e4a104",
+                      "data": [
                         {
-                          "name": "Klimenko Music"
+                          "vocal_description": "",
+                          "keywords": [
+                            "celebratory",
+                            "chic",
+                            "euphoric",
+                            "good times",
+                            "hip",
+                            "optimistic",
+                            "party",
+                            "soaring",
+                            "upbeat"
+                          ],
+                          "artists": [
+                            {
+                              "name": "Klimenko Music"
+                            }
+                          ],
+                          "genres": [
+                            "Dance/Electronic",
+                            "Electro Pop",
+                            "Pop/Rock"
+                          ],
+                          "instruments": [
+                            "Piano",
+                            "Synth bass",
+                            "Synth drums",
+                            "Synthesizer"
+                          ],
+                          "id": "442583",
+                          "isrc": "",
+                          "description": "Pulsing and feel-good, featuring soaring synthesizer, groovy synth bass drums and synth drums that create a euphoric, upbeat mood.",
+                          "similar_artists": [],
+                          "releases": [],
+                          "is_instrumental": true,
+                          "title": "Another Tomorrow",
+                          "is_adult": false,
+                          "lyrics": "",
+                          "media_type": "audio",
+                          "recording_version": "",
+                          "moods": [
+                            "Bright",
+                            "Confident",
+                            "Fun",
+                            "Happy",
+                            "Inspiring",
+                            "Optimistic",
+                            "Playful",
+                            "Sophisticated",
+                            "Stylish",
+                            "Uplifting"
+                          ],
+                          "language": "en",
+                          "assets": {
+                            "clean_audio": {
+                              "file_size": 35188408
+                            },
+                            "preview_mp3": {
+                              "file_size": 4400203,
+                              "url": "https://ak.picdn.net/shutterstock/audio/442583/preview/preview.mp3"
+                            },
+                            "preview_ogg": {
+                              "file_size": 4453197,
+                              "url": "https://ak.picdn.net/shutterstock/audio/442583/preview/preview.ogg"
+                            },
+                            "waveform": {
+                              "file_size": 18778,
+                              "url": "https://ak.picdn.net/shutterstock/audio/442583/waveform/waveform.png"
+                            }
+                          },
+                          "contributor": {
+                            "id": "2847971"
+                          },
+                          "duration": 183,
+                          "album": {
+                            "id": "",
+                            "title": ""
+                          },
+                          "published_time": "2016-08-16T14:30:03-04:00",
+                          "updated_time": "2016-08-18T17:59:33-04:00",
+                          "bpm": 110,
+                          "added_date": "2016-08-16",
+                          "url": ""
                         }
-                      ],
-                      "genres": [
-                        "Dance/Electronic",
-                        "Electro Pop",
-                        "Pop/Rock"
-                      ],
-                      "instruments": [
-                        "Piano",
-                        "Synth bass",
-                        "Synth drums",
-                        "Synthesizer"
-                      ],
-                      "id": "442583",
-                      "isrc": "",
-                      "description": "Pulsing and feel-good, featuring soaring synthesizer, groovy synth bass drums and synth drums that create a euphoric, upbeat mood.",
-                      "similar_artists": [],
-                      "releases": [],
-                      "is_instrumental": true,
-                      "title": "Another Tomorrow",
-                      "is_adult": false,
-                      "lyrics": "",
-                      "media_type": "audio",
-                      "recording_version": "",
-                      "moods": [
-                        "Bright",
-                        "Confident",
-                        "Fun",
-                        "Happy",
-                        "Inspiring",
-                        "Optimistic",
-                        "Playful",
-                        "Sophisticated",
-                        "Stylish",
-                        "Uplifting"
-                      ],
-                      "language": "en",
-                      "assets": {
-                        "clean_audio": {
-                          "file_size": 35188408
-                        },
-                        "preview_mp3": {
-                          "file_size": 4400203,
-                          "url": "https://ak.picdn.net/shutterstock/audio/442583/preview/preview.mp3"
-                        },
-                        "preview_ogg": {
-                          "file_size": 4453197,
-                          "url": "https://ak.picdn.net/shutterstock/audio/442583/preview/preview.ogg"
-                        },
-                        "waveform": {
-                          "file_size": 18778,
-                          "url": "https://ak.picdn.net/shutterstock/audio/442583/waveform/waveform.png"
-                        }
-                      },
-                      "contributor": {
-                        "id": "2847971"
-                      },
-                      "duration": 183,
-                      "album": {
-                        "id": "",
-                        "title": ""
-                      },
-                      "published_time": "2016-08-16T14:30:03-04:00",
-                      "updated_time": "2016-08-18T17:59:33-04:00",
-                      "bpm": 110,
-                      "added_date": "2016-08-16",
-                      "url": "https://www.shutterstock.com/music/track/another-tomorrow/442583"
+                      ]
                     }
                   }
                 }
@@ -5569,7 +5577,7 @@
                           "updated_time": "2016-08-18T18:03:11-04:00",
                           "bpm": 100,
                           "added_date": "2016-04-12",
-                          "url": "https://www.shutterstock.com/music/track/another-tomorrow/442583"
+                          "url": ""
                         }
                       ]
                     }
@@ -5724,7 +5732,7 @@
                       "updated_time": "2016-08-18T17:59:33-04:00",
                       "bpm": 110,
                       "added_date": "2016-08-16",
-                      "url": "https://www.shutterstock.com/music/track/another-tomorrow/442583"
+                      "url": ""
                     }
                   }
                 }
@@ -5930,7 +5938,7 @@
             "in": "path",
             "name": "id",
             "required": true,
-            "example": "i1188641348",
+            "example": "e123",
             "schema": {
               "type": "string"
             }
@@ -5967,15 +5975,15 @@
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl -X POST https://api.shutterstock.com/v2/audio/licenses/i1188641348/downloads \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+            "source": "curl -X POST https://api.shutterstock.com/v2/audio/licenses/e123/downloads \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst licenseId = \"i1188641348\"; // license ID, not track ID\n\naudioApi.downloadTracks(licenseId)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst licenseId = \"e123\"; // license ID, not track ID\n\naudioApi.downloadTracks(licenseId)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses/i1188641348/downloads\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+            "source": "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses/e123/downloads\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "tags": [
@@ -9002,7 +9010,6 @@
     },
     "/v2/user/subscriptions": {
       "get": {
-        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -9719,7 +9726,7 @@
           "title": "Another Tomorrow",
           "updated_time": "2016-08-18T17:59:33-04:00",
           "vocal_description": "",
-          "url": "https://www.shutterstock.com/music/track/another-tomorrow/442583"
+          "url": ""
         },
         "properties": {
           "added_date": {
@@ -9873,7 +9880,7 @@
             "type": "string"
           },
           "url": {
-            "description": "Link to track information page; included only for certain accounts",
+            "description": "",
             "type": "string"
           }
         },
@@ -11365,9 +11372,6 @@
           "huge_thumb": {
             "$ref": "#/components/schemas/Thumbnail"
           },
-          "huge_tiff": {
-            "$ref": "#/components/schemas/ImageSizeDetails"
-          },
           "large_thumb": {
             "$ref": "#/components/schemas/Thumbnail"
           },
@@ -11390,9 +11394,6 @@
             "$ref": "#/components/schemas/Thumbnail"
           },
           "supersize_jpg": {
-            "$ref": "#/components/schemas/ImageSizeDetails"
-          },
-          "supersize_tiff": {
             "$ref": "#/components/schemas/ImageSizeDetails"
           },
           "vector_eps": {
@@ -12303,10 +12304,13 @@
         "description": "Data required to redownload an image",
         "properties": {
           "auth_cookie": {
+            "description": "(Deprecated)",
+            "deprecated": true,
             "$ref": "#/components/schemas/Cookie"
           },
           "show_modal": {
             "description": "(Deprecated)",
+            "deprecated": true,
             "type": "boolean"
           },
           "size": {
@@ -12322,6 +12326,7 @@
           },
           "verification_code": {
             "description": "(Deprecated)",
+            "deprecated": true,
             "type": "string"
           }
         },
@@ -12331,14 +12336,28 @@
         "description": "Data required to redownload a video",
         "properties": {
           "auth_cookie": {
+            "description": "(Deprecated)",
+            "deprecated": true,
             "$ref": "#/components/schemas/Cookie"
           },
           "show_modal": {
             "description": "(Deprecated)",
+            "deprecated": true,
             "type": "boolean"
           },
+          "size": {
+            "description": "Size of the video",
+            "enum": [
+              "web",
+              "sd",
+              "hd",
+              "4k"
+            ],
+            "type": "string"
+          },
           "verification_code": {
-            "description": "The verification code to use to redownload the video",
+            "description": "(Deprecated)",
+            "deprecated": true,
             "type": "string"
           }
         },
