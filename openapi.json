@@ -467,6 +467,7 @@
                           },
                           "description": "Minimal geometric background. Dynamic shapes composition. Eps10 vector.",
                           "image_type": "vector",
+                          "has_model_release": false,
                           "media_type": "image",
                           "url": "https://www.shutterstock.com/image-photo/1120280123"
                         }
@@ -691,7 +692,9 @@
                       "description": "Happy Mid Autumn Festival background with golden glitter Moon and hand drawn Moon Rabbits. Vector illustration",
                       "image_type": "vector",
                       "is_adult": false,
+                      "is_editorial": false,
                       "is_illustration": true,
+                      "has_model_release": false,
                       "has_property_release": true,
                       "keywords": [
                         "abstract",
@@ -2977,6 +2980,7 @@
                           "description": "The Concept of: Digitalization of Information Flow Moving Through Rack Servers in Data Center. Shot on RED EPIC-W 8K Helium Cinema Camera.",
                           "aspect": 1.778,
                           "duration": 19,
+                          "has_model_release": false,
                           "contributor": {
                             "id": "178456"
                           },
@@ -3166,6 +3170,7 @@
                           "description": "A family of African Forest Elephants play in the mud in the jungle of the Congo River basin.",
                           "aspect": 1.481,
                           "duration": 11,
+                          "has_model_release": false,
                           "contributor": {
                             "id": "335419"
                           },
@@ -8336,6 +8341,11 @@
                           "description": "Happy Mid Autumn Festival background with golden glitter Moon and hand drawn Moon Rabbits. Vector illustration",
                           "image_type": "vector",
                           "media_type": "image",
+                          "is_adult": false,
+                          "is_editorial": false,
+                          "is_illustration": true,
+                          "has_model_release": false,
+                          "has_property_release": true,
                           "url": "https://www.shutterstock.com/image-photo/465011609"
                         }
                       ]
@@ -9045,6 +9055,7 @@
                           "expiration_time": "2016-11-17T16:46:36-05:00",
                           "license": "standard",
                           "description": "25-A-Day Subscription",
+                          "asset_type": "images",
                           "formats": [
                             {
                               "size": "huge",
@@ -12409,6 +12420,10 @@
           },
           "license": {
             "description": "Internal identifier for the type of subscription",
+            "type": "string"
+          },
+          "asset_type": {
+            "description": "Identifier for the type of assets associated with this subscription (images, videos, audio, editorial)",
             "type": "string"
           },
           "metadata": {
