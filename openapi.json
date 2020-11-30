@@ -11791,9 +11791,17 @@
         "properties": {
           "country": {
             "description": "Mandatory country code for where the editorial content will be distributed; this value is used for rights checks",
-            "type": "string",
-            "example": "USA",
-            "format": "country-code-3"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "country-code-3"
+              },
+              {
+                "type": "string",
+                "format": "country-code-2"
+              }
+            ],
+            "example": "USA"
           },
           "editorial": {
             "description": "Editorial content to license",
