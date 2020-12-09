@@ -5645,7 +5645,7 @@
             "required": true,
             "example": "442583",
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -7281,8 +7281,8 @@
           "403": {
             "description": "Forbidden"
           },
-          "406": {
-            "description": "Not Acceptable"
+          "404": {
+            "description": "Not Found"
           }
         },
         "security": [
@@ -7309,7 +7309,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LicenseEditorialContentResultDataList"
+                  "$ref": "#/components/schemas/LicenseEditorialContentResults"
                 },
                 "examples": {
                   "response": {
@@ -11791,9 +11791,17 @@
         "properties": {
           "country": {
             "description": "Mandatory country code for where the editorial content will be distributed; this value is used for rights checks",
-            "type": "string",
-            "example": "USA",
-            "format": "country-code-3"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "country-code-3"
+              },
+              {
+                "type": "string",
+                "format": "country-code-2"
+              }
+            ],
+            "example": "USA"
           },
           "editorial": {
             "description": "Editorial content to license",
@@ -11833,7 +11841,7 @@
         ],
         "type": "object"
       },
-      "LicenseEditorialContentResultDataList": {
+      "LicenseEditorialContentResults": {
         "description": "List of editorial license results",
         "properties": {
           "data": {
