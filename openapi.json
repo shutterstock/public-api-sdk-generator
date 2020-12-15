@@ -578,6 +578,68 @@
         "operationId": "getImageSuggestions",
         "summary": "Get suggestions for a search term",
         "description": "This endpoint provides autocomplete suggestions for partial search terms."
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchEntitiesRequest"
+              }
+            }
+          },
+          "description": "Plain text to extract keywords from",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchEntitiesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\"text\": \"The beach is a wonderful place to visit. It has beautiful sand and ocean waves.\"}'\n\ncurl -X POST https://api.shutterstock.com/v2/images/search/suggestions \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"text\": \"The beach is a wonderful place to visit. It has beautiful sand and ocean waves.\"\n};\n\nimagesApi.postImageEntities(body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\n  \"text\" => \"The beach is a wonderful place to visit. It has beautiful sand and ocean waves.\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/search/suggestions\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "tags": [
+          "images"
+        ],
+        "operationId": "postImageEntities",
+        "summary": "Get keywords from text",
+        "description": "This endpoint returns up to 10 important keywords from a block of plain text."
       }
     },
     "/v2/images/{id}": {
@@ -5645,7 +5707,7 @@
             "required": true,
             "example": "442583",
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -7281,8 +7343,8 @@
           "403": {
             "description": "Forbidden"
           },
-          "406": {
-            "description": "Not Acceptable"
+          "404": {
+            "description": "Not Found"
           }
         },
         "security": [
@@ -7309,7 +7371,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LicenseEditorialContentResultDataList"
+                  "$ref": "#/components/schemas/LicenseEditorialContentResults"
                 },
                 "examples": {
                   "response": {
@@ -11791,9 +11853,17 @@
         "properties": {
           "country": {
             "description": "Mandatory country code for where the editorial content will be distributed; this value is used for rights checks",
-            "type": "string",
-            "example": "USA",
-            "format": "country-code-3"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "country-code-3"
+              },
+              {
+                "type": "string",
+                "format": "country-code-2"
+              }
+            ],
+            "example": "USA"
           },
           "editorial": {
             "description": "Editorial content to license",
@@ -11833,7 +11903,7 @@
         ],
         "type": "object"
       },
-      "LicenseEditorialContentResultDataList": {
+      "LicenseEditorialContentResults": {
         "description": "List of editorial license results",
         "properties": {
           "data": {
@@ -12391,6 +12461,41 @@
           }
         },
         "type": "object"
+      },
+      "SearchEntitiesRequest": {
+        "description": "Search entity request data",
+        "properties": {
+          "text": {
+            "description": "Plain text to extract keywords from",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100000
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "type": "object"
+      },
+      "SearchEntitiesResponse": {
+        "description": "The response to a request for keyword analysis",
+        "example": {
+          "keywords": [
+            "beach",
+            "place",
+            "sand",
+            "ocean"
+          ]
+        },
+        "properties": {
+          "keywords": {
+            "description": "The top keywords from the submitted text",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
       },
       "Subscription": {
         "description": "Subscription information",
