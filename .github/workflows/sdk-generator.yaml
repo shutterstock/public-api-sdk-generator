@@ -19,20 +19,21 @@ jobs:
           CID=`docker run -d -ti --rm sdk-generator:latest`
           docker cp $CID:/opt/node-sdk/dist ./dist
           docker kill $CID
-      - name: setup initial repo
+      - name: update sdk
         uses: addnab/docker-run-action@v1
         with:
           image: sdk-generator:latest
+          shell: bash
           run: |
             git config user.email ${{secrets.email}}
             git config user.name ${{secrets.name}}
             git clone https://${{secrets.user}}:${{secrets.pass}}@github.com/shutterstock/public-api-javascript-sdk.git 
-            cp -r ~/dist/src ~/public-api-javascript-sdk
-            cp ~/dist/package.json ~/public-api-javascript-sdk
-            cp ~/dist/README.md ~/public-api-javascript-sdk
-            sed -i 's/\[\[String\]\](String.md)/[String]/g' ~/dist/docs/*.md
-            cp -r ~/dist/docs ~/public-api-javascript-sdk
-            cd ~/public-api-javascript-sdk
+            cp -r ./dist/src ./public-api-javascript-sdk
+            cp ./dist/package.json ./public-api-javascript-sdk
+            cp ./dist/README.md ./public-api-javascript-sdk
+            sed -i 's/\[\[String\]\](String.md)/[String]/g' ./dist/docs/*.md
+            cp -r ./dist/docs ./public-api-javascript-sdk
+            cd ./public-api-javascript-sdk
             yarn install
             run run lint
             yarn run test
