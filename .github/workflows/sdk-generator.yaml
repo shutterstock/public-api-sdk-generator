@@ -10,34 +10,32 @@ on: [push, workflow_dispatch]
 jobs:
   generate:
     runs-on: ubuntu-latest
-    container:
-      image: erfangc/sdk-generator
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
+      - name: build image
+        run: |
+          docker build -t sdk-generator .
+          CID=`docker run -d -ti --rm sdk-generator:latest`
+          docker cp $CID:/opt/node-sdk/dist ./dist
+          docker kill $CID
       - name: setup initial repo
-        uses: actions/checkout@v2
+        uses: addnab/docker-run-action@v1
         with:
-          repository: shutterstock/public-api-javascript-sdk
-      - name: pull in changes
-        run: |
-          cp -r ~/dist/src ~/public-api-javascript-sdk
-          cp ~/dist/package.json ~/public-api-javascript-sdk
-          cp ~/dist/README.md ~/public-api-javascript-sdk
-          sed -i 's/\[\[String\]\](String.md)/[String]/g' ~/dist/docs/*.md
-          cp -r ~/dist/docs ~/public-api-javascript-sdk
-          cd ~/public-api-javascript-sdk
-      - name: install node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 10
-      - name: install package
-        run: |
-          yarn install
-          run run lint
-          yarn run test
-      - name: push changes
-        run: |
-          git add .
-          git commit --allow-empty -m "Updating JavaScript SDK"
-          git push
+          image: sdk-generator:latest
+          run: |
+            git config user.email ${{secrets.email}}
+            git config user.name ${{secrets.name}}
+            git clone https://${{secrets.user}}:${{secrets.pass}}@github.com/shutterstock/public-api-javascript-sdk.git 
+            cp -r ~/dist/src ~/public-api-javascript-sdk
+            cp ~/dist/package.json ~/public-api-javascript-sdk
+            cp ~/dist/README.md ~/public-api-javascript-sdk
+            sed -i 's/\[\[String\]\](String.md)/[String]/g' ~/dist/docs/*.md
+            cp -r ~/dist/docs ~/public-api-javascript-sdk
+            cd ~/public-api-javascript-sdk
+            yarn install
+            run run lint
+            yarn run test
+            git add .
+            git commit --allow-empty -m "Updating JavaScript SDK"
+            git push
