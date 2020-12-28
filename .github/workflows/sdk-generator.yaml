@@ -11,7 +11,7 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     container:
-      image: sdk-generator
+      image: erfangc/sdk-generator
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
