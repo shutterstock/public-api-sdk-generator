@@ -20,10 +20,9 @@ jobs:
           docker cp $CID:/opt/node-sdk/dist ./dist
           docker kill $CID
       - name: setup initial repo
-        run: |
-          git config user.email ${{secrets.email}}
-          git config user.name ${{secrets.name}}
-          git clone https://${{secrets.user}}:${{secrets.pass}}@github.com/shutterstock/public-api-javascript-sdk.git
+        uses: actions/checkout@v2
+        with:
+          name: shutterstock/public-api-javascript-sdk
       - name: pull in changes
         run: |
           cp -r ./dist/src ./public-api-javascript-sdk
