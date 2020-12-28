@@ -9,37 +9,41 @@ on:
 #      - master
 
 jobs:
-  build:
+  generate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        run: |-
+      - name: checkout repo
+        uses: actions/checkout@v2
+      - name: build docker
+        run: |
           docker build -t sdk-generator .
           CID=`docker run -d -ti --rm sdk-generator:latest`
           docker cp $CID:/opt/node-sdk/dist ./dist
           docker kill $CID
-
-  generate:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 10
-        run: |-
+      - name: setup initial repo
+        run: |
           git config user.email ${{secrets.email}}
           git config user.name ${{secrets.name}}
           git clone https://${{secrets.user}}:${{secrets.pass}}@github.com/shutterstock/public-api-javascript-sdk.git
+      - name: pull in changes
+        run: |
           cp -r ./dist/src ./public-api-javascript-sdk
           cp ./dist/package.json ./public-api-javascript-sdk
           cp ./dist/README.md ./public-api-javascript-sdk
           sed -i 's/\[\[String\]\](String.md)/[String]/g' ./dist/docs/*.md
           cp -r ./dist/docs ./public-api-javascript-sdk
           cd ./public-api-javascript-sdk
+      - name: install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - name: install package
+        run: |
           yarn install
-          yarn run lint
+          run run lint
           yarn run test
+      - name: push changes
+        run: |
           git add .
           git commit --allow-empty -m "Updating JavaScript SDK"
           git push
