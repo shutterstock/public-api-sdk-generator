@@ -1,0 +1,45 @@
+# This workflow will generate a Javascript SDK for use with the Shutterstock Public API
+
+name: Node.js SDK Generator
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches: 
+#      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        run: |-
+          docker build -t sdk-generator .
+          CID=`docker run -d -ti --rm sdk-generator:latest`
+          docker cp $CID:/opt/node-sdk/dist ./dist
+          docker kill $CID
+
+  generate:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10
+        run: |-
+          git config user.email ${{secrets.email}}
+          git config user.name ${{secrets.name}}
+          git clone https://${{secrets.user}}:${{secrets.pass}}@github.com/shutterstock/public-api-javascript-sdk.git
+          cp -r ./dist/src ./public-api-javascript-sdk
+          cp ./dist/package.json ./public-api-javascript-sdk
+          cp ./dist/README.md ./public-api-javascript-sdk
+          sed -i 's/\[\[String\]\](String.md)/[String]/g' ./dist/docs/*.md
+          cp -r ./dist/docs ./public-api-javascript-sdk
+          cd ./public-api-javascript-sdk
+          yarn install
+          yarn run lint
+          yarn run test
+          git add .
+          git commit --allow-empty -m "Updating JavaScript SDK"
+          git push
