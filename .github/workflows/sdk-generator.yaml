@@ -10,15 +10,11 @@ on: [push, workflow_dispatch]
 jobs:
   generate:
     runs-on: ubuntu-latest
+    container:
+      image: sdk-generator
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
-      - name: build docker
-        run: |
-          docker build -t sdk-generator ~
-          CID=`docker run -d -ti --rm sdk-generator:latest`
-          docker cp $CID:/opt/node-sdk/dist ./dist
-          docker kill $CID
       - name: setup initial repo
         uses: actions/checkout@v2
         with:
