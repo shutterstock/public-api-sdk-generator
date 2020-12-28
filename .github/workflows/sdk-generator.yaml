@@ -22,7 +22,7 @@ jobs:
       - name: setup initial repo
         uses: actions/checkout@v2
         with:
-          name: shutterstock/public-api-javascript-sdk
+          repository: shutterstock/public-api-javascript-sdk
       - name: pull in changes
         run: |
           cp -r ./dist/src ./public-api-javascript-sdk
