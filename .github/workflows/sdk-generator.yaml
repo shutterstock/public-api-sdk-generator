@@ -19,6 +19,11 @@ jobs:
           CID=`docker run -d -ti --rm sdk-generator:latest`
           docker cp $CID:/opt/node-sdk/dist ./dist
           docker kill $CID
+      - name: push image??  
+        uses: docker/build-push-action@v1
+        with:
+          repository: sdk-generator
+          push: false
       - name: update sdk
         uses: addnab/docker-run-action@v1
         with:
