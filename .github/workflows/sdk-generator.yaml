@@ -19,13 +19,15 @@ jobs:
           CID=`docker run -d -ti --rm sdk-generator:latest`
           docker cp $CID:/opt/node-sdk/dist ./dist
           docker kill $CID
-      - name: update sdk
+      - name: install deps
         run: |
           curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
           sudo apt-get update
           sudo apt-get install yarn
           sudo apt-get install git
+      - name: push to repo
+        run: |
           git config user.email ${{secrets.email}}
           git config user.name ${{secrets.name}}
           git clone https://${{secrets.user}}:${{secrets.pass}}@github.com/shutterstock/public-api-javascript-sdk.git 
