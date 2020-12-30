@@ -25,12 +25,11 @@ jobs:
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
           sudo apt-get update
           sudo apt-get install yarn
-          sudo apt-get install git
       - name: push to repo
         run: |
-          git config user.email ${{secrets.email}}
-          git config user.name ${{secrets.name}}
-          git clone https://${{secrets.user}}:${{secrets.pass}}@github.com/shutterstock/public-api-javascript-sdk.git 
+          /usr/bin/git config user.email ${{secrets.email}}
+          /usr/bin/git config user.name ${{secrets.name}}
+          /usr/bin/git clone https://${{secrets.user}}:${{secrets.pass}}@github.com/shutterstock/public-api-javascript-sdk.git 
           cp -r ./dist/src ./public-api-javascript-sdk
           cp ./dist/package.json ./public-api-javascript-sdk
           cp ./dist/README.md ./public-api-javascript-sdk
