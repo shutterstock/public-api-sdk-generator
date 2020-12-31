@@ -37,7 +37,7 @@ jobs:
           cp -r ./dist/docs ./public-api-javascript-sdk
           cd ./public-api-javascript-sdk
           yarn install
-          run run lint
+          yarn run lint
           yarn run test
           git add .
           git commit --allow-empty -m "Updating JavaScript SDK"
