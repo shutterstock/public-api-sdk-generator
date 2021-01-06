@@ -3,7 +3,7 @@
   "info": {
     "title": "Shutterstock API Reference",
     "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
-    "version": "1.0.28"
+    "version": "1.0.29"
   },
   "paths": {
     "/v2/images/search": {
@@ -182,11 +182,7 @@
                 "default": "commercial",
                 "enum": [
                   "commercial",
-                  "editorial",
-                  "enhanced",
-                  "sensitive",
-                  "NOT enhanced",
-                  "NOT sensitive"
+                  "editorial"
                 ],
                 "type": "string"
               }
@@ -578,6 +574,68 @@
         "operationId": "getImageSuggestions",
         "summary": "Get suggestions for a search term",
         "description": "This endpoint provides autocomplete suggestions for partial search terms."
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchEntitiesRequest"
+              }
+            }
+          },
+          "description": "Plain text to extract keywords from",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchEntitiesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\"text\": \"The beach is a wonderful place to visit. It has beautiful sand and ocean waves.\"}'\n\ncurl -X POST https://api.shutterstock.com/v2/images/search/suggestions \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"text\": \"The beach is a wonderful place to visit. It has beautiful sand and ocean waves.\"\n};\n\nimagesApi.postImageEntities(body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\n  \"text\" => \"The beach is a wonderful place to visit. It has beautiful sand and ocean waves.\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/search/suggestions\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "tags": [
+          "images"
+        ],
+        "operationId": "postImageEntities",
+        "summary": "Get keywords from text",
+        "description": "This endpoint returns up to 10 important keywords from a block of plain text."
       }
     },
     "/v2/images/{id}": {
@@ -5645,7 +5703,7 @@
             "required": true,
             "example": "442583",
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -6665,7 +6723,7 @@
         "description": "This endpoint removes one or more tracks from a collection."
       }
     },
-    "/v2/editorial/search": {
+    "/v2/editorial/images/search": {
       "get": {
         "parameters": [
           {
@@ -6855,28 +6913,28 @@
           }
         ],
         "tags": [
-          "editorial"
+          "editorial_images"
         ],
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/search \\\n-H \"Accept: application/json\" \\\n-G \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n--data-urlencode \"query=football\" \\\n--data-urlencode \"country=USA\" \\\n--data-urlencode \"sort=newest\" \\\n--data-urlencode \"date_start=2018-10-23\"\n"
+            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/images/search \\\n-H \"Accept: application/json\" \\\n-G \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n--data-urlencode \"query=football\" \\\n--data-urlencode \"country=USA\" \\\n--data-urlencode \"sort=newest\" \\\n--data-urlencode \"date_start=2018-10-23\"\n"
           },
           {
             "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.searchEditorial(country, queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.editorialImagesSearch(country, queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
           },
           {
             "lang": "php",
-            "source": "$queryFields = [\n  \"query\" => \"football\",\n  \"country\" => \"USA\",\n  \"date_start\" => \"2018-10-23\",\n  \"sort\" => \"newest\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+            "source": "$queryFields = [\n  \"query\" => \"football\",\n  \"country\" => \"USA\",\n  \"date_start\" => \"2018-10-23\",\n  \"sort\" => \"newest\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/images/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
-        "operationId": "searchEditorial",
-        "summary": "Search editorial content",
+        "operationId": "searchEditorialImages",
+        "summary": "Search editorial images",
         "description": "This endpoint searches for editorial images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
       }
     },
-    "/v2/editorial/categories": {
+    "/v2/editorial/images/categories": {
       "get": {
         "responses": {
           "200": {
@@ -6884,7 +6942,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EditorialCategoryResults"
+                  "$ref": "#/components/schemas/EditorialImageCategoryResults"
                 },
                 "examples": {
                   "response": {
@@ -6928,260 +6986,14 @@
           }
         ],
         "tags": [
-          "editorial"
+          "editorial_images"
         ],
-        "operationId": "getEditorialCategories",
+        "operationId": "getEditorialImageCategories",
         "summary": "List editorial categories",
         "description": "This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to."
       }
     },
-    "/v2/editorial/updated": {
-      "get": {
-        "parameters": [
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Specify `addition` to return only images that were added or `edit` to return only images that were edited or deleted",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "edit",
-                "addition"
-              ]
-            },
-            "example": "edit",
-            "required": true
-          },
-          {
-            "name": "date_updated_start",
-            "description": "Show images images added, edited, or deleted after the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "example": "2020-02-02T13:00-05:00",
-            "required": true
-          },
-          {
-            "name": "date_updated_end",
-            "description": "Show images images added, edited, or deleted before the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "example": "2020-02-04T14:00-05:00",
-            "required": true
-          },
-          {
-            "name": "date_taken_start",
-            "description": "Show images that were taken on or after the specified date; use this parameter if you want recently created images from the collection instead of updated older assets",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "pattern": "^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$"
-            },
-            "example": "2020-02-04"
-          },
-          {
-            "name": "date_taken_end",
-            "description": "Show images that were taken before the specified date",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "pattern": "^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$"
-            },
-            "example": "2020-02-05"
-          },
-          {
-            "name": "cursor",
-            "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "example": "eyJ2IjoxLCJzIjoyfQ=="
-          },
-          {
-            "description": "Sort by",
-            "in": "query",
-            "name": "sort",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "newest",
-                "oldest"
-              ],
-              "default": "newest"
-            },
-            "example": "newest"
-          },
-          {
-            "name": "supplier_code",
-            "description": "Show only editorial content from certain suppliers",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "maxLength": 5
-              }
-            },
-            "example": "ABC"
-          },
-          {
-            "description": "Show only editorial content that is available for distribution in a certain country",
-            "in": "query",
-            "name": "country",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "country-code-3"
-            },
-            "example": "USA"
-          },
-          {
-            "description": "Number of results per page",
-            "in": "query",
-            "name": "per_page",
-            "schema": {
-              "type": "integer",
-              "minimum": 100,
-              "maximum": 500,
-              "default": 500
-            },
-            "example": 200
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EditorialUpdatedResults"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "per_page": 1,
-                      "next": "eyJ2IjoxLCJzIjoxfQ==",
-                      "prev": "",
-                      "data": [
-                        {
-                          "id": "9804979n",
-                          "title": "Hong Kong kicks off international e-Sports competition, China - 24 Aug 2018",
-                          "caption": "",
-                          "description": "Members of the TyLoo e-Sports team from China prepare to face off against the Kinguin e-Sports team from Poland at the ICBC (Asia) e-Sports and Music Festival Hong Kong 2018, Hong Kong, China, 24 August 2018. The festival runs from 24 to 26 August with professional gamers from around the world competing in international e-sports tournaments.",
-                          "byline": "ALEX HOFFORD/EPA-EFE/Shutterstock",
-                          "supplier_code": "EPA",
-                          "keywords": [],
-                          "date_taken": "2018-08-24",
-                          "categories": [],
-                          "aspect": 1.481,
-                          "assets": {
-                            "thumb_170": {
-                              "height": 115,
-                              "width": 170,
-                              "url": "https://editorial01.shutterstock.com/thumb/9804979n/c4377a53/Shutterstock_9804979n.jpg"
-                            },
-                            "thumb_220": {
-                              "height": 149,
-                              "width": 220,
-                              "url": "https://editorial01.shutterstock.com/thumb-220/9804979n/c57a68c7/Shutterstock_9804979n.jpg"
-                            },
-                            "watermark_450": {
-                              "height": 304,
-                              "width": 450,
-                              "url": "https://editorial01.shutterstock.com/wm-preview-450/9804979n/37d19dce/Shutterstock_9804979n.jpg"
-                            },
-                            "watermark_1500": {
-                              "height": 1500,
-                              "width": 1040,
-                              "url": "https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg"
-                            },
-                            "original": {
-                              "display_name": "Original",
-                              "height": 3263,
-                              "width": 4831,
-                              "is_licensable": true
-                            },
-                            "small_jpg": {
-                              "display_name": "Small",
-                              "height": 337,
-                              "width": 500,
-                              "is_licensable": true
-                            },
-                            "medium_jpg": {
-                              "display_name": "Med",
-                              "height": 675,
-                              "width": 1000,
-                              "is_licensable": true
-                            }
-                          },
-                          "updated_time": "2019-07-15T20:04:44-04:00",
-                          "updates": [
-                            "addition"
-                          ],
-                          "commercial_status": {
-                            "status": "available"
-                          },
-                          "rights": {
-                            "countries": "CAN,+DEU,+GBR,+USA,-*"
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "406": {
-            "description": "Not Acceptable"
-          }
-        },
-        "security": [
-          {
-            "basic": []
-          },
-          {
-            "customer_accessCode": []
-          }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "shell",
-            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/updated \\\n-H \"Accept: application/json\" \\\n-G \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n--data-urlencode \"type=edit\" \\\n--data-urlencode \"country=USA\" \\\n--data-urlencode \"date_updated_start=2020-02-02T13:00:00Z\" \\\n--data-urlencode \"date_updated_end=2020-02-02T15:00:00Z\""
-          },
-          {
-            "lang": "javascript--nodejs",
-            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst type = \"edit\";\nconst dateUpdatedStart = \"2020-02-02T13:00:00Z\";\nconst dateUpdatedEnd = \"2020-02-02T15:00:00Z\";\nconst country = \"USA\";\n\neditorialApi.getUpdatedImages(type, dateUpdatedStart, dateUpdatedEnd, country)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
-          },
-          {
-            "lang": "php",
-            "source": "$queryFields = [\n  \"type\" => \"edit\",\n  \"country\" => \"USA\",\n  \"date_updated_start\" => \"2020-02-02T13:00:00Z\",\n  \"date_updated_end\" => \"2020-02-02T15:00:00Z\",\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
-          }
-        ],
-        "tags": [
-          "editorial"
-        ],
-        "operationId": "getUpdatedImages",
-        "summary": "List updated content",
-        "description": "This endpoint lists editorial images that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the date_updated_start and date_updated_end parameters to specify a range updates based on when the updates happened. You can also use the date_taken_start and date_taken_end parameters to specify a range of updates based on when the image was taken."
-      }
-    },
-    "/v2/editorial/{id}": {
+    "/v2/editorial/images/{id}": {
       "get": {
         "parameters": [
           {
@@ -7281,8 +7093,8 @@
           "403": {
             "description": "Forbidden"
           },
-          "406": {
-            "description": "Not Acceptable"
+          "404": {
+            "description": "Not Found"
           }
         },
         "security": [
@@ -7294,14 +7106,184 @@
           }
         ],
         "tags": [
-          "editorial"
+          "editorial_images"
         ],
-        "operationId": "getEditorialImage",
+        "operationId": "getEditorialImageDetails",
         "summary": "Get editorial content details",
         "description": "This endpoint shows information about an editorial image, including a URL to a preview image and the sizes that it is available in."
       }
     },
-    "/v2/editorial/licenses": {
+    "/v2/editorial/images/licenses": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Show licenses for the specified editorial image ID",
+            "in": "query",
+            "name": "image_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Show editorial images that are available with the specified license name",
+            "in": "query",
+            "name": "license",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200,
+              "default": 20
+            }
+          },
+          {
+            "description": "Sort order",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "newest",
+                "oldest"
+              ],
+              "default": "newest"
+            }
+          },
+          {
+            "description": "Filter licenses by username of licensee",
+            "in": "query",
+            "name": "username",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Show licenses created on or after the specified date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-02T13:00-05:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "Show licenses created before the specified date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-02T13:00-05:00"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadHistoryDataList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "e1dbb15d5384725d292cf64f793ac45062",
+                          "user": {
+                            "username": "username1"
+                          },
+                          "license": "premier_editorial_all_digital",
+                          "download_time": "2020-12-18T02:22:56.000Z",
+                          "is_downloadable": false,
+                          "image": {
+                            "id": "11231389im",
+                            "format": {
+                              "size": "original"
+                            }
+                          },
+                          "subscription_id": "1221a491741j1k41yd91dh37al324",
+                          "metadata": {
+                            "client": "Company A",
+                            "other": "Important media",
+                            "purchase_order": "457234",
+                            "job": "Important project"
+                          }
+                        },
+                        {
+                          "id": "e1dbb15d5384725d292cf64f793ac45114",
+                          "user": {
+                            "username": "username2"
+                          },
+                          "license": "premier_editorial_all_digital",
+                          "download_time": "2020-12-11T01:24:22.000Z",
+                          "is_downloadable": false,
+                          "image": {
+                            "id": "11231442aa",
+                            "format": {
+                              "size": "original"
+                            }
+                          },
+                          "subscription_id": "1221a491741j1k41yd91dh37al324",
+                          "metadata": {
+                            "client": "Company B",
+                            "other": "Important image",
+                            "purchase_order": "5583831",
+                            "job": "Important project"
+                          }
+                        }
+                      ],
+                      "page": 1,
+                      "per_page": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "customer_accessCode": [
+              "licenses.view"
+            ]
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "getEditorialImageLicenseList",
+        "summary": "List editorial image licenses",
+        "description": "This endpoint lists existing editorial image licenses."
+      },
       "post": {
         "responses": {
           "200": {
@@ -7309,7 +7291,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LicenseEditorialContentResultDataList"
+                  "$ref": "#/components/schemas/LicenseEditorialContentResults"
                 },
                 "examples": {
                   "response": {
@@ -7344,14 +7326,15 @@
         "security": [
           {
             "customer_accessCode": [
-              "licenses.create"
+              "licenses.create",
+              "purchases.view"
             ]
           }
         ],
         "x-code-samples": [
           {
             "lang": "shell",
-            "source": "DATA='{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/editorial/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+            "source": "DATA='{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/editorial/images/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
           },
           {
             "lang": "javascript--nodejs",
@@ -7359,13 +7342,13 @@
           },
           {
             "lang": "php",
-            "source": "$body = [\n  \"editorial\" => [\n    [\n      \"editorial_id\" => \"8594090h\",\n      \"license\" => \"premier_editorial_comp\"\n    ]\n  ],\n  \"country\" => \"USA\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+            "source": "$body = [\n  \"editorial\" => [\n    [\n      \"editorial_id\" => \"8594090h\",\n      \"license\" => \"premier_editorial_comp\"\n    ]\n  ],\n  \"country\" => \"USA\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/images/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
           }
         ],
         "tags": [
-          "editorial"
+          "editorial_images"
         ],
-        "operationId": "licenseEditorialImage",
+        "operationId": "licenseEditorialImages",
         "summary": "License editorial content",
         "description": "This endpoint gets licenses for one or more editorial images. You must specify the country and one or more editorial images to license.",
         "requestBody": {
@@ -7394,7 +7377,7 @@
         }
       }
     },
-    "/v2/editorial/livefeeds": {
+    "/v2/editorial/images/livefeeds": {
       "get": {
         "parameters": [
           {
@@ -7436,7 +7419,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EditorialLivefeedList"
+                  "$ref": "#/components/schemas/EditorialImageLivefeedList"
                 },
                 "examples": {
                   "response": {
@@ -7473,8 +7456,8 @@
           "403": {
             "description": "Forbidden"
           },
-          "406": {
-            "description": "Not Acceptable"
+          "404": {
+            "description": "Not Found"
           }
         },
         "security": [
@@ -7486,13 +7469,13 @@
           }
         ],
         "tags": [
-          "editorial"
+          "editorial_images"
         ],
-        "operationId": "getEditorialLivefeedList",
+        "operationId": "getEditorialLivefeedImagesList",
         "summary": "Get editorial livefeed list"
       }
     },
-    "/v2/editorial/livefeeds/{id}": {
+    "/v2/editorial/images/livefeeds/{id}": {
       "get": {
         "parameters": [
           {
@@ -7523,7 +7506,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EditorialLivefeed"
+                  "$ref": "#/components/schemas/EditorialImageLivefeed"
                 },
                 "examples": {
                   "response": {
@@ -7552,8 +7535,8 @@
           "403": {
             "description": "Forbidden"
           },
-          "406": {
-            "description": "Not Acceptable"
+          "404": {
+            "description": "Not Found"
           }
         },
         "security": [
@@ -7565,13 +7548,13 @@
           }
         ],
         "tags": [
-          "editorial"
+          "editorial_images"
         ],
-        "operationId": "getEditorialLivefeed",
+        "operationId": "getEditorialImageLivefeed",
         "summary": "Get editorial livefeed"
       }
     },
-    "/v2/editorial/livefeeds/{id}/items": {
+    "/v2/editorial/images/livefeeds/{id}/items": {
       "get": {
         "parameters": [
           {
@@ -7602,7 +7585,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EditorialContentDataList"
+                  "$ref": "#/components/schemas/EditorialImageContentDataList"
                 },
                 "examples": {
                   "response": {
@@ -7685,6 +7668,227 @@
           "403": {
             "description": "Forbidden"
           },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "getEditorialLivefeedImageItems",
+        "summary": "Get editorial livefeed items"
+      }
+    },
+    "/v2/editorial/videos/search": {
+      "get": {
+        "parameters": [
+          {
+            "description": "One or more search terms separated by spaces",
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort by",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "relevant",
+                "newest",
+                "oldest"
+              ],
+              "default": "relevant"
+            }
+          },
+          {
+            "description": "Show editorial video content within a certain editorial category; specify by category name",
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Show only editorial video content that is available for distribution in a certain country",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "example": "USA",
+            "schema": {
+              "type": "string",
+              "format": "country-code-3"
+            }
+          },
+          {
+            "description": "Show only editorial video content from certain suppliers",
+            "in": "query",
+            "name": "supplier_code",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "description": "Show only editorial video content generated on or after a specific date",
+            "in": "query",
+            "name": "date_start",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "description": "Show only editorial video content generated on or before a specific date",
+            "in": "query",
+            "name": "date_end",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "description": "Show only editorial video content with specific resolution",
+            "in": "query",
+            "name": "resolution",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "4k",
+                "high_definition",
+                "standard_definition"
+              ]
+            }
+          },
+          {
+            "description": "Show only editorial video content generated with specific frames per second",
+            "in": "query",
+            "name": "fps",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialVideoSearchResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "per_page": 1,
+                      "total_count": 1556949,
+                      "search_id": "q8igACM5gqQY75owjLoVvw",
+                      "next": "eyJ2IjoxLCJzIjoxfQ==",
+                      "prev": "",
+                      "data": [
+                        {
+                          "id": "10679336a",
+                          "title": "Proud Papa Playing with His Puppies, New Oxford, Pennsylvania, USA - 28 Oct 2020",
+                          "caption": "",
+                          "description": "Info from Licensor: \"In June, we rescued this 2 year old male boxer from spending most of his days in a crate. Our 2 adult female boxers helped him adjust to living a good boxer life with our family. He \"thanked\" us with this surprise litter of 8 puppies! He has really done amazingly well with playing with all the puppies, and I think he will miss them when they go to their \"fur-ever\" homes. It was a perfect day of playing in the backyard at the end of October 2020.\"",
+                          "byline": "ViralHog/Shutterstock",
+                          "keywords": [
+                            "adorable",
+                            "cute",
+                            "doggo",
+                            "doggy",
+                            "dogs",
+                            "domesticated animals",
+                            "entertainment",
+                            "feel good",
+                            "grass",
+                            "new oxford",
+                            "pennsylvania",
+                            "pets",
+                            "played",
+                            "playing",
+                            "plays",
+                            "pup",
+                            "puppies",
+                            "puppy",
+                            "sweet",
+                            "usa",
+                            "viralhog",
+                            "virals",
+                            "yard"
+                          ],
+                          "date_taken": "2020-10-28",
+                          "categories": [],
+                          "aspect": 1.778,
+                          "assets": {
+                            "preview_mp4": {
+                              "url": "https://qa.editorial-cdn.shuttercorp.net/wm-preview-mp4/10679336a/M8TbAb3aNaj2g5w4ODgwMzg=/Shutterstock_10679336a.mp4"
+                            },
+                            "preview_webm": {
+                              "url": "https://qa.editorial-cdn.shuttercorp.net/wm-preview-webm/10679336a/M5T3Ab36N4jbgcwbODgwMzg=/Shutterstock_10679336a.webm"
+                            },
+                            "thumb_jpg": {
+                              "url": "https://qa.editorial-cdn.shuttercorp.net/thumb-1/10679336a/M5T6Ad37Ncj5g3w1ODgwMzg=/Shutterstock_10679336a.jpg"
+                            },
+                            "original": {
+                              "height": 1080,
+                              "width": 1920,
+                              "fps": 29.937,
+                              "format": "avc1",
+                              "file_size": 124452018,
+                              "display_name": "HD",
+                              "is_licensable": true
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "406": {
             "description": "Not Acceptable"
           }
@@ -7698,10 +7902,299 @@
           }
         ],
         "tags": [
-          "editorial"
+          "editorial_video"
         ],
-        "operationId": "getEditorialLivefeedItems",
-        "summary": "Get editorial livefeed items"
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/videos/search \\\n-H \"Accept: application/json\" \\\n-G \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n--data-urlencode \"query=football\" \\\n--data-urlencode \"country=USA\" \\\n--data-urlencode \"sort=newest\" \\\n--data-urlencode \"date_start=2018-10-23\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialVideoApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.editorialVideosSearch(country, queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$queryFields = [\n  \"query\" => \"football\",\n  \"country\" => \"USA\",\n  \"date_start\" => \"2018-10-23\",\n  \"sort\" => \"newest\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/videos/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "operationId": "editorialVideosSearch",
+        "summary": "Search editorial video content",
+        "description": "This endpoint searches for editorial videos. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
+      }
+    },
+    "/v2/editorial/videos/categories": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialVideoCategoryResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "name": "Animal"
+                        },
+                        {
+                          "name": "Awards"
+                        },
+                        {
+                          "name": "Art"
+                        },
+                        {
+                          "name": "Film Stills"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_video"
+        ],
+        "operationId": "getEditorialCategories",
+        "summary": "List editorial video categories",
+        "description": "This endpoint lists the categories that editorial videos can belong to, which are separate from the categories that other types of assets can belong to."
+      }
+    },
+    "/v2/editorial/videos/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Editorial ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "example": "9926131a",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns only if the content is available for distribution in a certain country",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "example": "USA",
+            "schema": {
+              "type": "string",
+              "format": "country-code-3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialVideoContent"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "10679336a",
+                      "title": "Proud Papa Playing with His Puppies, New Oxford, Pennsylvania, USA - 28 Oct 2020",
+                      "caption": "",
+                      "description": "Info from Licensor: \"In June, we rescued this 2 year old male boxer from spending most of his days in a crate. Our 2 adult female boxers helped him adjust to living a good boxer life with our family. He \"thanked\" us with this surprise litter of 8 puppies! He has really done amazingly well with playing with all the puppies, and I think he will miss them when they go to their \"fur-ever\" homes. It was a perfect day of playing in the backyard at the end of October 2020.\"",
+                      "byline": "ViralHog/Shutterstock",
+                      "keywords": [
+                        "adorable",
+                        "cute",
+                        "doggo",
+                        "doggy",
+                        "dogs",
+                        "domesticated animals",
+                        "entertainment",
+                        "feel good",
+                        "grass",
+                        "new oxford",
+                        "pennsylvania",
+                        "pets",
+                        "played",
+                        "playing",
+                        "plays",
+                        "pup",
+                        "puppies",
+                        "puppy",
+                        "sweet",
+                        "usa",
+                        "viralhog",
+                        "virals",
+                        "yard"
+                      ],
+                      "date_taken": "2020-10-28",
+                      "categories": [],
+                      "aspect": 1.778,
+                      "assets": {
+                        "preview_mp4": {
+                          "url": "https://qa.editorial-cdn.shuttercorp.net/wm-preview-mp4/10679336a/M8TbAb3aNaj2g5w4ODgwMzg=/Shutterstock_10679336a.mp4"
+                        },
+                        "preview_webm": {
+                          "url": "https://qa.editorial-cdn.shuttercorp.net/wm-preview-webm/10679336a/M5T3Ab36N4jbgcwbODgwMzg=/Shutterstock_10679336a.webm"
+                        },
+                        "thumb_jpg": {
+                          "url": "https://qa.editorial-cdn.shuttercorp.net/thumb-1/10679336a/M5T6Ad37Ncj5g3w1ODgwMzg=/Shutterstock_10679336a.jpg"
+                        },
+                        "original": {
+                          "height": 1080,
+                          "width": 1920,
+                          "fps": 29.937,
+                          "format": "avc1",
+                          "file_size": 124452018,
+                          "display_name": "HD",
+                          "is_licensable": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_video"
+        ],
+        "operationId": "editorialVideosDetails",
+        "summary": "Get editorial video content details",
+        "description": "This endpoint shows information about an editorial image, including a URL to a preview image and the sizes that it is available in."
+      }
+    },
+    "/v2/editorial/videos/licenses": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LicenseEditorialContentResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "editorial_id": "69656358",
+                          "download": {
+                            "url": "https://s3-eu-west-1.amazonaws.com/api-downloads.rexfeatures.com/[random-characters].mov?Expires=1524717323"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "customer_accessCode": [
+              "licenses.create",
+              "purchases.view"
+            ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_video_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/editorial/videos/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst body = {\n  \"editorial\": [\n    {\n      \"editorial_id\": \"10687492a\",\n      \"license\": \"premier_editorial_video_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n};\n\neditorialApi.licenseEditorialVideo(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\n  \"editorial\" => [\n    [\n      \"editorial_id\" => \"10687492a\",\n      \"license\" => \"premier_editorial_video_comp\"\n    ]\n  ],\n  \"country\" => \"USA\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/videos/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+          }
+        ],
+        "tags": [
+          "editorial_video"
+        ],
+        "operationId": "licenseEditorialVideo",
+        "summary": "License editorial video content",
+        "description": "This endpoint gets licenses for one or more editorial videos. You must specify the country and one or more editorial videos to license.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LicenseEditorialVideoContentRequest"
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "editorial": [
+                      {
+                        "editorial_id": "8594090h",
+                        "license": "premier_editorial_video_comp"
+                      }
+                    ],
+                    "country": "USA"
+                  }
+                }
+              }
+            }
+          },
+          "description": "License editorial video content",
+          "required": true
+        }
       }
     },
     "/v2/cv/images": {
@@ -7810,11 +8303,7 @@
               "items": {
                 "enum": [
                   "commercial",
-                  "editorial",
-                  "enhanced",
-                  "sensitive",
-                  "NOT enhanced",
-                  "NOT sensitive"
+                  "editorial"
                 ],
                 "type": "string"
               },
@@ -8001,11 +8490,7 @@
               "items": {
                 "enum": [
                   "commercial",
-                  "editorial",
-                  "enhanced",
-                  "sensitive",
-                  "NOT enhanced",
-                  "NOT sensitive"
+                  "editorial"
                 ],
                 "type": "string"
               },
@@ -9534,6 +10019,1056 @@
           }
         }
       }
+    },
+    "/v2/editorial/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Editorial ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "example": "9926131a",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns only if the content is available for distribution in a certain country",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "example": "USA",
+            "schema": {
+              "type": "string",
+              "format": "country-code-3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialContent"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "9767412v",
+                      "title": "Tokyo 2020 Olympics mascot Miraitowa and Paralympics mascot Someity debut, Japan - 22 Jul 2018",
+                      "caption": "",
+                      "description": "Tokyo 2020 Olympics mascot Miraitowa greets with former Japanese prime minister Yoshiko Mori, President of Tokyo 2020 Olympics Committee, as mascots of Tokyo 2020 Olympics and Paralympics debut in Tokyo, Japan, 22 July 2018. Tokyo 2020 Olympics will start on 24 July 2020 and run until 09 August 2020.",
+                      "byline": "KIMIMASA MAYAMA/EPA-EFE/Shutterstock",
+                      "keywords": [],
+                      "date_taken": "2018-07-22",
+                      "categories": [],
+                      "aspect": 1.33,
+                      "assets": {
+                        "thumb_170": {
+                          "height": 128,
+                          "width": 170,
+                          "url": "https://editorial01.shutterstock.com/thumb/9767412v/36aeb953/Shutterstock_9767412v.jpg"
+                        },
+                        "thumb_220": {
+                          "height": 165,
+                          "width": 220,
+                          "url": "https://editorial01.shutterstock.com/thumb-220/9767412v/b786b189/Shutterstock_9767412v.jpg"
+                        },
+                        "watermark_450": {
+                          "height": 338,
+                          "width": 450,
+                          "url": "https://editorial01.shutterstock.com/wm-preview-450/9767412v/f75b6680/Shutterstock_9767412v.jpg"
+                        },
+                        "watermark_1500": {
+                          "height": 1500,
+                          "width": 1040,
+                          "url": "https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg"
+                        },
+                        "original": {
+                          "display_name": "Original",
+                          "height": 3447,
+                          "width": 4586,
+                          "is_licensable": true
+                        },
+                        "small_jpg": {
+                          "display_name": "Small",
+                          "height": 375,
+                          "width": 500,
+                          "is_licensable": true
+                        },
+                        "medium_jpg": {
+                          "display_name": "Med",
+                          "height": 751,
+                          "width": 1000,
+                          "is_licensable": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "getEditorialImage",
+        "summary": "(Deprecated) Get editorial content details",
+        "description": "Deprecated; use `GET /v2/editorial/images/{id}` instead to show information about an editorial image, including a URL to a preview image and the sizes that it is available in.",
+        "deprecated": true
+      }
+    },
+    "/v2/editorial/licenses": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LicenseEditorialContentResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "editorial_id": "69656358",
+                          "download": {
+                            "url": "https://s3-eu-west-1.amazonaws.com/api-downloads.rexfeatures.com/[random-characters].jpg?Expires=1524717323"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "customer_accessCode": [
+              "licenses.create"
+            ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "DATA='{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/editorial/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst body = {\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n};\n\neditorialApi.licenseEditorialImage(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$body = [\n  \"editorial\" => [\n    [\n      \"editorial_id\" => \"8594090h\",\n      \"license\" => \"premier_editorial_comp\"\n    ]\n  ],\n  \"country\" => \"USA\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "licenseEditorialImage",
+        "summary": "(Deprecated) License editorial content",
+        "description": "Deprecated; use `POST /v2/editorial/images/licenses` instead to get licenses for one or more editorial images. You must specify the country and one or more editorial images to license.",
+        "deprecated": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LicenseEditorialContentRequest"
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "editorial": [
+                      {
+                        "editorial_id": "8594090h",
+                        "license": "premier_editorial_comp"
+                      }
+                    ],
+                    "country": "USA"
+                  }
+                }
+              }
+            }
+          },
+          "description": "License editorial content",
+          "required": true
+        }
+      }
+    },
+    "/v2/editorial/livefeeds": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Returns only livefeeds that are available for distribution in a certain country",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "example": "USA",
+            "schema": {
+              "type": "string",
+              "format": "country-code-3"
+            }
+          },
+          {
+            "description": "Page number",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialLivefeedList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "per_page": 1,
+                      "total_count": 6011,
+                      "data": [
+                        {
+                          "id": "2018%2F10%2F19%2F'Butterfly'%20photocall%2C%20Rome%20Film%20Festival",
+                          "name": "'Butterfly' photocall, Rome Film Festival",
+                          "total_item_count": 24,
+                          "created_time": "2018-10-19T20:27:26+00:00",
+                          "cover_item": {
+                            "height": 170,
+                            "width": 113,
+                            "url": "https://editorial01.shutterstock.com/thumb/9938080a/532b2be1/Shutterstock_9938080a.jpg",
+                            "id": "9938080a"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "getEditorialLivefeedList",
+        "summary": "(Deprecated) Get editorial livefeed list",
+        "description": "Deprecated; use `GET /v2/editorial/images/livefeeds` instead to get a list of editorial livefeeds.",
+        "deprecated": true
+      }
+    },
+    "/v2/editorial/livefeeds/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Editorial livefeed ID; must be an URI encoded string",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "example": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns only if the livefeed is available for distribution in a certain country",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "example": "USA",
+            "schema": {
+              "type": "string",
+              "format": "country-code-3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialLivefeed"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "2018%2F10%2F19%2F'The%20House%20with%20a%20Clock%20in%20Its%20Walls'%20premiere%2C%20Rome%20Film%20Festival",
+                      "name": "'The House with a Clock in Its Walls' premiere, Rome Film Festival",
+                      "total_item_count": 100,
+                      "cover_item": {
+                        "height": 170,
+                        "width": 114,
+                        "url": "https://editorial01.shutterstock.com/thumb/9938511p/7d1f17d9/Shutterstock_9938511p.jpg",
+                        "id": "9938511p"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "getEditorialLivefeed",
+        "summary": "(Deprecated) Get editorial livefeed",
+        "description": "Deprecated: use `GET /v2/editorial/images/livefeeds/{id}` instead to get an editorial livefeed.",
+        "deprecated": true
+      }
+    },
+    "/v2/editorial/livefeeds/{id}/items": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Editorial livefeed ID; must be an URI encoded string",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "example": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns only if the livefeed items are available for distribution in a certain country",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "example": "USA",
+            "schema": {
+              "type": "string",
+              "format": "country-code-3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialContentDataList"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "9938573m",
+                          "title": "'The House with a Clock in Its Walls' premiere, Rome Film Festival, Italy - 19 Oct 2018",
+                          "caption": "",
+                          "description": "Christian Marazziti and Ariadna Romero",
+                          "byline": "Maurizio D'Avanzo/IPA/Shutterstock",
+                          "keywords": [],
+                          "date_taken": "2018-10-19",
+                          "categories": [
+                            {
+                              "name": "Actor"
+                            },
+                            {
+                              "name": "Female"
+                            },
+                            {
+                              "name": "Personality"
+                            }
+                          ],
+                          "aspect": 0.666,
+                          "assets": {
+                            "thumb_170": {
+                              "height": 170,
+                              "width": 113,
+                              "url": "https://editorial01.shutterstock.com/thumb/9938573m/4d5708ce/Shutterstock_9938573m.jpg"
+                            },
+                            "thumb_220": {
+                              "height": 220,
+                              "width": 146,
+                              "url": "https://editorial01.shutterstock.com/thumb-220/9938573m/b78aabde/Shutterstock_9938573m.jpg"
+                            },
+                            "watermark_450": {
+                              "height": 450,
+                              "width": 300,
+                              "url": "https://editorial01.shutterstock.com/wm-preview-450/9938573m/4a9a4add/Shutterstock_9938573m.jpg"
+                            },
+                            "watermark_1500": {
+                              "height": 1500,
+                              "width": 1040,
+                              "url": "https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg"
+                            },
+                            "original": {
+                              "display_name": "Original",
+                              "height": 4928,
+                              "width": 3280,
+                              "is_licensable": true
+                            },
+                            "small_jpg": {
+                              "display_name": "Small",
+                              "height": 500,
+                              "width": 332,
+                              "is_licensable": true
+                            },
+                            "medium_jpg": {
+                              "display_name": "Med",
+                              "height": 1000,
+                              "width": 660,
+                              "is_licensable": true
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "getEditorialLivefeedItems",
+        "summary": "(Deprecated) Get editorial livefeed items",
+        "description": "Deprecated; use `GET /v2/editorial/images/livefeeds/{id}/items` instead to get editorial livefeed items.",
+        "deprecated": true
+      }
+    },
+    "/v2/editorial/search": {
+      "get": {
+        "parameters": [
+          {
+            "description": "One or more search terms separated by spaces",
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort by",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "relevant",
+                "newest",
+                "oldest"
+              ],
+              "default": "relevant"
+            }
+          },
+          {
+            "description": "Show editorial content within a certain editorial category; specify by category name",
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Show only editorial content that is available for distribution in a certain country",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "example": "USA",
+            "schema": {
+              "type": "string",
+              "format": "country-code-3"
+            }
+          },
+          {
+            "description": "Show only editorial content from certain suppliers",
+            "in": "query",
+            "name": "supplier_code",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "description": "Show only editorial content generated on or after a specific date",
+            "in": "query",
+            "name": "date_start",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "description": "Show only editorial content generated on or before a specific date",
+            "in": "query",
+            "name": "date_end",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialSearchResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "per_page": 1,
+                      "total_count": 1556949,
+                      "search_id": "q8igACM5gqQY75owjLoVvw",
+                      "next": "eyJ2IjoxLCJzIjoxfQ==",
+                      "prev": "",
+                      "data": [
+                        {
+                          "id": "9804979n",
+                          "title": "Hong Kong kicks off international e-Sports competition, China - 24 Aug 2018",
+                          "caption": "",
+                          "description": "Members of the TyLoo e-Sports team from China prepare to face off against the Kinguin e-Sports team from Poland at the ICBC (Asia) e-Sports and Music Festival Hong Kong 2018, Hong Kong, China, 24 August 2018. The festival runs from 24 to 26 August with professional gamers from around the world competing in international e-sports tournaments.",
+                          "byline": "ALEX HOFFORD/EPA-EFE/Shutterstock",
+                          "keywords": [],
+                          "date_taken": "2018-08-24",
+                          "categories": [],
+                          "aspect": 1.481,
+                          "assets": {
+                            "thumb_170": {
+                              "height": 115,
+                              "width": 170,
+                              "url": "https://editorial01.shutterstock.com/thumb/9804979n/c4377a53/Shutterstock_9804979n.jpg"
+                            },
+                            "thumb_220": {
+                              "height": 149,
+                              "width": 220,
+                              "url": "https://editorial01.shutterstock.com/thumb-220/9804979n/c57a68c7/Shutterstock_9804979n.jpg"
+                            },
+                            "watermark_450": {
+                              "height": 304,
+                              "width": 450,
+                              "url": "https://editorial01.shutterstock.com/wm-preview-450/9804979n/37d19dce/Shutterstock_9804979n.jpg"
+                            },
+                            "watermark_1500": {
+                              "height": 1500,
+                              "width": 1040,
+                              "url": "https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg"
+                            },
+                            "original": {
+                              "display_name": "Original",
+                              "height": 3263,
+                              "width": 4831,
+                              "is_licensable": true
+                            },
+                            "small_jpg": {
+                              "display_name": "Small",
+                              "height": 337,
+                              "width": 500,
+                              "is_licensable": true
+                            },
+                            "medium_jpg": {
+                              "display_name": "Med",
+                              "height": 675,
+                              "width": 1000,
+                              "is_licensable": true
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/search \\\n-H \"Accept: application/json\" \\\n-G \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n--data-urlencode \"query=football\" \\\n--data-urlencode \"country=USA\" \\\n--data-urlencode \"sort=newest\" \\\n--data-urlencode \"date_start=2018-10-23\"\n"
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.searchEditorial(country, queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$queryFields = [\n  \"query\" => \"football\",\n  \"country\" => \"USA\",\n  \"date_start\" => \"2018-10-23\",\n  \"sort\" => \"newest\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "operationId": "searchEditorial",
+        "summary": "(Deprecated) Search editorial content",
+        "description": "Deprecated; use `GET /v2/editorial/images/search` instead to search for editorial images.",
+        "deprecated": true
+      }
+    },
+    "/v2/editorial/categories": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialCategoryResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "name": "Animal"
+                        },
+                        {
+                          "name": "Awards"
+                        },
+                        {
+                          "name": "Art"
+                        },
+                        {
+                          "name": "Film Stills"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "getEditorialCategories",
+        "summary": "(Deprecated) List editorial categories",
+        "description": "Deprecated; use `GET /v2/editorial/images/categories` instead. This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to.",
+        "deprecated": true
+      }
+    },
+    "/v2/editorial/updated": {
+      "get": {
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Specify `addition` to return only images that were added or `edit` to return only images that were edited or deleted",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "edit",
+                "addition"
+              ]
+            },
+            "example": "edit",
+            "required": true
+          },
+          {
+            "name": "date_updated_start",
+            "description": "Show images images added, edited, or deleted after the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-02T13:00-05:00",
+            "required": true
+          },
+          {
+            "name": "date_updated_end",
+            "description": "Show images images added, edited, or deleted before the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-02-04T14:00-05:00",
+            "required": true
+          },
+          {
+            "name": "date_taken_start",
+            "description": "Show images that were taken on or after the specified date; use this parameter if you want recently created images from the collection instead of updated older assets",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$"
+            },
+            "example": "2020-02-04"
+          },
+          {
+            "name": "date_taken_end",
+            "description": "Show images that were taken before the specified date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$"
+            },
+            "example": "2020-02-05"
+          },
+          {
+            "name": "cursor",
+            "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJ2IjoxLCJzIjoyfQ=="
+          },
+          {
+            "description": "Sort by",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "newest",
+                "oldest"
+              ],
+              "default": "newest"
+            },
+            "example": "newest"
+          },
+          {
+            "name": "supplier_code",
+            "description": "Show only editorial content from certain suppliers",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 5
+              }
+            },
+            "example": "ABC"
+          },
+          {
+            "description": "Show only editorial content that is available for distribution in a certain country",
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "country-code-3"
+            },
+            "example": "USA"
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "type": "integer",
+              "minimum": 100,
+              "maximum": 500,
+              "default": 500
+            },
+            "example": 200
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditorialUpdatedResults"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "per_page": 1,
+                      "next": "eyJ2IjoxLCJzIjoxfQ==",
+                      "prev": "",
+                      "data": [
+                        {
+                          "id": "9804979n",
+                          "title": "Hong Kong kicks off international e-Sports competition, China - 24 Aug 2018",
+                          "caption": "",
+                          "description": "Members of the TyLoo e-Sports team from China prepare to face off against the Kinguin e-Sports team from Poland at the ICBC (Asia) e-Sports and Music Festival Hong Kong 2018, Hong Kong, China, 24 August 2018. The festival runs from 24 to 26 August with professional gamers from around the world competing in international e-sports tournaments.",
+                          "byline": "ALEX HOFFORD/EPA-EFE/Shutterstock",
+                          "supplier_code": "EPA",
+                          "keywords": [],
+                          "date_taken": "2018-08-24",
+                          "categories": [],
+                          "aspect": 1.481,
+                          "assets": {
+                            "thumb_170": {
+                              "height": 115,
+                              "width": 170,
+                              "url": "https://editorial01.shutterstock.com/thumb/9804979n/c4377a53/Shutterstock_9804979n.jpg"
+                            },
+                            "thumb_220": {
+                              "height": 149,
+                              "width": 220,
+                              "url": "https://editorial01.shutterstock.com/thumb-220/9804979n/c57a68c7/Shutterstock_9804979n.jpg"
+                            },
+                            "watermark_450": {
+                              "height": 304,
+                              "width": 450,
+                              "url": "https://editorial01.shutterstock.com/wm-preview-450/9804979n/37d19dce/Shutterstock_9804979n.jpg"
+                            },
+                            "watermark_1500": {
+                              "height": 1500,
+                              "width": 1040,
+                              "url": "https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg"
+                            },
+                            "original": {
+                              "display_name": "Original",
+                              "height": 3263,
+                              "width": 4831,
+                              "is_licensable": true
+                            },
+                            "small_jpg": {
+                              "display_name": "Small",
+                              "height": 337,
+                              "width": 500,
+                              "is_licensable": true
+                            },
+                            "medium_jpg": {
+                              "display_name": "Med",
+                              "height": 675,
+                              "width": 1000,
+                              "is_licensable": true
+                            }
+                          },
+                          "updated_time": "2019-07-15T20:04:44-04:00",
+                          "updates": [
+                            "addition"
+                          ],
+                          "commercial_status": {
+                            "status": "available"
+                          },
+                          "rights": {
+                            "countries": "CAN,+DEU,+GBR,+USA,-*"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          },
+          {
+            "customer_accessCode": []
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "shell",
+            "source": "curl -X GET https://api.shutterstock.com/v2/editorial/updated \\\n-H \"Accept: application/json\" \\\n-G \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n--data-urlencode \"type=edit\" \\\n--data-urlencode \"country=USA\" \\\n--data-urlencode \"date_updated_start=2020-02-02T13:00:00Z\" \\\n--data-urlencode \"date_updated_end=2020-02-02T15:00:00Z\""
+          },
+          {
+            "lang": "javascript--nodejs",
+            "source": "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst type = \"edit\";\nconst dateUpdatedStart = \"2020-02-02T13:00:00Z\";\nconst dateUpdatedEnd = \"2020-02-02T15:00:00Z\";\nconst country = \"USA\";\n\neditorialApi.getUpdatedImages(type, dateUpdatedStart, dateUpdatedEnd, country)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+          },
+          {
+            "lang": "php",
+            "source": "$queryFields = [\n  \"type\" => \"edit\",\n  \"country\" => \"USA\",\n  \"date_updated_start\" => \"2020-02-02T13:00:00Z\",\n  \"date_updated_end\" => \"2020-02-02T15:00:00Z\",\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+          }
+        ],
+        "tags": [
+          "editorial_images"
+        ],
+        "operationId": "getUpdatedImages",
+        "summary": "(Deprecated) List updated content",
+        "description": "Deprecated; use `GET /v2/editorial/images/updated` instead to get recently updated items.",
+        "deprecated": true
+      }
     }
   },
   "servers": [
@@ -10911,6 +12446,117 @@
         ],
         "type": "object"
       },
+      "EditorialImageCategoryResults": {
+        "description": "List of editorial categories",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EditorialCategory"
+            }
+          }
+        }
+      },
+      "EditorialImageContentDataList": {
+        "description": "List of editorial items",
+        "properties": {
+          "data": {
+            "description": "Editorial items",
+            "items": {
+              "$ref": "#/components/schemas/EditorialContent"
+            },
+            "type": "array"
+          },
+          "errors": {
+            "description": "Error list; appears only if there was an error",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "Optional error message",
+            "type": "string"
+          },
+          "page": {
+            "description": "Current page of the response",
+            "type": "integer"
+          },
+          "per_page": {
+            "description": "Number of results per page",
+            "type": "integer"
+          },
+          "total_count": {
+            "description": "Total count of all results",
+            "type": "integer"
+          }
+        }
+      },
+      "EditorialImageLivefeed": {
+        "description": "Metadata about editorial livefeed",
+        "properties": {
+          "cover_item": {
+            "$ref": "#/components/schemas/EditorialCoverItem"
+          },
+          "created_time": {
+            "description": "When the livefeed was initially created",
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "description": "Livefeed ID",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the livefeed",
+            "type": "string"
+          },
+          "total_item_count": {
+            "description": "Total count of items in the livefeed",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "total_item_count"
+        ],
+        "type": "object"
+      },
+      "EditorialImageLivefeedList": {
+        "description": "List of editorial livefeeds",
+        "properties": {
+          "data": {
+            "description": "Editorial livefeeds",
+            "items": {
+              "$ref": "#/components/schemas/EditorialLivefeed"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "Optional error message",
+            "type": "string"
+          },
+          "page": {
+            "description": "Current page of the response",
+            "type": "integer"
+          },
+          "per_page": {
+            "description": "Number of results per page",
+            "type": "integer"
+          },
+          "total_count": {
+            "description": "Total count of all results",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "data",
+          "total_count"
+        ],
+        "type": "object"
+      },
       "EditorialLivefeed": {
         "description": "Metadata about editorial livefeed",
         "properties": {
@@ -11131,6 +12777,128 @@
         },
         "required": [
           "data"
+        ],
+        "type": "object"
+      },
+      "EditorialVideoAssets": {
+        "description": "Asset information, including size and thumbnail URLs",
+        "properties": {
+          "original": {
+            "$ref": "#/components/schemas/VideoSizeDetails"
+          },
+          "preview_mp4": {
+            "$ref": "#/components/schemas/VideoPreviewUrl"
+          },
+          "preview_webm": {
+            "$ref": "#/components/schemas/VideoPreviewUrl"
+          },
+          "thumb_jpg": {
+            "$ref": "#/components/schemas/VideoPreviewUrl"
+          }
+        },
+        "type": "object"
+      },
+      "EditorialVideoCategoryResults": {
+        "description": "List of editorial video categories",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EditorialCategory"
+            }
+          }
+        }
+      },
+      "EditorialVideoContent": {
+        "description": "Metadata about editorial content",
+        "properties": {
+          "aspect": {
+            "type": "number"
+          },
+          "assets": {
+            "$ref": "#/components/schemas/EditorialVideoAssets"
+          },
+          "byline": {
+            "type": "string"
+          },
+          "caption": {
+            "type": "string"
+          },
+          "categories": {
+            "description": "List of categories",
+            "items": {
+              "$ref": "#/components/schemas/EditorialCategory"
+            },
+            "type": "array"
+          },
+          "date_taken": {
+            "format": "date",
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "EditorialVideoSearchResults": {
+        "description": "Editorial search results",
+        "properties": {
+          "data": {
+            "description": "Editorial items",
+            "items": {
+              "$ref": "#/components/schemas/EditorialVideoContent"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "Optional error message",
+            "type": "string"
+          },
+          "next": {
+            "description": "Cursor value that represents the next page of results",
+            "type": "string"
+          },
+          "page": {
+            "description": "Current page of the response",
+            "type": "integer"
+          },
+          "per_page": {
+            "description": "Number of results per page",
+            "type": "integer"
+          },
+          "prev": {
+            "description": "Cursor value that represents the previous page of results",
+            "type": "string"
+          },
+          "search_id": {
+            "description": "Unique identifier for the search request",
+            "type": "string"
+          },
+          "total_count": {
+            "description": "Total count of all results",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "data",
+          "total_count"
         ],
         "type": "object"
       },
@@ -11791,9 +13559,17 @@
         "properties": {
           "country": {
             "description": "Mandatory country code for where the editorial content will be distributed; this value is used for rights checks",
-            "type": "string",
-            "example": "USA",
-            "format": "country-code-3"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "country-code-3"
+              },
+              {
+                "type": "string",
+                "format": "country-code-2"
+              }
+            ],
+            "example": "USA"
           },
           "editorial": {
             "description": "Editorial content to license",
@@ -11833,7 +13609,7 @@
         ],
         "type": "object"
       },
-      "LicenseEditorialContentResultDataList": {
+      "LicenseEditorialContentResults": {
         "description": "List of editorial license results",
         "properties": {
           "data": {
@@ -11867,6 +13643,72 @@
             "type": "integer"
           }
         }
+      },
+      "LicenseEditorialVideoContent": {
+        "description": "Individual editorial video content to license",
+        "properties": {
+          "editorial_id": {
+            "description": "Editorial ID",
+            "type": "string"
+          },
+          "license": {
+            "description": "License agreement to use for licensing",
+            "type": "string",
+            "enum": [
+              "premier_editorial_video_digital_only",
+              "premier_editorial_video_all_media",
+              "premier_editorial_video_all_media_single_territory",
+              "premier_editorial_video_comp"
+            ]
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/LicenseRequestMetadata"
+          },
+          "size": {
+            "description": "Asset size to download",
+            "default": "original",
+            "enum": [
+              "original"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "editorial_id",
+          "license"
+        ],
+        "type": "object"
+      },
+      "LicenseEditorialVideoContentRequest": {
+        "description": "License editorial video content request",
+        "properties": {
+          "country": {
+            "description": "Mandatory country code for where the editorial content will be distributed; this value is used for rights checks",
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "country-code-3"
+              },
+              {
+                "type": "string",
+                "format": "country-code-2"
+              }
+            ],
+            "example": "USA"
+          },
+          "editorial": {
+            "description": "Editorial content to license",
+            "items": {
+              "$ref": "#/components/schemas/LicenseEditorialVideoContent"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "country",
+          "editorial"
+        ],
+        "type": "object"
       },
       "LicenseFormat": {
         "description": "Description of a license",
@@ -12392,6 +14234,41 @@
         },
         "type": "object"
       },
+      "SearchEntitiesRequest": {
+        "description": "Search entity request data",
+        "properties": {
+          "text": {
+            "description": "Plain text to extract keywords from",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100000
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "type": "object"
+      },
+      "SearchEntitiesResponse": {
+        "description": "The response to a request for keyword analysis",
+        "example": {
+          "keywords": [
+            "beach",
+            "place",
+            "sand",
+            "ocean"
+          ]
+        },
+        "properties": {
+          "keywords": {
+            "description": "The top keywords from the submitted text",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "Subscription": {
         "description": "Subscription information",
         "properties": {
@@ -12891,6 +14768,19 @@
             "type": "integer"
           }
         }
+      },
+      "VideoPreviewUrl": {
+        "description": "Video preview information",
+        "properties": {
+          "url": {
+            "description": "Direct URL to the image",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "type": "object"
       },
       "VideoSearchResults": {
         "description": "Video search results",
