@@ -94,15 +94,26 @@
             }
           },
           {
-            "description": "Show images from contributors in one or more specified countries",
+            "description": "Show images from contributors in one or more specified countries, or start with NOT to exclude a country from the search",
             "in": "query",
             "name": "contributor_country",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "country-code-2"
-              }
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "country-code-2"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "negated-country-code-2"
+                  }
+                }
+              ]
             }
           },
           {
@@ -6093,6 +6104,9 @@
             "description": "Successfully created collection",
             "content": {
               "application/json": {
+                "schema": {
+                  "type": "integer"
+                },
                 "examples": {
                   "response": {
                     "value": {
@@ -14860,6 +14874,10 @@
       "country-code-2": {
         "format": "A two-character (ISO 3166 Alpha-2) country code",
         "example": "US"
+      },
+      "negated-country-code-2": {
+        "format": "A NOT followed by a two-character (ISO 3166 Alpha-2) country code",
+        "example": "NOT US"
       },
       "country-code-3": {
         "format": "A three-character (ISO 3166 Alpha-3) country code",
